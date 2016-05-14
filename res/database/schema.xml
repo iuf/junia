@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="keeko" namespace="iuf\junia\model" identifierQuoting="true"
+	defaultPhpNamingMethod="phpname" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/propelorm/Propel2/master/resources/xsd/database.xsd"
+	tablePrefix="kk_junia_">
+
+	<external-schema filename="vendor/keeko/core/res/database/schema.xml"/>
+
+	<table name="event" namespace="iuf\junia\model">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="100"/>
+		<column name="start" type="DATE"/>
+		<column name="end" type="DATE"/>
+	</table>
+
+	<table name="competition">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="label" type="VARCHAR" size="100"/>
+		
+		<!--<behavior name="l10n">
+			<parameter name="i18n_columns" value="label"/>
+		</behavior>-->
+	</table>
+	
+	<table name="startgroup">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="100"/>
+		<column name="competition_id" type="INTEGER" size="10" required="true"/>
+		<column name="event_id" type="INTEGER" size="10" required="true"/>
+
+		<foreign-key foreignTable="competition" name="startgroup_fk_competition">
+			<reference local="competition_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="event" name="startgroup_fk_event">
+			<reference local="event_id" foreign="id"/>
+		</foreign-key>
+	</table>
+
+	<table name="routine">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="100"/>
+		<column name="startgroup_id" type="INTEGER" size="10" required="true"/>
+		
+		<column name="performance_total_statistics_id" type="INTEGER" size="10"/>
+		<column name="performance_execution_statistics_id" type="INTEGER" size="10"/>
+		<column name="performance_choreography_statistics_id" type="INTEGER" size="10"/>
+		<column name="performance_music_and_timing_statistics_id" type="INTEGER" size="10"/>
+		
+		<foreign-key foreignTable="startgroup" name="routine_fk_startgroup">
+			<reference local="startgroup_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistics" name="routine_fk_performance_total">
+			<reference local="performance_total_statistics_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistics" name="routine_fk_performance_execution">
+			<reference local="performance_execution_statistics_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistics" name="routine_fk_performance_choreography">
+			<reference local="performance_choreography_statistics_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistics" name="routine_fk_performance_music_and_timing">
+			<reference local="performance_music_and_timing_statistics_id" foreign="id"/>
+		</foreign-key>
+	</table>
+	
+	<table name="judge">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="position" type="VARCHAR" size="2" />
+		<column name="startgroup_id" type="INTEGER" size="10" required="true"/>
+		<column name="user_id" type="INTEGER" size="10" required="false"/>
+		
+		<foreign-key foreignTable="startgroup" name="judge_fk_startgroup">
+			<reference local="startgroup_id" foreign="id"/>
+		</foreign-key>
+		
+		<foreign-key foreignTable="user" name="judge_fk_user">
+			<reference local="user_id" foreign="id"/>
+		</foreign-key>
+	</table>
+	
+	<table name="score">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="routine_id" type="INTEGER" size="10"/>
+		<column name="judge_id" type="INTEGER" size="10"/>
+		<column name="total" type="FLOAT" size="10"/>
+		
+		<foreign-key foreignTable="routine" name="score_fk_routine">
+			<reference local="routine_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="judge" name="judge_fk_routine">
+			<reference local="judge_id" foreign="id"/>
+		</foreign-key>
+	</table>
+	
+	<table name="performance_score">
+		<behavior name="concrete_inheritance">
+			<parameter name="extends" value="score" />
+		</behavior>
+		<column name="execution" type="FLOAT" size="10"/>
+		<column name="choreography" type="FLOAT" size="10"/>
+		<column name="music_and_timing" type="FLOAT" size="10"/>
+	</table>
+	
+	<table name="performance_statistics">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="min" type="FLOAT" size="10"/>
+		<column name="max" type="FLOAT" size="10"/>
+		<column name="range" type="FLOAT" size="10"/>
+		<column name="average" type="FLOAT" size="10"/>
+		<column name="standard_deviation" type="FLOAT" size="10"/>
+		<column name="variance" type="FLOAT" size="10"/>
+	</table>
+	
+</database>
