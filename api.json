@@ -1,0 +1,5266 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "Junia API"
+	},
+	"paths": {
+		"/events": {
+			"post": {
+				"description": "Creates an event",
+				"operationId": "event-create",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "The new event",
+						"schema": {
+							"$ref": "#/definitions/WritableEvent"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "event created"
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"get": {
+				"description": "List all events",
+				"operationId": "event-list",
+				"responses": {
+					"200": {
+						"description": "Array of events",
+						"schema": {
+							"$ref": "#/definitions/PagedEvents"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/events/{id}": {
+			"get": {
+				"description": "Reads an event",
+				"operationId": "event-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The event id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "gets the event",
+						"schema": {
+							"$ref": "#/definitions/Event"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No event found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates an event",
+				"operationId": "event-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The event id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "event updated",
+						"schema": {
+							"$ref": "#/definitions/Event"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No event found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Deletes an event",
+				"operationId": "event-delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The event id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "event deleted"
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No event found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/events/{id}/relationship/startgroups": {
+			"get": {
+				"description": "Reads the relationship of event to startgroup",
+				"operationId": "event-to-startgroup-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The event id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from event",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No event found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"post": {
+				"description": "Adds startgroup as relationship to event",
+				"operationId": "event-to-startgroup-relationship-add",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The event id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Adds startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from event",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No event found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of event to startgroup",
+				"operationId": "event-to-startgroup-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The event id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from event",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No event found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Removes startgroup as relationship of event",
+				"operationId": "event-to-startgroup-relationship-remove",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The event id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from event",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No event found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/competitions": {
+			"post": {
+				"description": "Creates a competition",
+				"operationId": "competition-create",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "The new competition",
+						"schema": {
+							"$ref": "#/definitions/WritableCompetition"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "competition created"
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"get": {
+				"description": "List all competitions",
+				"operationId": "competition-list",
+				"responses": {
+					"200": {
+						"description": "Array of competitions",
+						"schema": {
+							"$ref": "#/definitions/PagedCompetitions"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/competitions/{id}": {
+			"get": {
+				"description": "Reads a competition",
+				"operationId": "competition-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The competition id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "gets the competition",
+						"schema": {
+							"$ref": "#/definitions/Competition"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No competition found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates a competition",
+				"operationId": "competition-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The competition id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "competition updated",
+						"schema": {
+							"$ref": "#/definitions/Competition"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No competition found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Deletes a competition",
+				"operationId": "competition-delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The competition id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "competition deleted"
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No competition found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/competitions/{id}/relationship/startgroups": {
+			"get": {
+				"description": "Reads the relationship of competition to startgroup",
+				"operationId": "competition-to-startgroup-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The competition id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from competition",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No competition found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"post": {
+				"description": "Adds startgroup as relationship to competition",
+				"operationId": "competition-to-startgroup-relationship-add",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The competition id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Adds startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from competition",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No competition found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of competition to startgroup",
+				"operationId": "competition-to-startgroup-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The competition id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from competition",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No competition found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Removes startgroup as relationship of competition",
+				"operationId": "competition-to-startgroup-relationship-remove",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The competition id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from competition",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No competition found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/startgroups": {
+			"post": {
+				"description": "Creates a startgroup",
+				"operationId": "startgroup-create",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "The new startgroup",
+						"schema": {
+							"$ref": "#/definitions/WritableStartgroup"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "startgroup created"
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"get": {
+				"description": "List all startgroups",
+				"operationId": "startgroup-list",
+				"responses": {
+					"200": {
+						"description": "Array of startgroups",
+						"schema": {
+							"$ref": "#/definitions/PagedStartgroups"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/startgroups/{id}": {
+			"get": {
+				"description": "Reads a startgroup",
+				"operationId": "startgroup-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "gets the startgroup",
+						"schema": {
+							"$ref": "#/definitions/Startgroup"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates a startgroup",
+				"operationId": "startgroup-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "startgroup updated",
+						"schema": {
+							"$ref": "#/definitions/Startgroup"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Deletes a startgroup",
+				"operationId": "startgroup-delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "startgroup deleted"
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/startgroups/{id}/relationship/competition": {
+			"get": {
+				"description": "Reads the relationship of startgroup to competition",
+				"operationId": "startgroup-to-competition-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve competition from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of startgroup to competition",
+				"operationId": "startgroup-to-competition-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates competition",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve competition from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/startgroups/{id}/relationship/event": {
+			"get": {
+				"description": "Reads the relationship of startgroup to event",
+				"operationId": "startgroup-to-event-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve event from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of startgroup to event",
+				"operationId": "startgroup-to-event-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates event",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve event from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/startgroups/{id}/relationship/routines": {
+			"get": {
+				"description": "Reads the relationship of startgroup to routine",
+				"operationId": "startgroup-to-routine-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"post": {
+				"description": "Adds routine as relationship to startgroup",
+				"operationId": "startgroup-to-routine-relationship-add",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Adds routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of startgroup to routine",
+				"operationId": "startgroup-to-routine-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Removes routine as relationship of startgroup",
+				"operationId": "startgroup-to-routine-relationship-remove",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/startgroups/{id}/relationship/judges": {
+			"get": {
+				"description": "Reads the relationship of startgroup to judge",
+				"operationId": "startgroup-to-judge-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve judge from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"post": {
+				"description": "Adds judge as relationship to startgroup",
+				"operationId": "startgroup-to-judge-relationship-add",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Adds judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve judge from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of startgroup to judge",
+				"operationId": "startgroup-to-judge-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve judge from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Removes judge as relationship of startgroup",
+				"operationId": "startgroup-to-judge-relationship-remove",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The startgroup id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve judge from startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No startgroup found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines": {
+			"post": {
+				"description": "Creates a routine",
+				"operationId": "routine-create",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "The new routine",
+						"schema": {
+							"$ref": "#/definitions/WritableRoutine"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "routine created"
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"get": {
+				"description": "List all routines",
+				"operationId": "routine-list",
+				"responses": {
+					"200": {
+						"description": "Array of routines",
+						"schema": {
+							"$ref": "#/definitions/PagedRoutines"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines/{id}": {
+			"get": {
+				"description": "Reads a routine",
+				"operationId": "routine-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "gets the routine",
+						"schema": {
+							"$ref": "#/definitions/Routine"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates a routine",
+				"operationId": "routine-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "routine updated",
+						"schema": {
+							"$ref": "#/definitions/Routine"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Deletes a routine",
+				"operationId": "routine-delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "routine deleted"
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines/{id}/relationship/startgroup": {
+			"get": {
+				"description": "Reads the relationship of routine to startgroup",
+				"operationId": "routine-to-startgroup-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of routine to startgroup",
+				"operationId": "routine-to-startgroup-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines/{id}/relationship/performance-total-statistic": {
+			"get": {
+				"description": "Reads the relationship of routine to performance_total_statistic",
+				"operationId": "routine-to-performance_total_statistic-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-total-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of routine to performance_total_statistic",
+				"operationId": "routine-to-performance_total_statistic-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates performance-total-statistic",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-total-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines/{id}/relationship/performance-execution-statistic": {
+			"get": {
+				"description": "Reads the relationship of routine to performance_execution_statistic",
+				"operationId": "routine-to-performance_execution_statistic-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-execution-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of routine to performance_execution_statistic",
+				"operationId": "routine-to-performance_execution_statistic-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates performance-execution-statistic",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-execution-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines/{id}/relationship/performance-choreography-statistic": {
+			"get": {
+				"description": "Reads the relationship of routine to performance_choreography_statistic",
+				"operationId": "routine-to-performance_choreography_statistic-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-choreography-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of routine to performance_choreography_statistic",
+				"operationId": "routine-to-performance_choreography_statistic-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates performance-choreography-statistic",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-choreography-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines/{id}/relationship/performance-music-and-timing-statistic": {
+			"get": {
+				"description": "Reads the relationship of routine to performance_music_and_timing_statistic",
+				"operationId": "routine-to-performance_music_and_timing_statistic-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-music-and-timing-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of routine to performance_music_and_timing_statistic",
+				"operationId": "routine-to-performance_music_and_timing_statistic-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates performance-music-and-timing-statistic",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-music-and-timing-statistic from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/routines/{id}/relationship/performance-scores": {
+			"get": {
+				"description": "Reads the relationship of routine to performance_score",
+				"operationId": "routine-to-performance_score-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-score from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"post": {
+				"description": "Adds performance_score as relationship to routine",
+				"operationId": "routine-to-performance_score-relationship-add",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Adds performance-score",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-score from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of routine to performance_score",
+				"operationId": "routine-to-performance_score-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates performance-score",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-score from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Removes performance_score as relationship of routine",
+				"operationId": "routine-to-performance_score-relationship-remove",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The routine id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-score from routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/ResourceIdentifier"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No routine found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/judges": {
+			"post": {
+				"description": "Creates a judge",
+				"operationId": "judge-create",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "The new judge",
+						"schema": {
+							"$ref": "#/definitions/WritableJudge"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "judge created"
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"get": {
+				"description": "List all judges",
+				"operationId": "judge-list",
+				"responses": {
+					"200": {
+						"description": "Array of judges",
+						"schema": {
+							"$ref": "#/definitions/PagedJudges"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/judges/{id}": {
+			"get": {
+				"description": "Reads a judge",
+				"operationId": "judge-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "gets the judge",
+						"schema": {
+							"$ref": "#/definitions/Judge"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates a judge",
+				"operationId": "judge-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "judge updated",
+						"schema": {
+							"$ref": "#/definitions/Judge"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Deletes a judge",
+				"operationId": "judge-delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "judge deleted"
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/judges/{id}/relationship/startgroup": {
+			"get": {
+				"description": "Reads the relationship of judge to startgroup",
+				"operationId": "judge-to-startgroup-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of judge to startgroup",
+				"operationId": "judge-to-startgroup-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates startgroup",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve startgroup from judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/judges/{id}/relationship/user": {
+			"get": {
+				"description": "Reads the relationship of judge to user",
+				"operationId": "judge-to-user-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve user from judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of judge to user",
+				"operationId": "judge-to-user-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates user",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve user from judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/judges/{id}/relationship/performance-score": {
+			"get": {
+				"description": "Reads the relationship of judge to performance_score",
+				"operationId": "judge-to-performance_score-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-score from judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of judge to performance_score",
+				"operationId": "judge-to-performance_score-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The judge id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates performance-score",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve performance-score from judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No judge found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/performance-scores": {
+			"post": {
+				"description": "Creates a performance-score",
+				"operationId": "performance_score-create",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "The new performance_score",
+						"schema": {
+							"$ref": "#/definitions/WritablePerformanceScore"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "performance_score created"
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"get": {
+				"description": "List all performance-scores",
+				"operationId": "performance_score-list",
+				"responses": {
+					"200": {
+						"description": "Array of performance_scores",
+						"schema": {
+							"$ref": "#/definitions/PagedPerformanceScores"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/performance-scores/{id}": {
+			"get": {
+				"description": "Reads a performance-score",
+				"operationId": "performance_score-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_score id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "gets the performance_score",
+						"schema": {
+							"$ref": "#/definitions/PerformanceScore"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_score found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates a performance-score",
+				"operationId": "performance_score-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_score id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "performance_score updated",
+						"schema": {
+							"$ref": "#/definitions/PerformanceScore"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_score found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Deletes a performance-score",
+				"operationId": "performance_score-delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_score id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "performance_score deleted"
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_score found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/performance-scores/{id}/relationship/routine": {
+			"get": {
+				"description": "Reads the relationship of performance_score to routine",
+				"operationId": "performance_score-to-routine-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_score id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from performance_score",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_score found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of performance_score to routine",
+				"operationId": "performance_score-to-routine-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_score id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from performance_score",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_score found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/performance-scores/{id}/relationship/judge": {
+			"get": {
+				"description": "Reads the relationship of performance_score to judge",
+				"operationId": "performance_score-to-judge-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_score id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve judge from performance_score",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_score found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of performance_score to judge",
+				"operationId": "performance_score-to-judge-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_score id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates judge",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve judge from performance_score",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_score found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/performance-statistics": {
+			"post": {
+				"description": "Creates a performance-statistic",
+				"operationId": "performance_statistic-create",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "The new performance_statistic",
+						"schema": {
+							"$ref": "#/definitions/WritablePerformanceStatistic"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "performance_statistic created"
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"get": {
+				"description": "List all performance-statistics",
+				"operationId": "performance_statistic-list",
+				"responses": {
+					"200": {
+						"description": "Array of performance_statistics",
+						"schema": {
+							"$ref": "#/definitions/PagedPerformanceStatistics"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/performance-statistics/{id}": {
+			"get": {
+				"description": "Reads a performance-statistic",
+				"operationId": "performance_statistic-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_statistic id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "gets the performance_statistic",
+						"schema": {
+							"$ref": "#/definitions/PerformanceStatistic"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_statistic found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates a performance-statistic",
+				"operationId": "performance_statistic-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_statistic id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "performance_statistic updated",
+						"schema": {
+							"$ref": "#/definitions/PerformanceStatistic"
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_statistic found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"delete": {
+				"description": "Deletes a performance-statistic",
+				"operationId": "performance_statistic-delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_statistic id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "performance_statistic deleted"
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_statistic found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		},
+		"/performance-statistics/{id}/relationship/routine": {
+			"get": {
+				"description": "Reads the relationship of performance_statistic to routine",
+				"operationId": "performance_statistic-to-routine-relationship-read",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_statistic id",
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from performance_statistic",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_statistic found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
+			"patch": {
+				"description": "Updates the relationship of performance_statistic to routine",
+				"operationId": "performance_statistic-to-routine-relationship-update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The performance_statistic id",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "Updates routine",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve routine from performance_statistic",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"links": {
+									"type": "object",
+									"properties": {
+										"self": {
+											"type": "string"
+										},
+										"related": {
+											"type": "string"
+										}
+									}
+								},
+								"data": {
+									"$ref": "#/definitions/ResourceIdentifier",
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID supplied",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					},
+					"404": {
+						"description": "No performance_statistic found",
+						"schema": {
+							"$ref": "#/definitions/Errors"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			}
+		}
+	},
+	"definitions": {
+		"PagedEvents": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Event"
+					}
+				},
+				"meta": {
+					"$ref": "#/definitions/PagedMeta"
+				}
+			}
+		},
+		"WritableEvent": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"start": {
+									"type": "string"
+								},
+								"end": {
+									"type": "string"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroups": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"Event": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"type": "object",
+					"properties": {
+						"self": {
+							"type": "string"
+						}
+					}
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"start": {
+									"type": "string"
+								},
+								"end": {
+									"type": "string"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroups": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PagedCompetitions": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Competition"
+					}
+				},
+				"meta": {
+					"$ref": "#/definitions/PagedMeta"
+				}
+			}
+		},
+		"WritableCompetition": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroups": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"Competition": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"type": "object",
+					"properties": {
+						"self": {
+							"type": "string"
+						}
+					}
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroups": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PagedStartgroups": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Startgroup"
+					}
+				},
+				"meta": {
+					"$ref": "#/definitions/PagedMeta"
+				}
+			}
+		},
+		"WritableStartgroup": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"competition_id": {
+									"type": "integer"
+								},
+								"event_id": {
+									"type": "integer"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"competition": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"event": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"routines": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								},
+								"judges": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"Startgroup": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"type": "object",
+					"properties": {
+						"self": {
+							"type": "string"
+						}
+					}
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"competition_id": {
+									"type": "integer"
+								},
+								"event_id": {
+									"type": "integer"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"competition": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"event": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"routines": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								},
+								"judges": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PagedRoutines": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Routine"
+					}
+				},
+				"meta": {
+					"$ref": "#/definitions/PagedMeta"
+				}
+			}
+		},
+		"WritableRoutine": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"startgroup_id": {
+									"type": "integer"
+								},
+								"performance_total_statistic_id": {
+									"type": "integer"
+								},
+								"performance_execution_statistic_id": {
+									"type": "integer"
+								},
+								"performance_choreography_statistic_id": {
+									"type": "integer"
+								},
+								"performance_music_and_timing_statistic_id": {
+									"type": "integer"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroup": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-total-statistic": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-execution-statistic": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-choreography-statistic": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-music-and-timing-statistic": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-scores": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"Routine": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"type": "object",
+					"properties": {
+						"self": {
+							"type": "string"
+						}
+					}
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"startgroup_id": {
+									"type": "integer"
+								},
+								"performance_total_statistic_id": {
+									"type": "integer"
+								},
+								"performance_execution_statistic_id": {
+									"type": "integer"
+								},
+								"performance_choreography_statistic_id": {
+									"type": "integer"
+								},
+								"performance_music_and_timing_statistic_id": {
+									"type": "integer"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroup": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-total-statistic": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-execution-statistic": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-choreography-statistic": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-music-and-timing-statistic": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-scores": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "array",
+											"items": {
+												"$ref": "#/definitions/ResourceIdentifier"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PagedJudges": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Judge"
+					}
+				},
+				"meta": {
+					"$ref": "#/definitions/PagedMeta"
+				}
+			}
+		},
+		"WritableJudge": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"position": {
+									"type": "string"
+								},
+								"startgroup_id": {
+									"type": "integer"
+								},
+								"user_id": {
+									"type": "integer"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroup": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"user": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-score": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"Judge": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"type": "object",
+					"properties": {
+						"self": {
+							"type": "string"
+						}
+					}
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"position": {
+									"type": "string"
+								},
+								"startgroup_id": {
+									"type": "integer"
+								},
+								"user_id": {
+									"type": "integer"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"startgroup": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"user": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"performance-score": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PagedPerformanceScores": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/PerformanceScore"
+					}
+				},
+				"meta": {
+					"$ref": "#/definitions/PagedMeta"
+				}
+			}
+		},
+		"WritablePerformanceScore": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"execution": {
+									"type": "double"
+								},
+								"choreography": {
+									"type": "double"
+								},
+								"music_and_timing": {
+									"type": "double"
+								},
+								"routine_id": {
+									"type": "integer"
+								},
+								"judge_id": {
+									"type": "integer"
+								},
+								"total": {
+									"type": "double"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"routine": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"judge": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PerformanceScore": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"type": "object",
+					"properties": {
+						"self": {
+							"type": "string"
+						}
+					}
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"execution": {
+									"type": "double"
+								},
+								"choreography": {
+									"type": "double"
+								},
+								"music_and_timing": {
+									"type": "double"
+								},
+								"routine_id": {
+									"type": "integer"
+								},
+								"judge_id": {
+									"type": "integer"
+								},
+								"total": {
+									"type": "double"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"routine": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"judge": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PagedPerformanceStatistics": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/PerformanceStatistic"
+					}
+				},
+				"meta": {
+					"$ref": "#/definitions/PagedMeta"
+				}
+			}
+		},
+		"WritablePerformanceStatistic": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"min": {
+									"type": "double"
+								},
+								"max": {
+									"type": "double"
+								},
+								"range": {
+									"type": "double"
+								},
+								"average": {
+									"type": "double"
+								},
+								"standard_deviation": {
+									"type": "double"
+								},
+								"variance": {
+									"type": "double"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"routine": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"PerformanceStatistic": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"type": "object",
+					"properties": {
+						"self": {
+							"type": "string"
+						}
+					}
+				},
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"min": {
+									"type": "double"
+								},
+								"max": {
+									"type": "double"
+								},
+								"range": {
+									"type": "double"
+								},
+								"average": {
+									"type": "double"
+								},
+								"standard_deviation": {
+									"type": "double"
+								},
+								"variance": {
+									"type": "double"
+								}
+							}
+						},
+						"relationships": {
+							"type": "object",
+							"properties": {
+								"routine": {
+									"type": "object",
+									"properties": {
+										"links": {
+											"type": "object",
+											"properties": {
+												"self": {
+													"type": "string"
+												}
+											}
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"Errors": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Error"
+			}
+		},
+		"Error": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string"
+				},
+				"code": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"detail": {
+					"type": "string"
+				},
+				"meta": {
+					"type": "object"
+				}
+			}
+		},
+		"PagedMeta": {
+			"type": "object",
+			"properties": {
+				"total": {
+					"type": "integer"
+				},
+				"first": {
+					"type": "integer"
+				},
+				"next": {
+					"type": "integer"
+				},
+				"previous": {
+					"type": "integer"
+				},
+				"last": {
+					"type": "integer"
+				}
+			}
+		},
+		"ResourceIdentifier": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"tags": [
+		{
+			"name": "iuf.junia"
+		}
+	]
+}
