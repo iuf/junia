@@ -35,25 +35,25 @@ trait JudgeDomainTrait {
 	public function create($data) {
 		// hydrate
 		$serializer = Judge::getSerializer();
-		$judge = $serializer->hydrate(new Judge(), $data);
+		$model = $serializer->hydrate(new Judge(), $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($judge)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new JudgeEvent($judge);
+		$event = new JudgeEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(JudgeEvent::PRE_CREATE, $event);
 		$dispatcher->dispatch(JudgeEvent::PRE_SAVE, $event);
-		$judge->save();
+		$model->save();
 		$dispatcher->dispatch(JudgeEvent::POST_CREATE, $event);
 		$dispatcher->dispatch(JudgeEvent::POST_SAVE, $event);
-		return new Created(['model' => $judge]);
+		return new Created(['model' => $model]);
 	}
 
 	/**
@@ -64,21 +64,21 @@ trait JudgeDomainTrait {
 	 */
 	public function delete($id) {
 		// find
-		$judge = $this->get($id);
+		$model = $this->get($id);
 
-		if ($judge === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Judge not found.']);
 		}
 
 		// delete
-		$event = new JudgeEvent($judge);
+		$event = new JudgeEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(JudgeEvent::PRE_DELETE, $event);
-		$judge->delete();
+		$model->delete();
 
-		if ($judge->isDeleted()) {
+		if ($model->isDeleted()) {
 			$dispatcher->dispatch(JudgeEvent::POST_DELETE, $event);
-			return new Deleted(['model' => $judge]);
+			return new Deleted(['model' => $model]);
 		}
 
 		return new NotDeleted(['message' => 'Could not delete Judge']);
@@ -112,10 +112,10 @@ trait JudgeDomainTrait {
 		}
 
 		// paginate
-		$judge = $query->paginate($page, $size);
+		$model = $query->paginate($page, $size);
 
 		// run response
-		return new Found(['model' => $judge]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -126,113 +126,113 @@ trait JudgeDomainTrait {
 	 */
 	public function read($id) {
 		// read
-		$judge = $this->get($id);
+		$model = $this->get($id);
 
 		// check existence
-		if ($judge === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Judge not found.']);
 		}
 
-		return new Found(['model' => $judge]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
 	 * Sets the PerformanceScore id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $performanceScoreId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setPerformanceScoreId($id, $performanceScoreId) {
+	public function setPerformanceScoreId($id, $relatedId) {
 		// find
-		$judge = $this->get($id);
+		$model = $this->get($id);
 
-		if ($judge === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Judge not found.']);
 		}
 
 		// update
-		if ($judge->getJudgeId() !== $performanceScoreId) {
-			$judge->setJudgeId($performanceScoreId);
+		if ($model->getJudgeId() !== $relatedId) {
+			$model->setJudgeId($relatedId);
 
-			$event = new JudgeEvent($judge);
+			$event = new JudgeEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(JudgeEvent::PRE_PERFORMANCE_SCORE_UPDATE, $event);
 			$dispatcher->dispatch(JudgeEvent::PRE_SAVE, $event);
-			$judge->save();
+			$model->save();
 			$dispatcher->dispatch(JudgeEvent::POST_PERFORMANCE_SCORE_UPDATE, $event);
 			$dispatcher->dispatch(JudgeEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $judge]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $judge]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
 	 * Sets the Startgroup id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $startgroupId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setStartgroupId($id, $startgroupId) {
+	public function setStartgroupId($id, $relatedId) {
 		// find
-		$judge = $this->get($id);
+		$model = $this->get($id);
 
-		if ($judge === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Judge not found.']);
 		}
 
 		// update
-		if ($judge->getStartgroupId() !== $startgroupId) {
-			$judge->setStartgroupId($startgroupId);
+		if ($model->getStartgroupId() !== $relatedId) {
+			$model->setStartgroupId($relatedId);
 
-			$event = new JudgeEvent($judge);
+			$event = new JudgeEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(JudgeEvent::PRE_STARTGROUP_UPDATE, $event);
 			$dispatcher->dispatch(JudgeEvent::PRE_SAVE, $event);
-			$judge->save();
+			$model->save();
 			$dispatcher->dispatch(JudgeEvent::POST_STARTGROUP_UPDATE, $event);
 			$dispatcher->dispatch(JudgeEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $judge]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $judge]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
 	 * Sets the User id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $userId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setUserId($id, $userId) {
+	public function setUserId($id, $relatedId) {
 		// find
-		$judge = $this->get($id);
+		$model = $this->get($id);
 
-		if ($judge === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Judge not found.']);
 		}
 
 		// update
-		if ($judge->getUserId() !== $userId) {
-			$judge->setUserId($userId);
+		if ($model->getUserId() !== $relatedId) {
+			$model->setUserId($relatedId);
 
-			$event = new JudgeEvent($judge);
+			$event = new JudgeEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(JudgeEvent::PRE_USER_UPDATE, $event);
 			$dispatcher->dispatch(JudgeEvent::PRE_SAVE, $event);
-			$judge->save();
+			$model->save();
 			$dispatcher->dispatch(JudgeEvent::POST_USER_UPDATE, $event);
 			$dispatcher->dispatch(JudgeEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $judge]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $judge]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -244,34 +244,34 @@ trait JudgeDomainTrait {
 	 */
 	public function update($id, $data) {
 		// find
-		$judge = $this->get($id);
+		$model = $this->get($id);
 
-		if ($judge === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Judge not found.']);
 		}
 
 		// hydrate
 		$serializer = Judge::getSerializer();
-		$judge = $serializer->hydrate($judge, $data);
+		$model = $serializer->hydrate($model, $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($judge)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new JudgeEvent($judge);
+		$event = new JudgeEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(JudgeEvent::PRE_UPDATE, $event);
 		$dispatcher->dispatch(JudgeEvent::PRE_SAVE, $event);
-		$rows = $judge->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(JudgeEvent::POST_UPDATE, $event);
 		$dispatcher->dispatch(JudgeEvent::POST_SAVE, $event);
 
-		$payload = ['model' => $judge];
+		$payload = ['model' => $model];
 
 		if ($rows === 0) {
 			return new NotUpdated($payload);
@@ -302,10 +302,10 @@ trait JudgeDomainTrait {
 			return $this->pool->get($id);
 		}
 
-		$judge = JudgeQuery::create()->findOneById($id);
-		$this->pool->set($id, $judge);
+		$model = JudgeQuery::create()->findOneById($id);
+		$this->pool->set($id, $model);
 
-		return $judge;
+		return $model;
 	}
 
 	/**

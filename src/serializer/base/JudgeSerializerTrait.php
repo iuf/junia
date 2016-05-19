@@ -60,7 +60,7 @@ trait JudgeSerializerTrait {
 	 * @return string
 	 */
 	public function getType($model) {
-		return 'junia/judge';
+		return 'iuf.junia/judge';
 	}
 
 	/**

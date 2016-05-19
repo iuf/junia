@@ -15,7 +15,9 @@ CREATE TABLE `kk_junia_event`
     `name` VARCHAR(100),
     `start` DATE,
     `end` DATE,
-    PRIMARY KEY (`id`)
+    `slug` VARCHAR(255),
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `kk_junia_event_slug` (`slug`(255))
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -65,31 +67,31 @@ CREATE TABLE `kk_junia_routine`
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100),
     `startgroup_id` INTEGER(10) NOT NULL,
-    `performance_total_statistics_id` INTEGER(10),
-    `performance_execution_statistics_id` INTEGER(10),
-    `performance_choreography_statistics_id` INTEGER(10),
-    `performance_music_and_timing_statistics_id` INTEGER(10),
+    `performance_total_statistic_id` INTEGER(10),
+    `performance_execution_statistic_id` INTEGER(10),
+    `performance_choreography_statistic_id` INTEGER(10),
+    `performance_music_and_timing_statistic_id` INTEGER(10),
     PRIMARY KEY (`id`),
     INDEX `routine_fi_startgroup` (`startgroup_id`),
-    INDEX `routine_fi_performance_total` (`performance_total_statistics_id`),
-    INDEX `routine_fi_performance_execution` (`performance_execution_statistics_id`),
-    INDEX `routine_fi_performance_choreography` (`performance_choreography_statistics_id`),
-    INDEX `routine_fi_performance_music_and_timing` (`performance_music_and_timing_statistics_id`),
+    INDEX `routine_fi_performance_total` (`performance_total_statistic_id`),
+    INDEX `routine_fi_performance_execution` (`performance_execution_statistic_id`),
+    INDEX `routine_fi_performance_choreography` (`performance_choreography_statistic_id`),
+    INDEX `routine_fi_performance_music_and_timing` (`performance_music_and_timing_statistic_id`),
     CONSTRAINT `routine_fk_startgroup`
         FOREIGN KEY (`startgroup_id`)
         REFERENCES `kk_junia_startgroup` (`id`),
     CONSTRAINT `routine_fk_performance_total`
-        FOREIGN KEY (`performance_total_statistics_id`)
-        REFERENCES `kk_junia_performance_statistics` (`id`),
+        FOREIGN KEY (`performance_total_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`),
     CONSTRAINT `routine_fk_performance_execution`
-        FOREIGN KEY (`performance_execution_statistics_id`)
-        REFERENCES `kk_junia_performance_statistics` (`id`),
+        FOREIGN KEY (`performance_execution_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`),
     CONSTRAINT `routine_fk_performance_choreography`
-        FOREIGN KEY (`performance_choreography_statistics_id`)
-        REFERENCES `kk_junia_performance_statistics` (`id`),
+        FOREIGN KEY (`performance_choreography_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`),
     CONSTRAINT `routine_fk_performance_music_and_timing`
-        FOREIGN KEY (`performance_music_and_timing_statistics_id`)
-        REFERENCES `kk_junia_performance_statistics` (`id`)
+        FOREIGN KEY (`performance_music_and_timing_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -130,11 +132,11 @@ CREATE TABLE `kk_junia_score`
     `descendant_class` VARCHAR(100),
     PRIMARY KEY (`id`),
     INDEX `score_fi_routine` (`routine_id`),
-    INDEX `judge_fi_routine` (`judge_id`),
+    INDEX `score_fi_judge` (`judge_id`),
     CONSTRAINT `score_fk_routine`
         FOREIGN KEY (`routine_id`)
         REFERENCES `kk_junia_routine` (`id`),
-    CONSTRAINT `judge_fk_routine`
+    CONSTRAINT `score_fk_judge`
         FOREIGN KEY (`judge_id`)
         REFERENCES `kk_junia_judge` (`id`)
 ) ENGINE=InnoDB;
@@ -170,12 +172,12 @@ CREATE TABLE `kk_junia_performance_score`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- kk_junia_performance_statistics
+-- kk_junia_performance_statistic
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `kk_junia_performance_statistics`;
+DROP TABLE IF EXISTS `kk_junia_performance_statistic`;
 
-CREATE TABLE `kk_junia_performance_statistics`
+CREATE TABLE `kk_junia_performance_statistic`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `min` FLOAT(10),

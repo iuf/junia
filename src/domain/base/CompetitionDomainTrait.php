@@ -36,9 +36,9 @@ trait CompetitionDomainTrait {
 	 */
 	public function addStartgroups($id, $data) {
 		// find
-		$competition = $this->get($id);
+		$model = $this->get($id);
 
-		if ($competition === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Competition not found.']);
 		}
 		 
@@ -48,8 +48,8 @@ trait CompetitionDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Startgroup';
 			}
-			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
-			$competition->addStartgroup($startgroup);
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->addStartgroup($related);
 		}
 
 		if (count($errors) > 0) {
@@ -57,19 +57,19 @@ trait CompetitionDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new CompetitionEvent($competition);
+		$event = new CompetitionEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(CompetitionEvent::PRE_STARTGROUPS_ADD, $event);
 		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
-		$rows = $competition->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(CompetitionEvent::POST_STARTGROUPS_ADD, $event);
 		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $competition]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $competition]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -81,25 +81,25 @@ trait CompetitionDomainTrait {
 	public function create($data) {
 		// hydrate
 		$serializer = Competition::getSerializer();
-		$competition = $serializer->hydrate(new Competition(), $data);
+		$model = $serializer->hydrate(new Competition(), $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($competition)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new CompetitionEvent($competition);
+		$event = new CompetitionEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(CompetitionEvent::PRE_CREATE, $event);
 		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
-		$competition->save();
+		$model->save();
 		$dispatcher->dispatch(CompetitionEvent::POST_CREATE, $event);
 		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
-		return new Created(['model' => $competition]);
+		return new Created(['model' => $model]);
 	}
 
 	/**
@@ -110,21 +110,21 @@ trait CompetitionDomainTrait {
 	 */
 	public function delete($id) {
 		// find
-		$competition = $this->get($id);
+		$model = $this->get($id);
 
-		if ($competition === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Competition not found.']);
 		}
 
 		// delete
-		$event = new CompetitionEvent($competition);
+		$event = new CompetitionEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(CompetitionEvent::PRE_DELETE, $event);
-		$competition->delete();
+		$model->delete();
 
-		if ($competition->isDeleted()) {
+		if ($model->isDeleted()) {
 			$dispatcher->dispatch(CompetitionEvent::POST_DELETE, $event);
-			return new Deleted(['model' => $competition]);
+			return new Deleted(['model' => $model]);
 		}
 
 		return new NotDeleted(['message' => 'Could not delete Competition']);
@@ -158,10 +158,10 @@ trait CompetitionDomainTrait {
 		}
 
 		// paginate
-		$competition = $query->paginate($page, $size);
+		$model = $query->paginate($page, $size);
 
 		// run response
-		return new Found(['model' => $competition]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -172,14 +172,14 @@ trait CompetitionDomainTrait {
 	 */
 	public function read($id) {
 		// read
-		$competition = $this->get($id);
+		$model = $this->get($id);
 
 		// check existence
-		if ($competition === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Competition not found.']);
 		}
 
-		return new Found(['model' => $competition]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -191,9 +191,9 @@ trait CompetitionDomainTrait {
 	 */
 	public function removeStartgroups($id, $data) {
 		// find
-		$competition = $this->get($id);
+		$model = $this->get($id);
 
-		if ($competition === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Competition not found.']);
 		}
 
@@ -203,8 +203,8 @@ trait CompetitionDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Startgroup';
 			}
-			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
-			$competition->removeStartgroup($startgroup);
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->removeStartgroup($related);
 		}
 
 		if (count($errors) > 0) {
@@ -212,19 +212,19 @@ trait CompetitionDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new CompetitionEvent($competition);
+		$event = new CompetitionEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(CompetitionEvent::PRE_STARTGROUPS_REMOVE, $event);
 		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
-		$rows = $competition->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(CompetitionEvent::POST_STARTGROUPS_REMOVE, $event);
 		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $competition]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $competition]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -236,34 +236,34 @@ trait CompetitionDomainTrait {
 	 */
 	public function update($id, $data) {
 		// find
-		$competition = $this->get($id);
+		$model = $this->get($id);
 
-		if ($competition === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Competition not found.']);
 		}
 
 		// hydrate
 		$serializer = Competition::getSerializer();
-		$competition = $serializer->hydrate($competition, $data);
+		$model = $serializer->hydrate($model, $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($competition)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new CompetitionEvent($competition);
+		$event = new CompetitionEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(CompetitionEvent::PRE_UPDATE, $event);
 		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
-		$rows = $competition->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(CompetitionEvent::POST_UPDATE, $event);
 		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
 
-		$payload = ['model' => $competition];
+		$payload = ['model' => $model];
 
 		if ($rows === 0) {
 			return new NotUpdated($payload);
@@ -281,14 +281,14 @@ trait CompetitionDomainTrait {
 	 */
 	public function updateStartgroups($id, $data) {
 		// find
-		$competition = $this->get($id);
+		$model = $this->get($id);
 
-		if ($competition === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Competition not found.']);
 		}
 
 		// remove all relationships before
-		StartgroupQuery::create()->filterByCompetition($competition)->delete();
+		StartgroupQuery::create()->filterByCompetition($model)->delete();
 
 		// add them
 		$errors = [];
@@ -296,8 +296,8 @@ trait CompetitionDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Startgroup';
 			}
-			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
-			$competition->addStartgroup($startgroup);
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->addStartgroup($related);
 		}
 
 		if (count($errors) > 0) {
@@ -305,19 +305,19 @@ trait CompetitionDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new CompetitionEvent($competition);
+		$event = new CompetitionEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(CompetitionEvent::PRE_STARTGROUPS_UPDATE, $event);
 		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
-		$rows = $competition->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(CompetitionEvent::POST_STARTGROUPS_UPDATE, $event);
 		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $competition]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $competition]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -342,10 +342,10 @@ trait CompetitionDomainTrait {
 			return $this->pool->get($id);
 		}
 
-		$competition = CompetitionQuery::create()->findOneById($id);
-		$this->pool->set($id, $competition);
+		$model = CompetitionQuery::create()->findOneById($id);
+		$this->pool->set($id, $model);
 
-		return $competition;
+		return $model;
 	}
 
 	/**

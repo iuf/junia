@@ -54,7 +54,7 @@ trait CompetitionSerializerTrait {
 	 * @return string
 	 */
 	public function getType($model) {
-		return 'junia/competition';
+		return 'iuf.junia/competition';
 	}
 
 	/**

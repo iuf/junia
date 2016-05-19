@@ -89,7 +89,7 @@ trait StartgroupSerializerTrait {
 	 * @return string
 	 */
 	public function getType($model) {
-		return 'junia/startgroup';
+		return 'iuf.junia/startgroup';
 	}
 
 	/**

@@ -20,13 +20,14 @@ trait EventSerializerTrait {
 			'name' => $model->getName(),
 			'start' => $model->getStart(\DateTime::ISO8601),
 			'end' => $model->getEnd(\DateTime::ISO8601),
+			'slug' => $model->getSlug(),
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'name', 'start', 'end'];
+		return ['id', 'name', 'start', 'end', 'slug'];
 	}
 
 	/**
@@ -48,7 +49,7 @@ trait EventSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'name', 'start', 'end'];
+		return ['id', 'name', 'start', 'end', 'slug'];
 	}
 
 	/**
@@ -56,7 +57,7 @@ trait EventSerializerTrait {
 	 * @return string
 	 */
 	public function getType($model) {
-		return 'junia/event';
+		return 'iuf.junia/event';
 	}
 
 	/**
@@ -68,7 +69,7 @@ trait EventSerializerTrait {
 		// attributes
 		$attribs = isset($data['attributes']) ? $data['attributes'] : [];
 
-		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'name', 'start', 'end']);
+		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'name', 'start', 'end', 'slug']);
 
 		// relationships
 		$this->hydrateRelationships($model, $data);

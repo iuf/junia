@@ -59,7 +59,7 @@ trait PerformanceStatisticSerializerTrait {
 	 * @return string
 	 */
 	public function getType($model) {
-		return 'junia/performance-statistic';
+		return 'iuf.junia/performance-statistic';
 	}
 
 	/**

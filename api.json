@@ -3878,6 +3878,9 @@
 								},
 								"end": {
 									"type": "string"
+								},
+								"slug": {
+									"type": "string"
 								}
 							}
 						},
@@ -3931,6 +3934,9 @@
 									"type": "string"
 								},
 								"end": {
+									"type": "string"
+								},
+								"slug": {
 									"type": "string"
 								}
 							}

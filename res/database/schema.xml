@@ -8,9 +8,11 @@
 
 	<table name="event">
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="name" type="VARCHAR" size="100"/>
+		<column name="name" type="VARCHAR" size="100" primaryString="true"/>
 		<column name="start" type="DATE"/>
 		<column name="end" type="DATE"/>
+		
+		<behavior name="sluggable"/>
 	</table>
 
 	<table name="competition">

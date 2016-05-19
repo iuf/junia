@@ -35,25 +35,25 @@ trait PerformanceScoreDomainTrait {
 	public function create($data) {
 		// hydrate
 		$serializer = PerformanceScore::getSerializer();
-		$performanceScore = $serializer->hydrate(new PerformanceScore(), $data);
+		$model = $serializer->hydrate(new PerformanceScore(), $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($performanceScore)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new PerformanceScoreEvent($performanceScore);
+		$event = new PerformanceScoreEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(PerformanceScoreEvent::PRE_CREATE, $event);
 		$dispatcher->dispatch(PerformanceScoreEvent::PRE_SAVE, $event);
-		$performanceScore->save();
+		$model->save();
 		$dispatcher->dispatch(PerformanceScoreEvent::POST_CREATE, $event);
 		$dispatcher->dispatch(PerformanceScoreEvent::POST_SAVE, $event);
-		return new Created(['model' => $performanceScore]);
+		return new Created(['model' => $model]);
 	}
 
 	/**
@@ -64,21 +64,21 @@ trait PerformanceScoreDomainTrait {
 	 */
 	public function delete($id) {
 		// find
-		$performanceScore = $this->get($id);
+		$model = $this->get($id);
 
-		if ($performanceScore === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceScore not found.']);
 		}
 
 		// delete
-		$event = new PerformanceScoreEvent($performanceScore);
+		$event = new PerformanceScoreEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(PerformanceScoreEvent::PRE_DELETE, $event);
-		$performanceScore->delete();
+		$model->delete();
 
-		if ($performanceScore->isDeleted()) {
+		if ($model->isDeleted()) {
 			$dispatcher->dispatch(PerformanceScoreEvent::POST_DELETE, $event);
-			return new Deleted(['model' => $performanceScore]);
+			return new Deleted(['model' => $model]);
 		}
 
 		return new NotDeleted(['message' => 'Could not delete PerformanceScore']);
@@ -112,10 +112,10 @@ trait PerformanceScoreDomainTrait {
 		}
 
 		// paginate
-		$performanceScore = $query->paginate($page, $size);
+		$model = $query->paginate($page, $size);
 
 		// run response
-		return new Found(['model' => $performanceScore]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -126,80 +126,80 @@ trait PerformanceScoreDomainTrait {
 	 */
 	public function read($id) {
 		// read
-		$performanceScore = $this->get($id);
+		$model = $this->get($id);
 
 		// check existence
-		if ($performanceScore === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceScore not found.']);
 		}
 
-		return new Found(['model' => $performanceScore]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
 	 * Sets the Judge id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $judgeId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setJudgeId($id, $judgeId) {
+	public function setJudgeId($id, $relatedId) {
 		// find
-		$performanceScore = $this->get($id);
+		$model = $this->get($id);
 
-		if ($performanceScore === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceScore not found.']);
 		}
 
 		// update
-		if ($performanceScore->getJudgeId() !== $judgeId) {
-			$performanceScore->setJudgeId($judgeId);
+		if ($model->getJudgeId() !== $relatedId) {
+			$model->setJudgeId($relatedId);
 
-			$event = new PerformanceScoreEvent($performanceScore);
+			$event = new PerformanceScoreEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(PerformanceScoreEvent::PRE_JUDGE_UPDATE, $event);
 			$dispatcher->dispatch(PerformanceScoreEvent::PRE_SAVE, $event);
-			$performanceScore->save();
+			$model->save();
 			$dispatcher->dispatch(PerformanceScoreEvent::POST_JUDGE_UPDATE, $event);
 			$dispatcher->dispatch(PerformanceScoreEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $performanceScore]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $performanceScore]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
 	 * Sets the Routine id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $routineId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setRoutineId($id, $routineId) {
+	public function setRoutineId($id, $relatedId) {
 		// find
-		$performanceScore = $this->get($id);
+		$model = $this->get($id);
 
-		if ($performanceScore === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceScore not found.']);
 		}
 
 		// update
-		if ($performanceScore->getRoutineId() !== $routineId) {
-			$performanceScore->setRoutineId($routineId);
+		if ($model->getRoutineId() !== $relatedId) {
+			$model->setRoutineId($relatedId);
 
-			$event = new PerformanceScoreEvent($performanceScore);
+			$event = new PerformanceScoreEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(PerformanceScoreEvent::PRE_ROUTINE_UPDATE, $event);
 			$dispatcher->dispatch(PerformanceScoreEvent::PRE_SAVE, $event);
-			$performanceScore->save();
+			$model->save();
 			$dispatcher->dispatch(PerformanceScoreEvent::POST_ROUTINE_UPDATE, $event);
 			$dispatcher->dispatch(PerformanceScoreEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $performanceScore]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $performanceScore]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -211,34 +211,34 @@ trait PerformanceScoreDomainTrait {
 	 */
 	public function update($id, $data) {
 		// find
-		$performanceScore = $this->get($id);
+		$model = $this->get($id);
 
-		if ($performanceScore === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceScore not found.']);
 		}
 
 		// hydrate
 		$serializer = PerformanceScore::getSerializer();
-		$performanceScore = $serializer->hydrate($performanceScore, $data);
+		$model = $serializer->hydrate($model, $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($performanceScore)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new PerformanceScoreEvent($performanceScore);
+		$event = new PerformanceScoreEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(PerformanceScoreEvent::PRE_UPDATE, $event);
 		$dispatcher->dispatch(PerformanceScoreEvent::PRE_SAVE, $event);
-		$rows = $performanceScore->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(PerformanceScoreEvent::POST_UPDATE, $event);
 		$dispatcher->dispatch(PerformanceScoreEvent::POST_SAVE, $event);
 
-		$payload = ['model' => $performanceScore];
+		$payload = ['model' => $model];
 
 		if ($rows === 0) {
 			return new NotUpdated($payload);
@@ -269,10 +269,10 @@ trait PerformanceScoreDomainTrait {
 			return $this->pool->get($id);
 		}
 
-		$performanceScore = PerformanceScoreQuery::create()->findOneById($id);
-		$this->pool->set($id, $performanceScore);
+		$model = PerformanceScoreQuery::create()->findOneById($id);
+		$this->pool->set($id, $model);
 
-		return $performanceScore;
+		return $model;
 	}
 
 	/**

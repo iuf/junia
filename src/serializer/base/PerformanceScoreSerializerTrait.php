@@ -61,7 +61,7 @@ trait PerformanceScoreSerializerTrait {
 	 * @return string
 	 */
 	public function getType($model) {
-		return 'junia/performance-score';
+		return 'iuf.junia/performance-score';
 	}
 
 	/**

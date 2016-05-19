@@ -59,7 +59,7 @@ class EventTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 4;
+    const NUM_COLUMNS = 5;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class EventTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 4;
+    const NUM_HYDRATE_COLUMNS = 5;
 
     /**
      * the column name for the id field
@@ -92,6 +92,11 @@ class EventTableMap extends TableMap
     const COL_END = 'kk_junia_event.end';
 
     /**
+     * the column name for the slug field
+     */
+    const COL_SLUG = 'kk_junia_event.slug';
+
+    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -103,11 +108,11 @@ class EventTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'Start', 'End', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'start', 'end', ),
-        self::TYPE_COLNAME       => array(EventTableMap::COL_ID, EventTableMap::COL_NAME, EventTableMap::COL_START, EventTableMap::COL_END, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'start', 'end', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, )
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'Start', 'End', 'Slug', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'start', 'end', 'slug', ),
+        self::TYPE_COLNAME       => array(EventTableMap::COL_ID, EventTableMap::COL_NAME, EventTableMap::COL_START, EventTableMap::COL_END, EventTableMap::COL_SLUG, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'start', 'end', 'slug', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
     /**
@@ -117,11 +122,11 @@ class EventTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'Start' => 2, 'End' => 3, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, ),
-        self::TYPE_COLNAME       => array(EventTableMap::COL_ID => 0, EventTableMap::COL_NAME => 1, EventTableMap::COL_START => 2, EventTableMap::COL_END => 3, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'Start' => 2, 'End' => 3, 'Slug' => 4, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, 'slug' => 4, ),
+        self::TYPE_COLNAME       => array(EventTableMap::COL_ID => 0, EventTableMap::COL_NAME => 1, EventTableMap::COL_START => 2, EventTableMap::COL_END => 3, EventTableMap::COL_SLUG => 4, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, 'slug' => 4, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
     /**
@@ -143,8 +148,10 @@ class EventTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('name', 'Name', 'VARCHAR', false, 100, null);
+        $this->getColumn('name')->setPrimaryString(true);
         $this->addColumn('start', 'Start', 'DATE', false, null, null);
         $this->addColumn('end', 'End', 'DATE', false, null, null);
+        $this->addColumn('slug', 'Slug', 'VARCHAR', false, 255, null);
     } // initialize()
 
     /**
@@ -160,6 +167,19 @@ class EventTableMap extends TableMap
   ),
 ), null, null, 'Startgroups', false);
     } // buildRelations()
+
+    /**
+     *
+     * Gets the list of behaviors registered for this table
+     *
+     * @return array Associative array (name => parameters) of behaviors
+     */
+    public function getBehaviors()
+    {
+        return array(
+            'sluggable' => array('slug_column' => 'slug', 'slug_pattern' => '', 'replace_pattern' => '/\W+/', 'replacement' => '-', 'separator' => '-', 'permanent' => 'false', 'scope_column' => '', ),
+        );
+    } // getBehaviors()
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -306,11 +326,13 @@ class EventTableMap extends TableMap
             $criteria->addSelectColumn(EventTableMap::COL_NAME);
             $criteria->addSelectColumn(EventTableMap::COL_START);
             $criteria->addSelectColumn(EventTableMap::COL_END);
+            $criteria->addSelectColumn(EventTableMap::COL_SLUG);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
             $criteria->addSelectColumn($alias . '.start');
             $criteria->addSelectColumn($alias . '.end');
+            $criteria->addSelectColumn($alias . '.slug');
         }
     }
 

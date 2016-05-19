@@ -67,7 +67,7 @@ trait RoutineSerializerTrait {
 	 * @return string
 	 */
 	public function getType($model) {
-		return 'junia/routine';
+		return 'iuf.junia/routine';
 	}
 
 	/**

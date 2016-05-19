@@ -24,11 +24,13 @@ use iuf\junia\model\Map\EventTableMap;
  * @method     ChildEventQuery orderByName($order = Criteria::ASC) Order by the name column
  * @method     ChildEventQuery orderByStart($order = Criteria::ASC) Order by the start column
  * @method     ChildEventQuery orderByEnd($order = Criteria::ASC) Order by the end column
+ * @method     ChildEventQuery orderBySlug($order = Criteria::ASC) Order by the slug column
  *
  * @method     ChildEventQuery groupById() Group by the id column
  * @method     ChildEventQuery groupByName() Group by the name column
  * @method     ChildEventQuery groupByStart() Group by the start column
  * @method     ChildEventQuery groupByEnd() Group by the end column
+ * @method     ChildEventQuery groupBySlug() Group by the slug column
  *
  * @method     ChildEventQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildEventQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -46,7 +48,8 @@ use iuf\junia\model\Map\EventTableMap;
  * @method     ChildEvent findOneById(int $id) Return the first ChildEvent filtered by the id column
  * @method     ChildEvent findOneByName(string $name) Return the first ChildEvent filtered by the name column
  * @method     ChildEvent findOneByStart(string $start) Return the first ChildEvent filtered by the start column
- * @method     ChildEvent findOneByEnd(string $end) Return the first ChildEvent filtered by the end column *
+ * @method     ChildEvent findOneByEnd(string $end) Return the first ChildEvent filtered by the end column
+ * @method     ChildEvent findOneBySlug(string $slug) Return the first ChildEvent filtered by the slug column *
 
  * @method     ChildEvent requirePk($key, ConnectionInterface $con = null) Return the ChildEvent by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildEvent requireOne(ConnectionInterface $con = null) Return the first ChildEvent matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -55,12 +58,14 @@ use iuf\junia\model\Map\EventTableMap;
  * @method     ChildEvent requireOneByName(string $name) Return the first ChildEvent filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildEvent requireOneByStart(string $start) Return the first ChildEvent filtered by the start column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildEvent requireOneByEnd(string $end) Return the first ChildEvent filtered by the end column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildEvent requireOneBySlug(string $slug) Return the first ChildEvent filtered by the slug column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildEvent[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildEvent objects based on current ModelCriteria
  * @method     ChildEvent[]|ObjectCollection findById(int $id) Return ChildEvent objects filtered by the id column
  * @method     ChildEvent[]|ObjectCollection findByName(string $name) Return ChildEvent objects filtered by the name column
  * @method     ChildEvent[]|ObjectCollection findByStart(string $start) Return ChildEvent objects filtered by the start column
  * @method     ChildEvent[]|ObjectCollection findByEnd(string $end) Return ChildEvent objects filtered by the end column
+ * @method     ChildEvent[]|ObjectCollection findBySlug(string $slug) Return ChildEvent objects filtered by the slug column
  * @method     ChildEvent[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -153,7 +158,7 @@ abstract class EventQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT `id`, `name`, `start`, `end` FROM `kk_junia_event` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `name`, `start`, `end`, `slug` FROM `kk_junia_event` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -397,6 +402,35 @@ abstract class EventQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(EventTableMap::COL_END, $end, $comparison);
+    }
+
+    /**
+     * Filter the query on the slug column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBySlug('fooValue');   // WHERE slug = 'fooValue'
+     * $query->filterBySlug('%fooValue%'); // WHERE slug LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $slug The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildEventQuery The current query, for fluid interface
+     */
+    public function filterBySlug($slug = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($slug)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $slug)) {
+                $slug = str_replace('*', '%', $slug);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(EventTableMap::COL_SLUG, $slug, $comparison);
     }
 
     /**

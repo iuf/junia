@@ -36,9 +36,9 @@ trait EventDomainTrait {
 	 */
 	public function addStartgroups($id, $data) {
 		// find
-		$event = $this->get($id);
+		$model = $this->get($id);
 
-		if ($event === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Event not found.']);
 		}
 		 
@@ -48,8 +48,8 @@ trait EventDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Startgroup';
 			}
-			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
-			$event->addStartgroup($startgroup);
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->addStartgroup($related);
 		}
 
 		if (count($errors) > 0) {
@@ -57,19 +57,19 @@ trait EventDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new EventEvent($event);
+		$event = new EventEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(EventEvent::PRE_STARTGROUPS_ADD, $event);
 		$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
-		$rows = $event->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(EventEvent::POST_STARTGROUPS_ADD, $event);
 		$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $event]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $event]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -81,25 +81,25 @@ trait EventDomainTrait {
 	public function create($data) {
 		// hydrate
 		$serializer = Event::getSerializer();
-		$event = $serializer->hydrate(new Event(), $data);
+		$model = $serializer->hydrate(new Event(), $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($event)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new EventEvent($event);
+		$event = new EventEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(EventEvent::PRE_CREATE, $event);
 		$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
-		$event->save();
+		$model->save();
 		$dispatcher->dispatch(EventEvent::POST_CREATE, $event);
 		$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
-		return new Created(['model' => $event]);
+		return new Created(['model' => $model]);
 	}
 
 	/**
@@ -110,21 +110,21 @@ trait EventDomainTrait {
 	 */
 	public function delete($id) {
 		// find
-		$event = $this->get($id);
+		$model = $this->get($id);
 
-		if ($event === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Event not found.']);
 		}
 
 		// delete
-		$event = new EventEvent($event);
+		$event = new EventEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(EventEvent::PRE_DELETE, $event);
-		$event->delete();
+		$model->delete();
 
-		if ($event->isDeleted()) {
+		if ($model->isDeleted()) {
 			$dispatcher->dispatch(EventEvent::POST_DELETE, $event);
-			return new Deleted(['model' => $event]);
+			return new Deleted(['model' => $model]);
 		}
 
 		return new NotDeleted(['message' => 'Could not delete Event']);
@@ -158,10 +158,10 @@ trait EventDomainTrait {
 		}
 
 		// paginate
-		$event = $query->paginate($page, $size);
+		$model = $query->paginate($page, $size);
 
 		// run response
-		return new Found(['model' => $event]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -172,14 +172,14 @@ trait EventDomainTrait {
 	 */
 	public function read($id) {
 		// read
-		$event = $this->get($id);
+		$model = $this->get($id);
 
 		// check existence
-		if ($event === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Event not found.']);
 		}
 
-		return new Found(['model' => $event]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -191,9 +191,9 @@ trait EventDomainTrait {
 	 */
 	public function removeStartgroups($id, $data) {
 		// find
-		$event = $this->get($id);
+		$model = $this->get($id);
 
-		if ($event === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Event not found.']);
 		}
 
@@ -203,8 +203,8 @@ trait EventDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Startgroup';
 			}
-			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
-			$event->removeStartgroup($startgroup);
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->removeStartgroup($related);
 		}
 
 		if (count($errors) > 0) {
@@ -212,19 +212,19 @@ trait EventDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new EventEvent($event);
+		$event = new EventEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(EventEvent::PRE_STARTGROUPS_REMOVE, $event);
 		$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
-		$rows = $event->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(EventEvent::POST_STARTGROUPS_REMOVE, $event);
 		$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $event]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $event]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -236,34 +236,34 @@ trait EventDomainTrait {
 	 */
 	public function update($id, $data) {
 		// find
-		$event = $this->get($id);
+		$model = $this->get($id);
 
-		if ($event === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Event not found.']);
 		}
 
 		// hydrate
 		$serializer = Event::getSerializer();
-		$event = $serializer->hydrate($event, $data);
+		$model = $serializer->hydrate($model, $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($event)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new EventEvent($event);
+		$event = new EventEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(EventEvent::PRE_UPDATE, $event);
 		$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
-		$rows = $event->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(EventEvent::POST_UPDATE, $event);
 		$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
 
-		$payload = ['model' => $event];
+		$payload = ['model' => $model];
 
 		if ($rows === 0) {
 			return new NotUpdated($payload);
@@ -281,14 +281,14 @@ trait EventDomainTrait {
 	 */
 	public function updateStartgroups($id, $data) {
 		// find
-		$event = $this->get($id);
+		$model = $this->get($id);
 
-		if ($event === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Event not found.']);
 		}
 
 		// remove all relationships before
-		StartgroupQuery::create()->filterByEvent($event)->delete();
+		StartgroupQuery::create()->filterByEvent($model)->delete();
 
 		// add them
 		$errors = [];
@@ -296,8 +296,8 @@ trait EventDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Startgroup';
 			}
-			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
-			$event->addStartgroup($startgroup);
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->addStartgroup($related);
 		}
 
 		if (count($errors) > 0) {
@@ -305,19 +305,19 @@ trait EventDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new EventEvent($event);
+		$event = new EventEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(EventEvent::PRE_STARTGROUPS_UPDATE, $event);
 		$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
-		$rows = $event->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(EventEvent::POST_STARTGROUPS_UPDATE, $event);
 		$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $event]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $event]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -342,10 +342,10 @@ trait EventDomainTrait {
 			return $this->pool->get($id);
 		}
 
-		$event = EventQuery::create()->findOneById($id);
-		$this->pool->set($id, $event);
+		$model = EventQuery::create()->findOneById($id);
+		$this->pool->set($id, $model);
 
-		return $event;
+		return $model;
 	}
 
 	/**

@@ -35,25 +35,25 @@ trait PerformanceStatisticDomainTrait {
 	public function create($data) {
 		// hydrate
 		$serializer = PerformanceStatistic::getSerializer();
-		$performanceStatistic = $serializer->hydrate(new PerformanceStatistic(), $data);
+		$model = $serializer->hydrate(new PerformanceStatistic(), $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($performanceStatistic)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new PerformanceStatisticEvent($performanceStatistic);
+		$event = new PerformanceStatisticEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_CREATE, $event);
 		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
-		$performanceStatistic->save();
+		$model->save();
 		$dispatcher->dispatch(PerformanceStatisticEvent::POST_CREATE, $event);
 		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
-		return new Created(['model' => $performanceStatistic]);
+		return new Created(['model' => $model]);
 	}
 
 	/**
@@ -64,21 +64,21 @@ trait PerformanceStatisticDomainTrait {
 	 */
 	public function delete($id) {
 		// find
-		$performanceStatistic = $this->get($id);
+		$model = $this->get($id);
 
-		if ($performanceStatistic === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceStatistic not found.']);
 		}
 
 		// delete
-		$event = new PerformanceStatisticEvent($performanceStatistic);
+		$event = new PerformanceStatisticEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_DELETE, $event);
-		$performanceStatistic->delete();
+		$model->delete();
 
-		if ($performanceStatistic->isDeleted()) {
+		if ($model->isDeleted()) {
 			$dispatcher->dispatch(PerformanceStatisticEvent::POST_DELETE, $event);
-			return new Deleted(['model' => $performanceStatistic]);
+			return new Deleted(['model' => $model]);
 		}
 
 		return new NotDeleted(['message' => 'Could not delete PerformanceStatistic']);
@@ -112,10 +112,10 @@ trait PerformanceStatisticDomainTrait {
 		}
 
 		// paginate
-		$performanceStatistic = $query->paginate($page, $size);
+		$model = $query->paginate($page, $size);
 
 		// run response
-		return new Found(['model' => $performanceStatistic]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -126,47 +126,47 @@ trait PerformanceStatisticDomainTrait {
 	 */
 	public function read($id) {
 		// read
-		$performanceStatistic = $this->get($id);
+		$model = $this->get($id);
 
 		// check existence
-		if ($performanceStatistic === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceStatistic not found.']);
 		}
 
-		return new Found(['model' => $performanceStatistic]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
 	 * Sets the Routine id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $routineId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setRoutineId($id, $routineId) {
+	public function setRoutineId($id, $relatedId) {
 		// find
-		$performanceStatistic = $this->get($id);
+		$model = $this->get($id);
 
-		if ($performanceStatistic === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceStatistic not found.']);
 		}
 
 		// update
-		if ($performanceStatistic->getPerformanceMusicAndTimingStatisticId() !== $routineId) {
-			$performanceStatistic->setPerformanceMusicAndTimingStatisticId($routineId);
+		if ($model->getPerformanceMusicAndTimingStatisticId() !== $relatedId) {
+			$model->setPerformanceMusicAndTimingStatisticId($relatedId);
 
-			$event = new PerformanceStatisticEvent($performanceStatistic);
+			$event = new PerformanceStatisticEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(PerformanceStatisticEvent::PRE_ROUTINE_UPDATE, $event);
 			$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
-			$performanceStatistic->save();
+			$model->save();
 			$dispatcher->dispatch(PerformanceStatisticEvent::POST_ROUTINE_UPDATE, $event);
 			$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $performanceStatistic]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $performanceStatistic]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -178,34 +178,34 @@ trait PerformanceStatisticDomainTrait {
 	 */
 	public function update($id, $data) {
 		// find
-		$performanceStatistic = $this->get($id);
+		$model = $this->get($id);
 
-		if ($performanceStatistic === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'PerformanceStatistic not found.']);
 		}
 
 		// hydrate
 		$serializer = PerformanceStatistic::getSerializer();
-		$performanceStatistic = $serializer->hydrate($performanceStatistic, $data);
+		$model = $serializer->hydrate($model, $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($performanceStatistic)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new PerformanceStatisticEvent($performanceStatistic);
+		$event = new PerformanceStatisticEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_UPDATE, $event);
 		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
-		$rows = $performanceStatistic->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(PerformanceStatisticEvent::POST_UPDATE, $event);
 		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
 
-		$payload = ['model' => $performanceStatistic];
+		$payload = ['model' => $model];
 
 		if ($rows === 0) {
 			return new NotUpdated($payload);
@@ -236,10 +236,10 @@ trait PerformanceStatisticDomainTrait {
 			return $this->pool->get($id);
 		}
 
-		$performanceStatistic = PerformanceStatisticQuery::create()->findOneById($id);
-		$this->pool->set($id, $performanceStatistic);
+		$model = PerformanceStatisticQuery::create()->findOneById($id);
+		$this->pool->set($id, $model);
 
-		return $performanceStatistic;
+		return $model;
 	}
 
 	/**

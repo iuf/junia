@@ -37,9 +37,9 @@ trait StartgroupDomainTrait {
 	 */
 	public function addJudges($id, $data) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 		 
@@ -49,8 +49,8 @@ trait StartgroupDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Judge';
 			}
-			$judge = JudgeQuery::create()->findOneById($entry['id']);
-			$startgroup->addJudge($judge);
+			$related = JudgeQuery::create()->findOneById($entry['id']);
+			$model->addJudge($related);
 		}
 
 		if (count($errors) > 0) {
@@ -58,19 +58,19 @@ trait StartgroupDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_JUDGES_ADD, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$rows = $startgroup->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_JUDGES_ADD, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -82,9 +82,9 @@ trait StartgroupDomainTrait {
 	 */
 	public function addRoutines($id, $data) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 		 
@@ -94,8 +94,8 @@ trait StartgroupDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Routine';
 			}
-			$routine = RoutineQuery::create()->findOneById($entry['id']);
-			$startgroup->addRoutine($routine);
+			$related = RoutineQuery::create()->findOneById($entry['id']);
+			$model->addRoutine($related);
 		}
 
 		if (count($errors) > 0) {
@@ -103,19 +103,19 @@ trait StartgroupDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_ROUTINES_ADD, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$rows = $startgroup->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_ROUTINES_ADD, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -127,25 +127,25 @@ trait StartgroupDomainTrait {
 	public function create($data) {
 		// hydrate
 		$serializer = Startgroup::getSerializer();
-		$startgroup = $serializer->hydrate(new Startgroup(), $data);
+		$model = $serializer->hydrate(new Startgroup(), $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($startgroup)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_CREATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$startgroup->save();
+		$model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_CREATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
-		return new Created(['model' => $startgroup]);
+		return new Created(['model' => $model]);
 	}
 
 	/**
@@ -156,21 +156,21 @@ trait StartgroupDomainTrait {
 	 */
 	public function delete($id) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
 		// delete
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_DELETE, $event);
-		$startgroup->delete();
+		$model->delete();
 
-		if ($startgroup->isDeleted()) {
+		if ($model->isDeleted()) {
 			$dispatcher->dispatch(StartgroupEvent::POST_DELETE, $event);
-			return new Deleted(['model' => $startgroup]);
+			return new Deleted(['model' => $model]);
 		}
 
 		return new NotDeleted(['message' => 'Could not delete Startgroup']);
@@ -204,10 +204,10 @@ trait StartgroupDomainTrait {
 		}
 
 		// paginate
-		$startgroup = $query->paginate($page, $size);
+		$model = $query->paginate($page, $size);
 
 		// run response
-		return new Found(['model' => $startgroup]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -218,14 +218,14 @@ trait StartgroupDomainTrait {
 	 */
 	public function read($id) {
 		// read
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
 		// check existence
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
-		return new Found(['model' => $startgroup]);
+		return new Found(['model' => $model]);
 	}
 
 	/**
@@ -237,9 +237,9 @@ trait StartgroupDomainTrait {
 	 */
 	public function removeJudges($id, $data) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
@@ -249,8 +249,8 @@ trait StartgroupDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Judge';
 			}
-			$judge = JudgeQuery::create()->findOneById($entry['id']);
-			$startgroup->removeJudge($judge);
+			$related = JudgeQuery::create()->findOneById($entry['id']);
+			$model->removeJudge($related);
 		}
 
 		if (count($errors) > 0) {
@@ -258,19 +258,19 @@ trait StartgroupDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_JUDGES_REMOVE, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$rows = $startgroup->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_JUDGES_REMOVE, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -282,9 +282,9 @@ trait StartgroupDomainTrait {
 	 */
 	public function removeRoutines($id, $data) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
@@ -294,8 +294,8 @@ trait StartgroupDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Routine';
 			}
-			$routine = RoutineQuery::create()->findOneById($entry['id']);
-			$startgroup->removeRoutine($routine);
+			$related = RoutineQuery::create()->findOneById($entry['id']);
+			$model->removeRoutine($related);
 		}
 
 		if (count($errors) > 0) {
@@ -303,85 +303,85 @@ trait StartgroupDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_ROUTINES_REMOVE, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$rows = $startgroup->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_ROUTINES_REMOVE, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
 	 * Sets the Competition id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $competitionId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setCompetitionId($id, $competitionId) {
+	public function setCompetitionId($id, $relatedId) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
 		// update
-		if ($startgroup->getCompetitionId() !== $competitionId) {
-			$startgroup->setCompetitionId($competitionId);
+		if ($model->getCompetitionId() !== $relatedId) {
+			$model->setCompetitionId($relatedId);
 
-			$event = new StartgroupEvent($startgroup);
+			$event = new StartgroupEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(StartgroupEvent::PRE_COMPETITION_UPDATE, $event);
 			$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-			$startgroup->save();
+			$model->save();
 			$dispatcher->dispatch(StartgroupEvent::POST_COMPETITION_UPDATE, $event);
 			$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
 	 * Sets the Event id
 	 * 
 	 * @param mixed $id
-	 * @param mixed $eventId
+	 * @param mixed $relatedId
 	 * @return PayloadInterface
 	 */
-	public function setEventId($id, $eventId) {
+	public function setEventId($id, $relatedId) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
 		// update
-		if ($startgroup->getEventId() !== $eventId) {
-			$startgroup->setEventId($eventId);
+		if ($model->getEventId() !== $relatedId) {
+			$model->setEventId($relatedId);
 
-			$event = new StartgroupEvent($startgroup);
+			$event = new StartgroupEvent($model);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
 			$dispatcher->dispatch(StartgroupEvent::PRE_EVENT_UPDATE, $event);
 			$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-			$startgroup->save();
+			$model->save();
 			$dispatcher->dispatch(StartgroupEvent::POST_EVENT_UPDATE, $event);
 			$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 			
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -393,34 +393,34 @@ trait StartgroupDomainTrait {
 	 */
 	public function update($id, $data) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
 		// hydrate
 		$serializer = Startgroup::getSerializer();
-		$startgroup = $serializer->hydrate($startgroup, $data);
+		$model = $serializer->hydrate($model, $data);
 
 		// validate
 		$validator = $this->getValidator();
-		if ($validator !== null && !$validator->validate($startgroup)) {
+		if ($validator !== null && !$validator->validate($model)) {
 			return new NotValid([
 				'errors' => $validator->getValidationFailures()
 			]);
 		}
 
 		// dispatch
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_UPDATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$rows = $startgroup->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_UPDATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 
-		$payload = ['model' => $startgroup];
+		$payload = ['model' => $model];
 
 		if ($rows === 0) {
 			return new NotUpdated($payload);
@@ -438,14 +438,14 @@ trait StartgroupDomainTrait {
 	 */
 	public function updateJudges($id, $data) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
 		// remove all relationships before
-		JudgeQuery::create()->filterByStartgroup($startgroup)->delete();
+		JudgeQuery::create()->filterByStartgroup($model)->delete();
 
 		// add them
 		$errors = [];
@@ -453,8 +453,8 @@ trait StartgroupDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Judge';
 			}
-			$judge = JudgeQuery::create()->findOneById($entry['id']);
-			$startgroup->addJudge($judge);
+			$related = JudgeQuery::create()->findOneById($entry['id']);
+			$model->addJudge($related);
 		}
 
 		if (count($errors) > 0) {
@@ -462,19 +462,19 @@ trait StartgroupDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_JUDGES_UPDATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$rows = $startgroup->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_JUDGES_UPDATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -486,14 +486,14 @@ trait StartgroupDomainTrait {
 	 */
 	public function updateRoutines($id, $data) {
 		// find
-		$startgroup = $this->get($id);
+		$model = $this->get($id);
 
-		if ($startgroup === null) {
+		if ($model === null) {
 			return new NotFound(['message' => 'Startgroup not found.']);
 		}
 
 		// remove all relationships before
-		RoutineQuery::create()->filterByStartgroup($startgroup)->delete();
+		RoutineQuery::create()->filterByStartgroup($model)->delete();
 
 		// add them
 		$errors = [];
@@ -501,8 +501,8 @@ trait StartgroupDomainTrait {
 			if (!isset($entry['id'])) {
 				$errors[] = 'Missing id for Routine';
 			}
-			$routine = RoutineQuery::create()->findOneById($entry['id']);
-			$startgroup->addRoutine($routine);
+			$related = RoutineQuery::create()->findOneById($entry['id']);
+			$model->addRoutine($related);
 		}
 
 		if (count($errors) > 0) {
@@ -510,19 +510,19 @@ trait StartgroupDomainTrait {
 		}
 
 		// save and dispatch events
-		$event = new StartgroupEvent($startgroup);
+		$event = new StartgroupEvent($model);
 		$dispatcher = $this->getServiceContainer()->getDispatcher();
 		$dispatcher->dispatch(StartgroupEvent::PRE_ROUTINES_UPDATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
-		$rows = $startgroup->save();
+		$rows = $model->save();
 		$dispatcher->dispatch(StartgroupEvent::POST_ROUTINES_UPDATE, $event);
 		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
 
 		if ($rows > 0) {
-			return Updated(['model' => $startgroup]);
+			return Updated(['model' => $model]);
 		}
 
-		return NotUpdated(['model' => $startgroup]);
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**
@@ -547,10 +547,10 @@ trait StartgroupDomainTrait {
 			return $this->pool->get($id);
 		}
 
-		$startgroup = StartgroupQuery::create()->findOneById($id);
-		$this->pool->set($id, $startgroup);
+		$model = StartgroupQuery::create()->findOneById($id);
+		$this->pool->set($id, $model);
 
-		return $startgroup;
+		return $model;
 	}
 
 	/**

@@ -1,6 +1,7 @@
 <?php
 namespace iuf\junia\event;
 
+use iuf\junia\model\Event as Model;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -68,9 +69,9 @@ class EventEvent extends Event {
 	protected $event;
 
 	/**
-	 * @param Event $event
+	 * @param Model $event
 	 */
-	public function __construct(Event $event) {
+	public function __construct(Model $event) {
 		$this->event = $event;
 	}
 

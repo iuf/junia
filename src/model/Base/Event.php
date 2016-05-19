@@ -90,6 +90,12 @@ abstract class Event implements ActiveRecordInterface
     protected $end;
 
     /**
+     * The value for the slug field.
+     * @var        string
+     */
+    protected $slug;
+
+    /**
      * @var        ObjectCollection|ChildStartgroup[] Collection to store aggregation of ChildStartgroup objects.
      */
     protected $collStartgroups;
@@ -387,6 +393,16 @@ abstract class Event implements ActiveRecordInterface
     }
 
     /**
+     * Get the [slug] column value.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -467,6 +483,26 @@ abstract class Event implements ActiveRecordInterface
     } // setEnd()
 
     /**
+     * Set the value of [slug] column.
+     *
+     * @param string $v new value
+     * @return $this|\iuf\junia\model\Event The current object (for fluent API support)
+     */
+    public function setSlug($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->slug !== $v) {
+            $this->slug = $v;
+            $this->modifiedColumns[EventTableMap::COL_SLUG] = true;
+        }
+
+        return $this;
+    } // setSlug()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -519,6 +555,9 @@ abstract class Event implements ActiveRecordInterface
                 $col = null;
             }
             $this->end = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : EventTableMap::translateFieldName('Slug', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->slug = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -527,7 +566,7 @@ abstract class Event implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 4; // 4 = EventTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = EventTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\iuf\\junia\\model\\Event'), 0, $e);
@@ -650,6 +689,13 @@ abstract class Event implements ActiveRecordInterface
         return $con->transaction(function () use ($con) {
             $isInsert = $this->isNew();
             $ret = $this->preSave($con);
+            // sluggable behavior
+
+            if ($this->isColumnModified(EventTableMap::COL_SLUG) && $this->getSlug()) {
+                $this->setSlug($this->makeSlugUnique($this->getSlug()));
+            } else {
+                $this->setSlug($this->createSlug());
+            }
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
             } else {
@@ -755,6 +801,9 @@ abstract class Event implements ActiveRecordInterface
         if ($this->isColumnModified(EventTableMap::COL_END)) {
             $modifiedColumns[':p' . $index++]  = '`end`';
         }
+        if ($this->isColumnModified(EventTableMap::COL_SLUG)) {
+            $modifiedColumns[':p' . $index++]  = '`slug`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `kk_junia_event` (%s) VALUES (%s)',
@@ -777,6 +826,9 @@ abstract class Event implements ActiveRecordInterface
                         break;
                     case '`end`':
                         $stmt->bindValue($identifier, $this->end ? $this->end->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
+                        break;
+                    case '`slug`':
+                        $stmt->bindValue($identifier, $this->slug, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -852,6 +904,9 @@ abstract class Event implements ActiveRecordInterface
             case 3:
                 return $this->getEnd();
                 break;
+            case 4:
+                return $this->getSlug();
+                break;
             default:
                 return null;
                 break;
@@ -886,6 +941,7 @@ abstract class Event implements ActiveRecordInterface
             $keys[1] => $this->getName(),
             $keys[2] => $this->getStart(),
             $keys[3] => $this->getEnd(),
+            $keys[4] => $this->getSlug(),
         );
 
         $utc = new \DateTimeZone('utc');
@@ -968,6 +1024,9 @@ abstract class Event implements ActiveRecordInterface
             case 3:
                 $this->setEnd($value);
                 break;
+            case 4:
+                $this->setSlug($value);
+                break;
         } // switch()
 
         return $this;
@@ -1005,6 +1064,9 @@ abstract class Event implements ActiveRecordInterface
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->setEnd($arr[$keys[3]]);
+        }
+        if (array_key_exists($keys[4], $arr)) {
+            $this->setSlug($arr[$keys[4]]);
         }
     }
 
@@ -1058,6 +1120,9 @@ abstract class Event implements ActiveRecordInterface
         }
         if ($this->isColumnModified(EventTableMap::COL_END)) {
             $criteria->add(EventTableMap::COL_END, $this->end);
+        }
+        if ($this->isColumnModified(EventTableMap::COL_SLUG)) {
+            $criteria->add(EventTableMap::COL_SLUG, $this->slug);
         }
 
         return $criteria;
@@ -1148,6 +1213,7 @@ abstract class Event implements ActiveRecordInterface
         $copyObj->setName($this->getName());
         $copyObj->setStart($this->getStart());
         $copyObj->setEnd($this->getEnd());
+        $copyObj->setSlug($this->getSlug());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1460,6 +1526,7 @@ abstract class Event implements ActiveRecordInterface
         $this->name = null;
         $this->start = null;
         $this->end = null;
+        $this->slug = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1491,11 +1558,157 @@ abstract class Event implements ActiveRecordInterface
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'name' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(EventTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->getName();
+    }
+
+    // sluggable behavior
+
+    /**
+     * Create a unique slug based on the object
+     *
+     * @return string The object slug
+     */
+    protected function createSlug()
+    {
+        $slug = $this->createRawSlug();
+        $slug = $this->limitSlugSize($slug);
+        $slug = $this->makeSlugUnique($slug);
+
+        return $slug;
+    }
+
+    /**
+     * Create the slug from the appropriate columns
+     *
+     * @return string
+     */
+    protected function createRawSlug()
+    {
+        return $this->cleanupSlugPart($this->__toString());
+    }
+
+    /**
+     * Cleanup a string to make a slug of it
+     * Removes special characters, replaces blanks with a separator, and trim it
+     *
+     * @param     string $slug        the text to slugify
+     * @param     string $replacement the separator used by slug
+     * @return    string               the slugified text
+     */
+    protected static function cleanupSlugPart($slug, $replacement = '-')
+    {
+        // transliterate
+        if (function_exists('iconv')) {
+            $slug = iconv('utf-8', 'us-ascii//TRANSLIT', $slug);
+        }
+
+        // lowercase
+        if (function_exists('mb_strtolower')) {
+            $slug = mb_strtolower($slug);
+        } else {
+            $slug = strtolower($slug);
+        }
+
+        // remove accents resulting from OSX's iconv
+        $slug = str_replace(array('\'', '`', '^'), '', $slug);
+
+        // replace non letter or digits with separator
+        $slug = preg_replace('/\W+/', $replacement, $slug);
+
+        // trim
+        $slug = trim($slug, $replacement);
+
+        if (empty($slug)) {
+            return 'n-a';
+        }
+
+        return $slug;
+    }
+
+
+    /**
+     * Make sure the slug is short enough to accommodate the column size
+     *
+     * @param    string $slug            the slug to check
+     *
+     * @return string                        the truncated slug
+     */
+    protected static function limitSlugSize($slug, $incrementReservedSpace = 3)
+    {
+        // check length, as suffix could put it over maximum
+        if (strlen($slug) > (255 - $incrementReservedSpace)) {
+            $slug = substr($slug, 0, 255 - $incrementReservedSpace);
+        }
+
+        return $slug;
+    }
+
+
+    /**
+     * Get the slug, ensuring its uniqueness
+     *
+     * @param    string $slug            the slug to check
+     * @param    string $separator       the separator used by slug
+     * @param    int    $alreadyExists   false for the first try, true for the second, and take the high count + 1
+     * @return   string                   the unique slug
+     */
+    protected function makeSlugUnique($slug, $separator = '-', $alreadyExists = false)
+    {
+        if (!$alreadyExists) {
+            $slug2 = $slug;
+        } else {
+            $slug2 = $slug . $separator;
+
+            $count = \iuf\junia\model\EventQuery::create()
+                ->filterBySlug($this->getSlug())
+                ->filterByPrimaryKey($this->getPrimaryKey())
+            ->count();
+
+            if (1 == $count) {
+                return $this->getSlug();
+            }
+        }
+
+        $adapter = \Propel\Runtime\Propel::getServiceContainer()->getAdapter('keeko');
+        $col = 'q.Slug';
+        $compare = $alreadyExists ? $adapter->compareRegex($col, '?') : sprintf('%s = ?', $col);
+
+        $query = \iuf\junia\model\EventQuery::create('q')
+            ->where($compare, $alreadyExists ? '^' . $slug2 . '[0-9]+$' : $slug2)
+            ->prune($this)
+        ;
+
+        if (!$alreadyExists) {
+            $count = $query->count();
+            if ($count > 0) {
+                return $this->makeSlugUnique($slug, $separator, true);
+            }
+
+            return $slug2;
+        }
+
+        $adapter = \Propel\Runtime\Propel::getServiceContainer()->getAdapter('keeko');
+        // Already exists
+        $object = $query
+            ->addDescendingOrderByColumn($adapter->strLength('slug'))
+            ->addDescendingOrderByColumn('slug')
+        ->findOne();
+
+        // First duplicate slug
+        if (null == $object) {
+            return $slug2 . '1';
+        }
+
+        $slugNum = substr($object->getSlug(), strlen($slug) + 1);
+        if (0 == $slugNum[0]) {
+            $slugNum[0] = 1;
+        }
+
+        return $slug2 . ($slugNum + 1);
     }
 
     /**
