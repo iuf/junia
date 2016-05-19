@@ -18,8 +18,8 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 use iuf\junia\model\PerformanceScore as ChildPerformanceScore;
 use iuf\junia\model\PerformanceScoreQuery as ChildPerformanceScoreQuery;
-use iuf\junia\model\PerformanceStatistics as ChildPerformanceStatistics;
-use iuf\junia\model\PerformanceStatisticsQuery as ChildPerformanceStatisticsQuery;
+use iuf\junia\model\PerformanceStatistic as ChildPerformanceStatistic;
+use iuf\junia\model\PerformanceStatisticQuery as ChildPerformanceStatisticQuery;
 use iuf\junia\model\Routine as ChildRoutine;
 use iuf\junia\model\RoutineQuery as ChildRoutineQuery;
 use iuf\junia\model\Score as ChildScore;
@@ -88,28 +88,28 @@ abstract class Routine implements ActiveRecordInterface
     protected $startgroup_id;
 
     /**
-     * The value for the performance_total_statistics_id field.
+     * The value for the performance_total_statistic_id field.
      * @var        int
      */
-    protected $performance_total_statistics_id;
+    protected $performance_total_statistic_id;
 
     /**
-     * The value for the performance_execution_statistics_id field.
+     * The value for the performance_execution_statistic_id field.
      * @var        int
      */
-    protected $performance_execution_statistics_id;
+    protected $performance_execution_statistic_id;
 
     /**
-     * The value for the performance_choreography_statistics_id field.
+     * The value for the performance_choreography_statistic_id field.
      * @var        int
      */
-    protected $performance_choreography_statistics_id;
+    protected $performance_choreography_statistic_id;
 
     /**
-     * The value for the performance_music_and_timing_statistics_id field.
+     * The value for the performance_music_and_timing_statistic_id field.
      * @var        int
      */
-    protected $performance_music_and_timing_statistics_id;
+    protected $performance_music_and_timing_statistic_id;
 
     /**
      * @var        ChildStartgroup
@@ -117,24 +117,24 @@ abstract class Routine implements ActiveRecordInterface
     protected $aStartgroup;
 
     /**
-     * @var        ChildPerformanceStatistics
+     * @var        ChildPerformanceStatistic
      */
-    protected $aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId;
+    protected $aPerformanceTotalStatistic;
 
     /**
-     * @var        ChildPerformanceStatistics
+     * @var        ChildPerformanceStatistic
      */
-    protected $aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId;
+    protected $aPerformanceExecutionStatistic;
 
     /**
-     * @var        ChildPerformanceStatistics
+     * @var        ChildPerformanceStatistic
      */
-    protected $aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId;
+    protected $aPerformanceChoreographyStatistic;
 
     /**
-     * @var        ChildPerformanceStatistics
+     * @var        ChildPerformanceStatistic
      */
-    protected $aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId;
+    protected $aPerformanceMusicAndTimingStatistic;
 
     /**
      * @var        ObjectCollection|ChildScore[] Collection to store aggregation of ChildScore objects.
@@ -416,43 +416,43 @@ abstract class Routine implements ActiveRecordInterface
     }
 
     /**
-     * Get the [performance_total_statistics_id] column value.
+     * Get the [performance_total_statistic_id] column value.
      *
      * @return int
      */
-    public function getPerformanceTotalStatisticsId()
+    public function getPerformanceTotalStatisticId()
     {
-        return $this->performance_total_statistics_id;
+        return $this->performance_total_statistic_id;
     }
 
     /**
-     * Get the [performance_execution_statistics_id] column value.
+     * Get the [performance_execution_statistic_id] column value.
      *
      * @return int
      */
-    public function getPerformanceExecutionStatisticsId()
+    public function getPerformanceExecutionStatisticId()
     {
-        return $this->performance_execution_statistics_id;
+        return $this->performance_execution_statistic_id;
     }
 
     /**
-     * Get the [performance_choreography_statistics_id] column value.
+     * Get the [performance_choreography_statistic_id] column value.
      *
      * @return int
      */
-    public function getPerformanceChoreographyStatisticsId()
+    public function getPerformanceChoreographyStatisticId()
     {
-        return $this->performance_choreography_statistics_id;
+        return $this->performance_choreography_statistic_id;
     }
 
     /**
-     * Get the [performance_music_and_timing_statistics_id] column value.
+     * Get the [performance_music_and_timing_statistic_id] column value.
      *
      * @return int
      */
-    public function getPerformanceMusicAndTimingStatisticsId()
+    public function getPerformanceMusicAndTimingStatisticId()
     {
-        return $this->performance_music_and_timing_statistics_id;
+        return $this->performance_music_and_timing_statistic_id;
     }
 
     /**
@@ -520,100 +520,100 @@ abstract class Routine implements ActiveRecordInterface
     } // setStartgroupId()
 
     /**
-     * Set the value of [performance_total_statistics_id] column.
+     * Set the value of [performance_total_statistic_id] column.
      *
      * @param int $v new value
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      */
-    public function setPerformanceTotalStatisticsId($v)
+    public function setPerformanceTotalStatisticId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->performance_total_statistics_id !== $v) {
-            $this->performance_total_statistics_id = $v;
-            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID] = true;
+        if ($this->performance_total_statistic_id !== $v) {
+            $this->performance_total_statistic_id = $v;
+            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID] = true;
         }
 
-        if ($this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId !== null && $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->getId() !== $v) {
-            $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId = null;
+        if ($this->aPerformanceTotalStatistic !== null && $this->aPerformanceTotalStatistic->getId() !== $v) {
+            $this->aPerformanceTotalStatistic = null;
         }
 
         return $this;
-    } // setPerformanceTotalStatisticsId()
+    } // setPerformanceTotalStatisticId()
 
     /**
-     * Set the value of [performance_execution_statistics_id] column.
+     * Set the value of [performance_execution_statistic_id] column.
      *
      * @param int $v new value
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      */
-    public function setPerformanceExecutionStatisticsId($v)
+    public function setPerformanceExecutionStatisticId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->performance_execution_statistics_id !== $v) {
-            $this->performance_execution_statistics_id = $v;
-            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID] = true;
+        if ($this->performance_execution_statistic_id !== $v) {
+            $this->performance_execution_statistic_id = $v;
+            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID] = true;
         }
 
-        if ($this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId !== null && $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->getId() !== $v) {
-            $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId = null;
+        if ($this->aPerformanceExecutionStatistic !== null && $this->aPerformanceExecutionStatistic->getId() !== $v) {
+            $this->aPerformanceExecutionStatistic = null;
         }
 
         return $this;
-    } // setPerformanceExecutionStatisticsId()
+    } // setPerformanceExecutionStatisticId()
 
     /**
-     * Set the value of [performance_choreography_statistics_id] column.
+     * Set the value of [performance_choreography_statistic_id] column.
      *
      * @param int $v new value
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      */
-    public function setPerformanceChoreographyStatisticsId($v)
+    public function setPerformanceChoreographyStatisticId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->performance_choreography_statistics_id !== $v) {
-            $this->performance_choreography_statistics_id = $v;
-            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID] = true;
+        if ($this->performance_choreography_statistic_id !== $v) {
+            $this->performance_choreography_statistic_id = $v;
+            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID] = true;
         }
 
-        if ($this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId !== null && $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->getId() !== $v) {
-            $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId = null;
+        if ($this->aPerformanceChoreographyStatistic !== null && $this->aPerformanceChoreographyStatistic->getId() !== $v) {
+            $this->aPerformanceChoreographyStatistic = null;
         }
 
         return $this;
-    } // setPerformanceChoreographyStatisticsId()
+    } // setPerformanceChoreographyStatisticId()
 
     /**
-     * Set the value of [performance_music_and_timing_statistics_id] column.
+     * Set the value of [performance_music_and_timing_statistic_id] column.
      *
      * @param int $v new value
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      */
-    public function setPerformanceMusicAndTimingStatisticsId($v)
+    public function setPerformanceMusicAndTimingStatisticId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->performance_music_and_timing_statistics_id !== $v) {
-            $this->performance_music_and_timing_statistics_id = $v;
-            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID] = true;
+        if ($this->performance_music_and_timing_statistic_id !== $v) {
+            $this->performance_music_and_timing_statistic_id = $v;
+            $this->modifiedColumns[RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID] = true;
         }
 
-        if ($this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId !== null && $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->getId() !== $v) {
-            $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId = null;
+        if ($this->aPerformanceMusicAndTimingStatistic !== null && $this->aPerformanceMusicAndTimingStatistic->getId() !== $v) {
+            $this->aPerformanceMusicAndTimingStatistic = null;
         }
 
         return $this;
-    } // setPerformanceMusicAndTimingStatisticsId()
+    } // setPerformanceMusicAndTimingStatisticId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -660,17 +660,17 @@ abstract class Routine implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : RoutineTableMap::translateFieldName('StartgroupId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->startgroup_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : RoutineTableMap::translateFieldName('PerformanceTotalStatisticsId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->performance_total_statistics_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : RoutineTableMap::translateFieldName('PerformanceTotalStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_total_statistic_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : RoutineTableMap::translateFieldName('PerformanceExecutionStatisticsId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->performance_execution_statistics_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : RoutineTableMap::translateFieldName('PerformanceExecutionStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_execution_statistic_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : RoutineTableMap::translateFieldName('PerformanceChoreographyStatisticsId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->performance_choreography_statistics_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : RoutineTableMap::translateFieldName('PerformanceChoreographyStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_choreography_statistic_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : RoutineTableMap::translateFieldName('PerformanceMusicAndTimingStatisticsId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->performance_music_and_timing_statistics_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : RoutineTableMap::translateFieldName('PerformanceMusicAndTimingStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_music_and_timing_statistic_id = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -704,17 +704,17 @@ abstract class Routine implements ActiveRecordInterface
         if ($this->aStartgroup !== null && $this->startgroup_id !== $this->aStartgroup->getId()) {
             $this->aStartgroup = null;
         }
-        if ($this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId !== null && $this->performance_total_statistics_id !== $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->getId()) {
-            $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId = null;
+        if ($this->aPerformanceTotalStatistic !== null && $this->performance_total_statistic_id !== $this->aPerformanceTotalStatistic->getId()) {
+            $this->aPerformanceTotalStatistic = null;
         }
-        if ($this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId !== null && $this->performance_execution_statistics_id !== $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->getId()) {
-            $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId = null;
+        if ($this->aPerformanceExecutionStatistic !== null && $this->performance_execution_statistic_id !== $this->aPerformanceExecutionStatistic->getId()) {
+            $this->aPerformanceExecutionStatistic = null;
         }
-        if ($this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId !== null && $this->performance_choreography_statistics_id !== $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->getId()) {
-            $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId = null;
+        if ($this->aPerformanceChoreographyStatistic !== null && $this->performance_choreography_statistic_id !== $this->aPerformanceChoreographyStatistic->getId()) {
+            $this->aPerformanceChoreographyStatistic = null;
         }
-        if ($this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId !== null && $this->performance_music_and_timing_statistics_id !== $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->getId()) {
-            $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId = null;
+        if ($this->aPerformanceMusicAndTimingStatistic !== null && $this->performance_music_and_timing_statistic_id !== $this->aPerformanceMusicAndTimingStatistic->getId()) {
+            $this->aPerformanceMusicAndTimingStatistic = null;
         }
     } // ensureConsistency
 
@@ -756,10 +756,10 @@ abstract class Routine implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->aStartgroup = null;
-            $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId = null;
-            $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId = null;
-            $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId = null;
-            $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId = null;
+            $this->aPerformanceTotalStatistic = null;
+            $this->aPerformanceExecutionStatistic = null;
+            $this->aPerformanceChoreographyStatistic = null;
+            $this->aPerformanceMusicAndTimingStatistic = null;
             $this->collScores = null;
 
             $this->collPerformanceScores = null;
@@ -875,32 +875,32 @@ abstract class Routine implements ActiveRecordInterface
                 $this->setStartgroup($this->aStartgroup);
             }
 
-            if ($this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId !== null) {
-                if ($this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->isModified() || $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->isNew()) {
-                    $affectedRows += $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->save($con);
+            if ($this->aPerformanceTotalStatistic !== null) {
+                if ($this->aPerformanceTotalStatistic->isModified() || $this->aPerformanceTotalStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceTotalStatistic->save($con);
                 }
-                $this->setPerformanceStatisticsRelatedByPerformanceTotalStatisticsId($this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId);
+                $this->setPerformanceTotalStatistic($this->aPerformanceTotalStatistic);
             }
 
-            if ($this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId !== null) {
-                if ($this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->isModified() || $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->isNew()) {
-                    $affectedRows += $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->save($con);
+            if ($this->aPerformanceExecutionStatistic !== null) {
+                if ($this->aPerformanceExecutionStatistic->isModified() || $this->aPerformanceExecutionStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceExecutionStatistic->save($con);
                 }
-                $this->setPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId($this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId);
+                $this->setPerformanceExecutionStatistic($this->aPerformanceExecutionStatistic);
             }
 
-            if ($this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId !== null) {
-                if ($this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->isModified() || $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->isNew()) {
-                    $affectedRows += $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->save($con);
+            if ($this->aPerformanceChoreographyStatistic !== null) {
+                if ($this->aPerformanceChoreographyStatistic->isModified() || $this->aPerformanceChoreographyStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceChoreographyStatistic->save($con);
                 }
-                $this->setPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId($this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId);
+                $this->setPerformanceChoreographyStatistic($this->aPerformanceChoreographyStatistic);
             }
 
-            if ($this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId !== null) {
-                if ($this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->isModified() || $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->isNew()) {
-                    $affectedRows += $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->save($con);
+            if ($this->aPerformanceMusicAndTimingStatistic !== null) {
+                if ($this->aPerformanceMusicAndTimingStatistic->isModified() || $this->aPerformanceMusicAndTimingStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceMusicAndTimingStatistic->save($con);
                 }
-                $this->setPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId($this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId);
+                $this->setPerformanceMusicAndTimingStatistic($this->aPerformanceMusicAndTimingStatistic);
             }
 
             if ($this->isNew() || $this->isModified()) {
@@ -985,17 +985,17 @@ abstract class Routine implements ActiveRecordInterface
         if ($this->isColumnModified(RoutineTableMap::COL_STARTGROUP_ID)) {
             $modifiedColumns[':p' . $index++]  = '`startgroup_id`';
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`performance_total_statistics_id`';
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_total_statistic_id`';
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`performance_execution_statistics_id`';
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_execution_statistic_id`';
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`performance_choreography_statistics_id`';
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_choreography_statistic_id`';
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`performance_music_and_timing_statistics_id`';
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_music_and_timing_statistic_id`';
         }
 
         $sql = sprintf(
@@ -1017,17 +1017,17 @@ abstract class Routine implements ActiveRecordInterface
                     case '`startgroup_id`':
                         $stmt->bindValue($identifier, $this->startgroup_id, PDO::PARAM_INT);
                         break;
-                    case '`performance_total_statistics_id`':
-                        $stmt->bindValue($identifier, $this->performance_total_statistics_id, PDO::PARAM_INT);
+                    case '`performance_total_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_total_statistic_id, PDO::PARAM_INT);
                         break;
-                    case '`performance_execution_statistics_id`':
-                        $stmt->bindValue($identifier, $this->performance_execution_statistics_id, PDO::PARAM_INT);
+                    case '`performance_execution_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_execution_statistic_id, PDO::PARAM_INT);
                         break;
-                    case '`performance_choreography_statistics_id`':
-                        $stmt->bindValue($identifier, $this->performance_choreography_statistics_id, PDO::PARAM_INT);
+                    case '`performance_choreography_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_choreography_statistic_id, PDO::PARAM_INT);
                         break;
-                    case '`performance_music_and_timing_statistics_id`':
-                        $stmt->bindValue($identifier, $this->performance_music_and_timing_statistics_id, PDO::PARAM_INT);
+                    case '`performance_music_and_timing_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_music_and_timing_statistic_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -1101,16 +1101,16 @@ abstract class Routine implements ActiveRecordInterface
                 return $this->getStartgroupId();
                 break;
             case 3:
-                return $this->getPerformanceTotalStatisticsId();
+                return $this->getPerformanceTotalStatisticId();
                 break;
             case 4:
-                return $this->getPerformanceExecutionStatisticsId();
+                return $this->getPerformanceExecutionStatisticId();
                 break;
             case 5:
-                return $this->getPerformanceChoreographyStatisticsId();
+                return $this->getPerformanceChoreographyStatisticId();
                 break;
             case 6:
-                return $this->getPerformanceMusicAndTimingStatisticsId();
+                return $this->getPerformanceMusicAndTimingStatisticId();
                 break;
             default:
                 return null;
@@ -1145,10 +1145,10 @@ abstract class Routine implements ActiveRecordInterface
             $keys[0] => $this->getId(),
             $keys[1] => $this->getName(),
             $keys[2] => $this->getStartgroupId(),
-            $keys[3] => $this->getPerformanceTotalStatisticsId(),
-            $keys[4] => $this->getPerformanceExecutionStatisticsId(),
-            $keys[5] => $this->getPerformanceChoreographyStatisticsId(),
-            $keys[6] => $this->getPerformanceMusicAndTimingStatisticsId(),
+            $keys[3] => $this->getPerformanceTotalStatisticId(),
+            $keys[4] => $this->getPerformanceExecutionStatisticId(),
+            $keys[5] => $this->getPerformanceChoreographyStatisticId(),
+            $keys[6] => $this->getPerformanceMusicAndTimingStatisticId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1171,65 +1171,65 @@ abstract class Routine implements ActiveRecordInterface
 
                 $result[$key] = $this->aStartgroup->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId) {
+            if (null !== $this->aPerformanceTotalStatistic) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'performanceStatistics';
+                        $key = 'performanceStatistic';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'kk_junia_performance_statistics';
+                        $key = 'kk_junia_performance_statistic';
                         break;
                     default:
-                        $key = 'PerformanceStatistics';
+                        $key = 'PerformanceStatistic';
                 }
 
-                $result[$key] = $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aPerformanceTotalStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId) {
+            if (null !== $this->aPerformanceExecutionStatistic) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'performanceStatistics';
+                        $key = 'performanceStatistic';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'kk_junia_performance_statistics';
+                        $key = 'kk_junia_performance_statistic';
                         break;
                     default:
-                        $key = 'PerformanceStatistics';
+                        $key = 'PerformanceStatistic';
                 }
 
-                $result[$key] = $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aPerformanceExecutionStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId) {
+            if (null !== $this->aPerformanceChoreographyStatistic) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'performanceStatistics';
+                        $key = 'performanceStatistic';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'kk_junia_performance_statistics';
+                        $key = 'kk_junia_performance_statistic';
                         break;
                     default:
-                        $key = 'PerformanceStatistics';
+                        $key = 'PerformanceStatistic';
                 }
 
-                $result[$key] = $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aPerformanceChoreographyStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId) {
+            if (null !== $this->aPerformanceMusicAndTimingStatistic) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'performanceStatistics';
+                        $key = 'performanceStatistic';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'kk_junia_performance_statistics';
+                        $key = 'kk_junia_performance_statistic';
                         break;
                     default:
-                        $key = 'PerformanceStatistics';
+                        $key = 'PerformanceStatistic';
                 }
 
-                $result[$key] = $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aPerformanceMusicAndTimingStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
             if (null !== $this->collScores) {
 
@@ -1305,16 +1305,16 @@ abstract class Routine implements ActiveRecordInterface
                 $this->setStartgroupId($value);
                 break;
             case 3:
-                $this->setPerformanceTotalStatisticsId($value);
+                $this->setPerformanceTotalStatisticId($value);
                 break;
             case 4:
-                $this->setPerformanceExecutionStatisticsId($value);
+                $this->setPerformanceExecutionStatisticId($value);
                 break;
             case 5:
-                $this->setPerformanceChoreographyStatisticsId($value);
+                $this->setPerformanceChoreographyStatisticId($value);
                 break;
             case 6:
-                $this->setPerformanceMusicAndTimingStatisticsId($value);
+                $this->setPerformanceMusicAndTimingStatisticId($value);
                 break;
         } // switch()
 
@@ -1352,16 +1352,16 @@ abstract class Routine implements ActiveRecordInterface
             $this->setStartgroupId($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setPerformanceTotalStatisticsId($arr[$keys[3]]);
+            $this->setPerformanceTotalStatisticId($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setPerformanceExecutionStatisticsId($arr[$keys[4]]);
+            $this->setPerformanceExecutionStatisticId($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setPerformanceChoreographyStatisticsId($arr[$keys[5]]);
+            $this->setPerformanceChoreographyStatisticId($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setPerformanceMusicAndTimingStatisticsId($arr[$keys[6]]);
+            $this->setPerformanceMusicAndTimingStatisticId($arr[$keys[6]]);
         }
     }
 
@@ -1413,17 +1413,17 @@ abstract class Routine implements ActiveRecordInterface
         if ($this->isColumnModified(RoutineTableMap::COL_STARTGROUP_ID)) {
             $criteria->add(RoutineTableMap::COL_STARTGROUP_ID, $this->startgroup_id);
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID)) {
-            $criteria->add(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID, $this->performance_total_statistics_id);
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID)) {
+            $criteria->add(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, $this->performance_total_statistic_id);
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID)) {
-            $criteria->add(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID, $this->performance_execution_statistics_id);
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID)) {
+            $criteria->add(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, $this->performance_execution_statistic_id);
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID)) {
-            $criteria->add(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID, $this->performance_choreography_statistics_id);
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID)) {
+            $criteria->add(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, $this->performance_choreography_statistic_id);
         }
-        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID)) {
-            $criteria->add(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID, $this->performance_music_and_timing_statistics_id);
+        if ($this->isColumnModified(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID)) {
+            $criteria->add(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, $this->performance_music_and_timing_statistic_id);
         }
 
         return $criteria;
@@ -1513,10 +1513,10 @@ abstract class Routine implements ActiveRecordInterface
     {
         $copyObj->setName($this->getName());
         $copyObj->setStartgroupId($this->getStartgroupId());
-        $copyObj->setPerformanceTotalStatisticsId($this->getPerformanceTotalStatisticsId());
-        $copyObj->setPerformanceExecutionStatisticsId($this->getPerformanceExecutionStatisticsId());
-        $copyObj->setPerformanceChoreographyStatisticsId($this->getPerformanceChoreographyStatisticsId());
-        $copyObj->setPerformanceMusicAndTimingStatisticsId($this->getPerformanceMusicAndTimingStatisticsId());
+        $copyObj->setPerformanceTotalStatisticId($this->getPerformanceTotalStatisticId());
+        $copyObj->setPerformanceExecutionStatisticId($this->getPerformanceExecutionStatisticId());
+        $copyObj->setPerformanceChoreographyStatisticId($this->getPerformanceChoreographyStatisticId());
+        $copyObj->setPerformanceMusicAndTimingStatisticId($this->getPerformanceMusicAndTimingStatisticId());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1617,26 +1617,26 @@ abstract class Routine implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a ChildPerformanceStatistics object.
+     * Declares an association between this object and a ChildPerformanceStatistic object.
      *
-     * @param  ChildPerformanceStatistics $v
+     * @param  ChildPerformanceStatistic $v
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setPerformanceStatisticsRelatedByPerformanceTotalStatisticsId(ChildPerformanceStatistics $v = null)
+    public function setPerformanceTotalStatistic(ChildPerformanceStatistic $v = null)
     {
         if ($v === null) {
-            $this->setPerformanceTotalStatisticsId(NULL);
+            $this->setPerformanceTotalStatisticId(NULL);
         } else {
-            $this->setPerformanceTotalStatisticsId($v->getId());
+            $this->setPerformanceTotalStatisticId($v->getId());
         }
 
-        $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId = $v;
+        $this->aPerformanceTotalStatistic = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildPerformanceStatistics object, it will not be re-added.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
         if ($v !== null) {
-            $v->addRoutineRelatedByPerformanceTotalStatisticsId($this);
+            $v->addRoutineRelatedByPerformanceTotalStatisticId($this);
         }
 
 
@@ -1645,49 +1645,49 @@ abstract class Routine implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildPerformanceStatistics object
+     * Get the associated ChildPerformanceStatistic object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildPerformanceStatistics The associated ChildPerformanceStatistics object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
      * @throws PropelException
      */
-    public function getPerformanceStatisticsRelatedByPerformanceTotalStatisticsId(ConnectionInterface $con = null)
+    public function getPerformanceTotalStatistic(ConnectionInterface $con = null)
     {
-        if ($this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId === null && ($this->performance_total_statistics_id !== null)) {
-            $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId = ChildPerformanceStatisticsQuery::create()->findPk($this->performance_total_statistics_id, $con);
+        if ($this->aPerformanceTotalStatistic === null && ($this->performance_total_statistic_id !== null)) {
+            $this->aPerformanceTotalStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_total_statistic_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->addRoutinesRelatedByPerformanceTotalStatisticsId($this);
+                $this->aPerformanceTotalStatistic->addRoutinesRelatedByPerformanceTotalStatisticId($this);
              */
         }
 
-        return $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId;
+        return $this->aPerformanceTotalStatistic;
     }
 
     /**
-     * Declares an association between this object and a ChildPerformanceStatistics object.
+     * Declares an association between this object and a ChildPerformanceStatistic object.
      *
-     * @param  ChildPerformanceStatistics $v
+     * @param  ChildPerformanceStatistic $v
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId(ChildPerformanceStatistics $v = null)
+    public function setPerformanceExecutionStatistic(ChildPerformanceStatistic $v = null)
     {
         if ($v === null) {
-            $this->setPerformanceExecutionStatisticsId(NULL);
+            $this->setPerformanceExecutionStatisticId(NULL);
         } else {
-            $this->setPerformanceExecutionStatisticsId($v->getId());
+            $this->setPerformanceExecutionStatisticId($v->getId());
         }
 
-        $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId = $v;
+        $this->aPerformanceExecutionStatistic = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildPerformanceStatistics object, it will not be re-added.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
         if ($v !== null) {
-            $v->addRoutineRelatedByPerformanceExecutionStatisticsId($this);
+            $v->addRoutineRelatedByPerformanceExecutionStatisticId($this);
         }
 
 
@@ -1696,49 +1696,49 @@ abstract class Routine implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildPerformanceStatistics object
+     * Get the associated ChildPerformanceStatistic object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildPerformanceStatistics The associated ChildPerformanceStatistics object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
      * @throws PropelException
      */
-    public function getPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId(ConnectionInterface $con = null)
+    public function getPerformanceExecutionStatistic(ConnectionInterface $con = null)
     {
-        if ($this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId === null && ($this->performance_execution_statistics_id !== null)) {
-            $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId = ChildPerformanceStatisticsQuery::create()->findPk($this->performance_execution_statistics_id, $con);
+        if ($this->aPerformanceExecutionStatistic === null && ($this->performance_execution_statistic_id !== null)) {
+            $this->aPerformanceExecutionStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_execution_statistic_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->addRoutinesRelatedByPerformanceExecutionStatisticsId($this);
+                $this->aPerformanceExecutionStatistic->addRoutinesRelatedByPerformanceExecutionStatisticId($this);
              */
         }
 
-        return $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId;
+        return $this->aPerformanceExecutionStatistic;
     }
 
     /**
-     * Declares an association between this object and a ChildPerformanceStatistics object.
+     * Declares an association between this object and a ChildPerformanceStatistic object.
      *
-     * @param  ChildPerformanceStatistics $v
+     * @param  ChildPerformanceStatistic $v
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId(ChildPerformanceStatistics $v = null)
+    public function setPerformanceChoreographyStatistic(ChildPerformanceStatistic $v = null)
     {
         if ($v === null) {
-            $this->setPerformanceChoreographyStatisticsId(NULL);
+            $this->setPerformanceChoreographyStatisticId(NULL);
         } else {
-            $this->setPerformanceChoreographyStatisticsId($v->getId());
+            $this->setPerformanceChoreographyStatisticId($v->getId());
         }
 
-        $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId = $v;
+        $this->aPerformanceChoreographyStatistic = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildPerformanceStatistics object, it will not be re-added.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
         if ($v !== null) {
-            $v->addRoutineRelatedByPerformanceChoreographyStatisticsId($this);
+            $v->addRoutineRelatedByPerformanceChoreographyStatisticId($this);
         }
 
 
@@ -1747,49 +1747,49 @@ abstract class Routine implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildPerformanceStatistics object
+     * Get the associated ChildPerformanceStatistic object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildPerformanceStatistics The associated ChildPerformanceStatistics object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
      * @throws PropelException
      */
-    public function getPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId(ConnectionInterface $con = null)
+    public function getPerformanceChoreographyStatistic(ConnectionInterface $con = null)
     {
-        if ($this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId === null && ($this->performance_choreography_statistics_id !== null)) {
-            $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId = ChildPerformanceStatisticsQuery::create()->findPk($this->performance_choreography_statistics_id, $con);
+        if ($this->aPerformanceChoreographyStatistic === null && ($this->performance_choreography_statistic_id !== null)) {
+            $this->aPerformanceChoreographyStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_choreography_statistic_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->addRoutinesRelatedByPerformanceChoreographyStatisticsId($this);
+                $this->aPerformanceChoreographyStatistic->addRoutinesRelatedByPerformanceChoreographyStatisticId($this);
              */
         }
 
-        return $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId;
+        return $this->aPerformanceChoreographyStatistic;
     }
 
     /**
-     * Declares an association between this object and a ChildPerformanceStatistics object.
+     * Declares an association between this object and a ChildPerformanceStatistic object.
      *
-     * @param  ChildPerformanceStatistics $v
+     * @param  ChildPerformanceStatistic $v
      * @return $this|\iuf\junia\model\Routine The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId(ChildPerformanceStatistics $v = null)
+    public function setPerformanceMusicAndTimingStatistic(ChildPerformanceStatistic $v = null)
     {
         if ($v === null) {
-            $this->setPerformanceMusicAndTimingStatisticsId(NULL);
+            $this->setPerformanceMusicAndTimingStatisticId(NULL);
         } else {
-            $this->setPerformanceMusicAndTimingStatisticsId($v->getId());
+            $this->setPerformanceMusicAndTimingStatisticId($v->getId());
         }
 
-        $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId = $v;
+        $this->aPerformanceMusicAndTimingStatistic = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildPerformanceStatistics object, it will not be re-added.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
         if ($v !== null) {
-            $v->addRoutineRelatedByPerformanceMusicAndTimingStatisticsId($this);
+            $v->addRoutineRelatedByPerformanceMusicAndTimingStatisticId($this);
         }
 
 
@@ -1798,26 +1798,26 @@ abstract class Routine implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildPerformanceStatistics object
+     * Get the associated ChildPerformanceStatistic object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildPerformanceStatistics The associated ChildPerformanceStatistics object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
      * @throws PropelException
      */
-    public function getPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId(ConnectionInterface $con = null)
+    public function getPerformanceMusicAndTimingStatistic(ConnectionInterface $con = null)
     {
-        if ($this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId === null && ($this->performance_music_and_timing_statistics_id !== null)) {
-            $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId = ChildPerformanceStatisticsQuery::create()->findPk($this->performance_music_and_timing_statistics_id, $con);
+        if ($this->aPerformanceMusicAndTimingStatistic === null && ($this->performance_music_and_timing_statistic_id !== null)) {
+            $this->aPerformanceMusicAndTimingStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_music_and_timing_statistic_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->addRoutinesRelatedByPerformanceMusicAndTimingStatisticsId($this);
+                $this->aPerformanceMusicAndTimingStatistic->addRoutinesRelatedByPerformanceMusicAndTimingStatisticId($this);
              */
         }
 
-        return $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId;
+        return $this->aPerformanceMusicAndTimingStatistic;
     }
 
 
@@ -2360,25 +2360,25 @@ abstract class Routine implements ActiveRecordInterface
         if (null !== $this->aStartgroup) {
             $this->aStartgroup->removeRoutine($this);
         }
-        if (null !== $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId) {
-            $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId->removeRoutineRelatedByPerformanceTotalStatisticsId($this);
+        if (null !== $this->aPerformanceTotalStatistic) {
+            $this->aPerformanceTotalStatistic->removeRoutineRelatedByPerformanceTotalStatisticId($this);
         }
-        if (null !== $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId) {
-            $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId->removeRoutineRelatedByPerformanceExecutionStatisticsId($this);
+        if (null !== $this->aPerformanceExecutionStatistic) {
+            $this->aPerformanceExecutionStatistic->removeRoutineRelatedByPerformanceExecutionStatisticId($this);
         }
-        if (null !== $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId) {
-            $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId->removeRoutineRelatedByPerformanceChoreographyStatisticsId($this);
+        if (null !== $this->aPerformanceChoreographyStatistic) {
+            $this->aPerformanceChoreographyStatistic->removeRoutineRelatedByPerformanceChoreographyStatisticId($this);
         }
-        if (null !== $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId) {
-            $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId->removeRoutineRelatedByPerformanceMusicAndTimingStatisticsId($this);
+        if (null !== $this->aPerformanceMusicAndTimingStatistic) {
+            $this->aPerformanceMusicAndTimingStatistic->removeRoutineRelatedByPerformanceMusicAndTimingStatisticId($this);
         }
         $this->id = null;
         $this->name = null;
         $this->startgroup_id = null;
-        $this->performance_total_statistics_id = null;
-        $this->performance_execution_statistics_id = null;
-        $this->performance_choreography_statistics_id = null;
-        $this->performance_music_and_timing_statistics_id = null;
+        $this->performance_total_statistic_id = null;
+        $this->performance_execution_statistic_id = null;
+        $this->performance_choreography_statistic_id = null;
+        $this->performance_music_and_timing_statistic_id = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -2412,10 +2412,10 @@ abstract class Routine implements ActiveRecordInterface
         $this->collScores = null;
         $this->collPerformanceScores = null;
         $this->aStartgroup = null;
-        $this->aPerformanceStatisticsRelatedByPerformanceTotalStatisticsId = null;
-        $this->aPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId = null;
-        $this->aPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId = null;
-        $this->aPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId = null;
+        $this->aPerformanceTotalStatistic = null;
+        $this->aPerformanceExecutionStatistic = null;
+        $this->aPerformanceChoreographyStatistic = null;
+        $this->aPerformanceMusicAndTimingStatistic = null;
     }
 
     /**

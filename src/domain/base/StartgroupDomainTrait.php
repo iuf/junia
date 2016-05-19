@@ -17,6 +17,8 @@ use keeko\framework\domain\payload\Updated;
 use keeko\framework\domain\payload\NotUpdated;
 use keeko\framework\domain\payload\Deleted;
 use keeko\framework\domain\payload\NotDeleted;
+use iuf\junia\model\RoutineQuery;
+use iuf\junia\model\JudgeQuery;
 
 /**
  */
@@ -25,6 +27,96 @@ trait StartgroupDomainTrait {
 	/**
 	 */
 	protected $pool;
+
+	/**
+	 * Adds Judges to Startgroup
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function addJudges($id, $data) {
+		// find
+		$startgroup = $this->get($id);
+
+		if ($startgroup === null) {
+			return new NotFound(['message' => 'Startgroup not found.']);
+		}
+		 
+		// update
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Judge';
+			}
+			$judge = JudgeQuery::create()->findOneById($entry['id']);
+			$startgroup->addJudge($judge);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new StartgroupEvent($startgroup);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(StartgroupEvent::PRE_JUDGES_ADD, $event);
+		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
+		$rows = $startgroup->save();
+		$dispatcher->dispatch(StartgroupEvent::POST_JUDGES_ADD, $event);
+		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $startgroup]);
+		}
+
+		return NotUpdated(['model' => $startgroup]);
+	}
+
+	/**
+	 * Adds Routines to Startgroup
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function addRoutines($id, $data) {
+		// find
+		$startgroup = $this->get($id);
+
+		if ($startgroup === null) {
+			return new NotFound(['message' => 'Startgroup not found.']);
+		}
+		 
+		// update
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Routine';
+			}
+			$routine = RoutineQuery::create()->findOneById($entry['id']);
+			$startgroup->addRoutine($routine);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new StartgroupEvent($startgroup);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(StartgroupEvent::PRE_ROUTINES_ADD, $event);
+		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
+		$rows = $startgroup->save();
+		$dispatcher->dispatch(StartgroupEvent::POST_ROUTINES_ADD, $event);
+		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $startgroup]);
+		}
+
+		return NotUpdated(['model' => $startgroup]);
+	}
 
 	/**
 	 * Creates a new Startgroup with the provided data
@@ -137,6 +229,96 @@ trait StartgroupDomainTrait {
 	}
 
 	/**
+	 * Removes Judges from Startgroup
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function removeJudges($id, $data) {
+		// find
+		$startgroup = $this->get($id);
+
+		if ($startgroup === null) {
+			return new NotFound(['message' => 'Startgroup not found.']);
+		}
+
+		// remove them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Judge';
+			}
+			$judge = JudgeQuery::create()->findOneById($entry['id']);
+			$startgroup->removeJudge($judge);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new StartgroupEvent($startgroup);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(StartgroupEvent::PRE_JUDGES_REMOVE, $event);
+		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
+		$rows = $startgroup->save();
+		$dispatcher->dispatch(StartgroupEvent::POST_JUDGES_REMOVE, $event);
+		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $startgroup]);
+		}
+
+		return NotUpdated(['model' => $startgroup]);
+	}
+
+	/**
+	 * Removes Routines from Startgroup
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function removeRoutines($id, $data) {
+		// find
+		$startgroup = $this->get($id);
+
+		if ($startgroup === null) {
+			return new NotFound(['message' => 'Startgroup not found.']);
+		}
+
+		// remove them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Routine';
+			}
+			$routine = RoutineQuery::create()->findOneById($entry['id']);
+			$startgroup->removeRoutine($routine);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new StartgroupEvent($startgroup);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(StartgroupEvent::PRE_ROUTINES_REMOVE, $event);
+		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
+		$rows = $startgroup->save();
+		$dispatcher->dispatch(StartgroupEvent::POST_ROUTINES_REMOVE, $event);
+		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $startgroup]);
+		}
+
+		return NotUpdated(['model' => $startgroup]);
+	}
+
+	/**
 	 * Sets the Competition id
 	 * 
 	 * @param mixed $id
@@ -245,6 +427,102 @@ trait StartgroupDomainTrait {
 		}
 
 		return new Updated($payload);
+	}
+
+	/**
+	 * Updates Judges on Startgroup
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function updateJudges($id, $data) {
+		// find
+		$startgroup = $this->get($id);
+
+		if ($startgroup === null) {
+			return new NotFound(['message' => 'Startgroup not found.']);
+		}
+
+		// remove all relationships before
+		JudgeQuery::create()->filterByStartgroup($startgroup)->delete();
+
+		// add them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Judge';
+			}
+			$judge = JudgeQuery::create()->findOneById($entry['id']);
+			$startgroup->addJudge($judge);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new StartgroupEvent($startgroup);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(StartgroupEvent::PRE_JUDGES_UPDATE, $event);
+		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
+		$rows = $startgroup->save();
+		$dispatcher->dispatch(StartgroupEvent::POST_JUDGES_UPDATE, $event);
+		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $startgroup]);
+		}
+
+		return NotUpdated(['model' => $startgroup]);
+	}
+
+	/**
+	 * Updates Routines on Startgroup
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function updateRoutines($id, $data) {
+		// find
+		$startgroup = $this->get($id);
+
+		if ($startgroup === null) {
+			return new NotFound(['message' => 'Startgroup not found.']);
+		}
+
+		// remove all relationships before
+		RoutineQuery::create()->filterByStartgroup($startgroup)->delete();
+
+		// add them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Routine';
+			}
+			$routine = RoutineQuery::create()->findOneById($entry['id']);
+			$startgroup->addRoutine($routine);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new StartgroupEvent($startgroup);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(StartgroupEvent::PRE_ROUTINES_UPDATE, $event);
+		$dispatcher->dispatch(StartgroupEvent::PRE_SAVE, $event);
+		$rows = $startgroup->save();
+		$dispatcher->dispatch(StartgroupEvent::POST_ROUTINES_UPDATE, $event);
+		$dispatcher->dispatch(StartgroupEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $startgroup]);
+		}
+
+		return NotUpdated(['model' => $startgroup]);
 	}
 
 	/**

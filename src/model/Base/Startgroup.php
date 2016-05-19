@@ -18,6 +18,8 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 use iuf\junia\model\Competition as ChildCompetition;
 use iuf\junia\model\CompetitionQuery as ChildCompetitionQuery;
+use iuf\junia\model\Event as ChildEvent;
+use iuf\junia\model\EventQuery as ChildEventQuery;
 use iuf\junia\model\Judge as ChildJudge;
 use iuf\junia\model\JudgeQuery as ChildJudgeQuery;
 use iuf\junia\model\Routine as ChildRoutine;
@@ -25,8 +27,6 @@ use iuf\junia\model\RoutineQuery as ChildRoutineQuery;
 use iuf\junia\model\Startgroup as ChildStartgroup;
 use iuf\junia\model\StartgroupQuery as ChildStartgroupQuery;
 use iuf\junia\model\Map\StartgroupTableMap;
-use iuf\junia\model\iuf\junia\model\Event;
-use iuf\junia\model\iuf\junia\model\EventQuery;
 
 /**
  * Base class that represents a row from the 'kk_junia_startgroup' table.
@@ -99,7 +99,7 @@ abstract class Startgroup implements ActiveRecordInterface
     protected $aCompetition;
 
     /**
-     * @var        Event
+     * @var        ChildEvent
      */
     protected $aEvent;
 
@@ -1333,13 +1333,13 @@ abstract class Startgroup implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a Event object.
+     * Declares an association between this object and a ChildEvent object.
      *
-     * @param  Event $v
+     * @param  ChildEvent $v
      * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setEvent(Event $v = null)
+    public function setEvent(ChildEvent $v = null)
     {
         if ($v === null) {
             $this->setEventId(NULL);
@@ -1350,7 +1350,7 @@ abstract class Startgroup implements ActiveRecordInterface
         $this->aEvent = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the Event object, it will not be re-added.
+        // If this object has already been added to the ChildEvent object, it will not be re-added.
         if ($v !== null) {
             $v->addStartgroup($this);
         }
@@ -1361,16 +1361,16 @@ abstract class Startgroup implements ActiveRecordInterface
 
 
     /**
-     * Get the associated Event object
+     * Get the associated ChildEvent object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return Event The associated Event object.
+     * @return ChildEvent The associated ChildEvent object.
      * @throws PropelException
      */
     public function getEvent(ConnectionInterface $con = null)
     {
         if ($this->aEvent === null && ($this->event_id !== null)) {
-            $this->aEvent = EventQuery::create()->findPk($this->event_id, $con);
+            $this->aEvent = ChildEventQuery::create()->findPk($this->event_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1637,10 +1637,10 @@ abstract class Startgroup implements ActiveRecordInterface
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return ObjectCollection|ChildRoutine[] List of ChildRoutine objects
      */
-    public function getRoutinesJoinPerformanceStatisticsRelatedByPerformanceTotalStatisticsId(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    public function getRoutinesJoinPerformanceTotalStatistic(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
         $query = ChildRoutineQuery::create(null, $criteria);
-        $query->joinWith('PerformanceStatisticsRelatedByPerformanceTotalStatisticsId', $joinBehavior);
+        $query->joinWith('PerformanceTotalStatistic', $joinBehavior);
 
         return $this->getRoutines($query, $con);
     }
@@ -1662,10 +1662,10 @@ abstract class Startgroup implements ActiveRecordInterface
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return ObjectCollection|ChildRoutine[] List of ChildRoutine objects
      */
-    public function getRoutinesJoinPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    public function getRoutinesJoinPerformanceExecutionStatistic(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
         $query = ChildRoutineQuery::create(null, $criteria);
-        $query->joinWith('PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId', $joinBehavior);
+        $query->joinWith('PerformanceExecutionStatistic', $joinBehavior);
 
         return $this->getRoutines($query, $con);
     }
@@ -1687,10 +1687,10 @@ abstract class Startgroup implements ActiveRecordInterface
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return ObjectCollection|ChildRoutine[] List of ChildRoutine objects
      */
-    public function getRoutinesJoinPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    public function getRoutinesJoinPerformanceChoreographyStatistic(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
         $query = ChildRoutineQuery::create(null, $criteria);
-        $query->joinWith('PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId', $joinBehavior);
+        $query->joinWith('PerformanceChoreographyStatistic', $joinBehavior);
 
         return $this->getRoutines($query, $con);
     }
@@ -1712,10 +1712,10 @@ abstract class Startgroup implements ActiveRecordInterface
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return ObjectCollection|ChildRoutine[] List of ChildRoutine objects
      */
-    public function getRoutinesJoinPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    public function getRoutinesJoinPerformanceMusicAndTimingStatistic(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
         $query = ChildRoutineQuery::create(null, $criteria);
-        $query->joinWith('PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId', $joinBehavior);
+        $query->joinWith('PerformanceMusicAndTimingStatistic', $joinBehavior);
 
         return $this->getRoutines($query, $con);
     }

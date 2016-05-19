@@ -159,7 +159,7 @@ class StartgroupTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, null, false);
-        $this->addRelation('Event', '\\iuf\\junia\\model\\iuf\\junia\\model\\Event', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('Event', '\\iuf\\junia\\model\\Event', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':event_id',

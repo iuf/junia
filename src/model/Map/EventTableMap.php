@@ -1,6 +1,6 @@
 <?php
 
-namespace iuf\junia\model\iuf\junia\model\Map;
+namespace iuf\junia\model\Map;
 
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -11,8 +11,8 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Map\TableMapTrait;
-use iuf\junia\model\iuf\junia\model\Event;
-use iuf\junia\model\iuf\junia\model\EventQuery;
+use iuf\junia\model\Event;
+use iuf\junia\model\EventQuery;
 
 
 /**
@@ -49,7 +49,7 @@ class EventTableMap extends TableMap
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\iuf\\junia\\model\\iuf\\junia\\model\\Event';
+    const OM_CLASS = '\\iuf\\junia\\model\\Event';
 
     /**
      * A class that can be returned by this tableMap
@@ -137,7 +137,7 @@ class EventTableMap extends TableMap
         $this->setName('kk_junia_event');
         $this->setPhpName('Event');
         $this->setIdentifierQuoting(true);
-        $this->setClassName('\\iuf\\junia\\model\\iuf\\junia\\model\\Event');
+        $this->setClassName('\\iuf\\junia\\model\\Event');
         $this->setPackage('');
         $this->setUseIdGenerator(true);
         // columns
@@ -357,7 +357,7 @@ class EventTableMap extends TableMap
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \iuf\junia\model\iuf\junia\model\Event) { // it's a model object
+        } elseif ($values instanceof \iuf\junia\model\Event) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks

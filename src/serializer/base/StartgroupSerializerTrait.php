@@ -5,7 +5,10 @@ use keeko\framework\utils\HydrateUtils;
 use Tobscure\JsonApi\Relationship;
 use iuf\junia\model\Competition;
 use Tobscure\JsonApi\Resource;
-use iuf\junia\model\iuf\junia\model\Event;
+use iuf\junia\model\Event;
+use iuf\junia\model\Routine;
+use Tobscure\JsonApi\Collection;
+use iuf\junia\model\Judge;
 
 /**
  */
@@ -45,15 +48,15 @@ trait StartgroupSerializerTrait {
 		return [
 			'id' => $model->getId(),
 			'name' => $model->getName(),
-			'competition_id' => $model->getCompetitionId(),
-			'event_id' => $model->getEventId(),
+			'competition-id' => $model->getCompetitionId(),
+			'event-id' => $model->getEventId(),
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'name', 'competition_id', 'event_id'];
+		return ['id', 'name', 'competition-id', 'event-id'];
 	}
 
 	/**
@@ -69,14 +72,16 @@ trait StartgroupSerializerTrait {
 	public function getRelationships() {
 		return [
 			'competition' => Competition::getSerializer()->getType(null),
-			'event' => Event::getSerializer()->getType(null)
+			'event' => Event::getSerializer()->getType(null),
+			'routines' => Routine::getSerializer()->getType(null),
+			'judges' => Judge::getSerializer()->getType(null)
 		];
 	}
 
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'name', 'competition_id', 'event_id'];
+		return ['id', 'name', 'competition-id', 'event-id'];
 	}
 
 	/**
@@ -96,12 +101,30 @@ trait StartgroupSerializerTrait {
 		// attributes
 		$attribs = isset($data['attributes']) ? $data['attributes'] : [];
 
-		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'name', 'competition_id', 'event_id']);
+		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'name', 'competition-id', 'event-id']);
 
 		// relationships
 		$this->hydrateRelationships($model, $data);
 
 		return $model;
+	}
+
+	/**
+	 * @param mixed $model
+	 * @return Relationship
+	 */
+	public function judges($model) {
+		$relationship = new Relationship(new Collection($model->getJudges(), Judge::getSerializer()));
+		return $this->addRelationshipSelfLink($relationship, $model, 'judge');
+	}
+
+	/**
+	 * @param mixed $model
+	 * @return Relationship
+	 */
+	public function routines($model) {
+		$relationship = new Relationship(new Collection($model->getRoutines(), Routine::getSerializer()));
+		return $this->addRelationshipSelfLink($relationship, $model, 'routine');
 	}
 
 	/**

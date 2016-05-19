@@ -137,6 +137,39 @@ trait JudgeDomainTrait {
 	}
 
 	/**
+	 * Sets the PerformanceScore id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $performanceScoreId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceScoreId($id, $performanceScoreId) {
+		// find
+		$judge = $this->get($id);
+
+		if ($judge === null) {
+			return new NotFound(['message' => 'Judge not found.']);
+		}
+
+		// update
+		if ($judge->getJudgeId() !== $performanceScoreId) {
+			$judge->setJudgeId($performanceScoreId);
+
+			$event = new JudgeEvent($judge);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(JudgeEvent::PRE_PERFORMANCE_SCORE_UPDATE, $event);
+			$dispatcher->dispatch(JudgeEvent::PRE_SAVE, $event);
+			$judge->save();
+			$dispatcher->dispatch(JudgeEvent::POST_PERFORMANCE_SCORE_UPDATE, $event);
+			$dispatcher->dispatch(JudgeEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $judge]);
+		}
+
+		return NotUpdated(['model' => $judge]);
+	}
+
+	/**
 	 * Sets the Startgroup id
 	 * 
 	 * @param mixed $id

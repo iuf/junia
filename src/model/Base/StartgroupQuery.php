@@ -14,7 +14,6 @@ use Propel\Runtime\Exception\PropelException;
 use iuf\junia\model\Startgroup as ChildStartgroup;
 use iuf\junia\model\StartgroupQuery as ChildStartgroupQuery;
 use iuf\junia\model\Map\StartgroupTableMap;
-use iuf\junia\model\iuf\junia\model\Event;
 
 /**
  * Base class that represents a query for the 'kk_junia_startgroup' table.
@@ -51,7 +50,7 @@ use iuf\junia\model\iuf\junia\model\Event;
  * @method     ChildStartgroupQuery rightJoinJudge($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Judge relation
  * @method     ChildStartgroupQuery innerJoinJudge($relationAlias = null) Adds a INNER JOIN clause to the query using the Judge relation
  *
- * @method     \iuf\junia\model\CompetitionQuery|\iuf\junia\model\iuf\junia\model\EventQuery|\iuf\junia\model\RoutineQuery|\iuf\junia\model\JudgeQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \iuf\junia\model\CompetitionQuery|\iuf\junia\model\EventQuery|\iuf\junia\model\RoutineQuery|\iuf\junia\model\JudgeQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildStartgroup findOne(ConnectionInterface $con = null) Return the first ChildStartgroup matching the query
  * @method     ChildStartgroup findOneOrCreate(ConnectionInterface $con = null) Return the first ChildStartgroup matching the query, or a new ChildStartgroup object populated from the query conditions when no match is found
@@ -490,9 +489,9 @@ abstract class StartgroupQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \iuf\junia\model\iuf\junia\model\Event object
+     * Filter the query by a related \iuf\junia\model\Event object
      *
-     * @param \iuf\junia\model\iuf\junia\model\Event|ObjectCollection $event The related object(s) to use as filter
+     * @param \iuf\junia\model\Event|ObjectCollection $event The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
@@ -501,7 +500,7 @@ abstract class StartgroupQuery extends ModelCriteria
      */
     public function filterByEvent($event, $comparison = null)
     {
-        if ($event instanceof \iuf\junia\model\iuf\junia\model\Event) {
+        if ($event instanceof \iuf\junia\model\Event) {
             return $this
                 ->addUsingAlias(StartgroupTableMap::COL_EVENT_ID, $event->getId(), $comparison);
         } elseif ($event instanceof ObjectCollection) {
@@ -512,7 +511,7 @@ abstract class StartgroupQuery extends ModelCriteria
             return $this
                 ->addUsingAlias(StartgroupTableMap::COL_EVENT_ID, $event->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByEvent() only accepts arguments of type \iuf\junia\model\iuf\junia\model\Event or Collection');
+            throw new PropelException('filterByEvent() only accepts arguments of type \iuf\junia\model\Event or Collection');
         }
     }
 
@@ -557,13 +556,13 @@ abstract class StartgroupQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \iuf\junia\model\iuf\junia\model\EventQuery A secondary query class using the current class as primary query
+     * @return \iuf\junia\model\EventQuery A secondary query class using the current class as primary query
      */
     public function useEventQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
             ->joinEvent($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Event', '\iuf\junia\model\iuf\junia\model\EventQuery');
+            ->useQuery($relationAlias ? $relationAlias : 'Event', '\iuf\junia\model\EventQuery');
     }
 
     /**

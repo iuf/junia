@@ -31,9 +31,99 @@
 	"extra": {
 		"keeko": {
 			"module": {
-				"title": "Iuf Junia",
+				"title": "Junia",
 				"class": "iuf\\junia\\JuniaModule",
 				"actions": {
+					"event-create": {
+						"title": "Creates an event",
+						"class": "iuf\\junia\\action\\EventCreateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventCreateJsonResponder"
+						}
+					},
+					"event-read": {
+						"title": "Reads an event",
+						"class": "iuf\\junia\\action\\EventReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventReadJsonResponder"
+						}
+					},
+					"event-list": {
+						"title": "List all events",
+						"class": "iuf\\junia\\action\\EventListAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventListJsonResponder"
+						}
+					},
+					"event-update": {
+						"title": "Updates an event",
+						"class": "iuf\\junia\\action\\EventUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventUpdateJsonResponder"
+						}
+					},
+					"event-delete": {
+						"title": "Deletes an event",
+						"class": "iuf\\junia\\action\\EventDeleteAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventDeleteJsonResponder"
+						}
+					},
+					"event-to-startgroup-relationship-read": {
+						"title": "Reads the relationship of event to startgroup",
+						"class": "iuf\\junia\\action\\EventStartgroupReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventStartgroupJsonResponder"
+						}
+					},
+					"event-to-startgroup-relationship-add": {
+						"title": "Adds startgroup as relationship to event",
+						"class": "iuf\\junia\\action\\EventStartgroupAddAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventStartgroupJsonResponder"
+						}
+					},
+					"event-to-startgroup-relationship-update": {
+						"title": "Updates the relationship of event to startgroup",
+						"class": "iuf\\junia\\action\\EventStartgroupUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventStartgroupJsonResponder"
+						}
+					},
+					"event-to-startgroup-relationship-remove": {
+						"title": "Removes startgroup as relationship of event",
+						"class": "iuf\\junia\\action\\EventStartgroupRemoveAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\EventStartgroupJsonResponder"
+						}
+					},
 					"competition-create": {
 						"title": "Creates a competition",
 						"class": "iuf\\junia\\action\\CompetitionCreateAction",
@@ -82,6 +172,46 @@
 						],
 						"response": {
 							"json": "iuf\\junia\\responder\\CompetitionDeleteJsonResponder"
+						}
+					},
+					"competition-to-startgroup-relationship-read": {
+						"title": "Reads the relationship of competition to startgroup",
+						"class": "iuf\\junia\\action\\CompetitionStartgroupReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\CompetitionStartgroupJsonResponder"
+						}
+					},
+					"competition-to-startgroup-relationship-add": {
+						"title": "Adds startgroup as relationship to competition",
+						"class": "iuf\\junia\\action\\CompetitionStartgroupAddAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\CompetitionStartgroupJsonResponder"
+						}
+					},
+					"competition-to-startgroup-relationship-update": {
+						"title": "Updates the relationship of competition to startgroup",
+						"class": "iuf\\junia\\action\\CompetitionStartgroupUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\CompetitionStartgroupJsonResponder"
+						}
+					},
+					"competition-to-startgroup-relationship-remove": {
+						"title": "Removes startgroup as relationship of competition",
+						"class": "iuf\\junia\\action\\CompetitionStartgroupRemoveAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\CompetitionStartgroupJsonResponder"
 						}
 					},
 					"startgroup-create": {
@@ -174,6 +304,86 @@
 							"json": "iuf\\junia\\responder\\StartgroupEventJsonResponder"
 						}
 					},
+					"startgroup-to-routine-relationship-read": {
+						"title": "Reads the relationship of startgroup to routine",
+						"class": "iuf\\junia\\action\\StartgroupRoutineReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupRoutineJsonResponder"
+						}
+					},
+					"startgroup-to-routine-relationship-add": {
+						"title": "Adds routine as relationship to startgroup",
+						"class": "iuf\\junia\\action\\StartgroupRoutineAddAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupRoutineJsonResponder"
+						}
+					},
+					"startgroup-to-routine-relationship-update": {
+						"title": "Updates the relationship of startgroup to routine",
+						"class": "iuf\\junia\\action\\StartgroupRoutineUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupRoutineJsonResponder"
+						}
+					},
+					"startgroup-to-routine-relationship-remove": {
+						"title": "Removes routine as relationship of startgroup",
+						"class": "iuf\\junia\\action\\StartgroupRoutineRemoveAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupRoutineJsonResponder"
+						}
+					},
+					"startgroup-to-judge-relationship-read": {
+						"title": "Reads the relationship of startgroup to judge",
+						"class": "iuf\\junia\\action\\StartgroupJudgeReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupJudgeJsonResponder"
+						}
+					},
+					"startgroup-to-judge-relationship-add": {
+						"title": "Adds judge as relationship to startgroup",
+						"class": "iuf\\junia\\action\\StartgroupJudgeAddAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupJudgeJsonResponder"
+						}
+					},
+					"startgroup-to-judge-relationship-update": {
+						"title": "Updates the relationship of startgroup to judge",
+						"class": "iuf\\junia\\action\\StartgroupJudgeUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupJudgeJsonResponder"
+						}
+					},
+					"startgroup-to-judge-relationship-remove": {
+						"title": "Removes judge as relationship of startgroup",
+						"class": "iuf\\junia\\action\\StartgroupJudgeRemoveAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\StartgroupJudgeJsonResponder"
+						}
+					},
 					"routine-create": {
 						"title": "Creates a routine",
 						"class": "iuf\\junia\\action\\RoutineCreateAction",
@@ -244,24 +454,124 @@
 							"json": "iuf\\junia\\responder\\RoutineStartgroupJsonResponder"
 						}
 					},
-					"routine-to-performance_statistics-relationship-read": {
-						"title": "Reads the relationship of routine to performance_statistics",
-						"class": "iuf\\junia\\action\\RoutinePerformanceStatisticsReadAction",
+					"routine-to-performance_total_statistic-relationship-read": {
+						"title": "Reads the relationship of routine to performance_total_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceTotalStatisticReadAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\RoutinePerformanceStatisticsJsonResponder"
+							"json": "iuf\\junia\\responder\\RoutinePerformanceTotalStatisticJsonResponder"
 						}
 					},
-					"routine-to-performance_statistics-relationship-update": {
-						"title": "Updates the relationship of routine to performance_statistics",
-						"class": "iuf\\junia\\action\\RoutinePerformanceStatisticsUpdateAction",
+					"routine-to-performance_total_statistic-relationship-update": {
+						"title": "Updates the relationship of routine to performance_total_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceTotalStatisticUpdateAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\RoutinePerformanceStatisticsJsonResponder"
+							"json": "iuf\\junia\\responder\\RoutinePerformanceTotalStatisticJsonResponder"
+						}
+					},
+					"routine-to-performance_execution_statistic-relationship-read": {
+						"title": "Reads the relationship of routine to performance_execution_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceExecutionStatisticReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceExecutionStatisticJsonResponder"
+						}
+					},
+					"routine-to-performance_execution_statistic-relationship-update": {
+						"title": "Updates the relationship of routine to performance_execution_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceExecutionStatisticUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceExecutionStatisticJsonResponder"
+						}
+					},
+					"routine-to-performance_choreography_statistic-relationship-read": {
+						"title": "Reads the relationship of routine to performance_choreography_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceChoreographyStatisticReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceChoreographyStatisticJsonResponder"
+						}
+					},
+					"routine-to-performance_choreography_statistic-relationship-update": {
+						"title": "Updates the relationship of routine to performance_choreography_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceChoreographyStatisticUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceChoreographyStatisticJsonResponder"
+						}
+					},
+					"routine-to-performance_music_and_timing_statistic-relationship-read": {
+						"title": "Reads the relationship of routine to performance_music_and_timing_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceMusicAndTimingStatisticReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceMusicAndTimingStatisticJsonResponder"
+						}
+					},
+					"routine-to-performance_music_and_timing_statistic-relationship-update": {
+						"title": "Updates the relationship of routine to performance_music_and_timing_statistic",
+						"class": "iuf\\junia\\action\\RoutinePerformanceMusicAndTimingStatisticUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceMusicAndTimingStatisticJsonResponder"
+						}
+					},
+					"routine-to-performance_score-relationship-read": {
+						"title": "Reads the relationship of routine to performance_score",
+						"class": "iuf\\junia\\action\\RoutinePerformanceScoreReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceScoreJsonResponder"
+						}
+					},
+					"routine-to-performance_score-relationship-add": {
+						"title": "Adds performance_score as relationship to routine",
+						"class": "iuf\\junia\\action\\RoutinePerformanceScoreAddAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceScoreJsonResponder"
+						}
+					},
+					"routine-to-performance_score-relationship-update": {
+						"title": "Updates the relationship of routine to performance_score",
+						"class": "iuf\\junia\\action\\RoutinePerformanceScoreUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceScoreJsonResponder"
+						}
+					},
+					"routine-to-performance_score-relationship-remove": {
+						"title": "Removes performance_score as relationship of routine",
+						"class": "iuf\\junia\\action\\RoutinePerformanceScoreRemoveAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\RoutinePerformanceScoreJsonResponder"
 						}
 					},
 					"judge-create": {
@@ -354,94 +664,24 @@
 							"json": "iuf\\junia\\responder\\JudgeUserJsonResponder"
 						}
 					},
-					"score-create": {
-						"title": "Creates a score",
-						"class": "iuf\\junia\\action\\ScoreCreateAction",
+					"judge-to-performance_score-relationship-read": {
+						"title": "Reads the relationship of judge to performance_score",
+						"class": "iuf\\junia\\action\\JudgePerformanceScoreReadAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\ScoreCreateJsonResponder"
+							"json": "iuf\\junia\\responder\\JudgePerformanceScoreJsonResponder"
 						}
 					},
-					"score-read": {
-						"title": "Reads a score",
-						"class": "iuf\\junia\\action\\ScoreReadAction",
+					"judge-to-performance_score-relationship-update": {
+						"title": "Updates the relationship of judge to performance_score",
+						"class": "iuf\\junia\\action\\JudgePerformanceScoreUpdateAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\ScoreReadJsonResponder"
-						}
-					},
-					"score-list": {
-						"title": "List all scores",
-						"class": "iuf\\junia\\action\\ScoreListAction",
-						"acl": [
-							"admin"
-						],
-						"response": {
-							"json": "iuf\\junia\\responder\\ScoreListJsonResponder"
-						}
-					},
-					"score-update": {
-						"title": "Updates a score",
-						"class": "iuf\\junia\\action\\ScoreUpdateAction",
-						"acl": [
-							"admin"
-						],
-						"response": {
-							"json": "iuf\\junia\\responder\\ScoreUpdateJsonResponder"
-						}
-					},
-					"score-delete": {
-						"title": "Deletes a score",
-						"class": "iuf\\junia\\action\\ScoreDeleteAction",
-						"acl": [
-							"admin"
-						],
-						"response": {
-							"json": "iuf\\junia\\responder\\ScoreDeleteJsonResponder"
-						}
-					},
-					"score-to-routine-relationship-read": {
-						"title": "Reads the relationship of score to routine",
-						"class": "iuf\\junia\\action\\ScoreRoutineReadAction",
-						"acl": [
-							"admin"
-						],
-						"response": {
-							"json": "iuf\\junia\\responder\\ScoreRoutineJsonResponder"
-						}
-					},
-					"score-to-routine-relationship-update": {
-						"title": "Updates the relationship of score to routine",
-						"class": "iuf\\junia\\action\\ScoreRoutineUpdateAction",
-						"acl": [
-							"admin"
-						],
-						"response": {
-							"json": "iuf\\junia\\responder\\ScoreRoutineJsonResponder"
-						}
-					},
-					"score-to-judge-relationship-read": {
-						"title": "Reads the relationship of score to judge",
-						"class": "iuf\\junia\\action\\ScoreJudgeReadAction",
-						"acl": [
-							"admin"
-						],
-						"response": {
-							"json": "iuf\\junia\\responder\\ScoreJudgeJsonResponder"
-						}
-					},
-					"score-to-judge-relationship-update": {
-						"title": "Updates the relationship of score to judge",
-						"class": "iuf\\junia\\action\\ScoreJudgeUpdateAction",
-						"acl": [
-							"admin"
-						],
-						"response": {
-							"json": "iuf\\junia\\responder\\ScoreJudgeJsonResponder"
+							"json": "iuf\\junia\\responder\\JudgePerformanceScoreJsonResponder"
 						}
 					},
 					"performance_score-create": {
@@ -534,54 +774,74 @@
 							"json": "iuf\\junia\\responder\\PerformanceScoreJudgeJsonResponder"
 						}
 					},
-					"performance_statistics-create": {
-						"title": "Creates a performance-statistics",
-						"class": "iuf\\junia\\action\\PerformanceStatisticsCreateAction",
+					"performance_statistic-create": {
+						"title": "Creates a performance-statistic",
+						"class": "iuf\\junia\\action\\PerformanceStatisticCreateAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\PerformanceStatisticsCreateJsonResponder"
+							"json": "iuf\\junia\\responder\\PerformanceStatisticCreateJsonResponder"
 						}
 					},
-					"performance_statistics-read": {
-						"title": "Reads a performance-statistics",
-						"class": "iuf\\junia\\action\\PerformanceStatisticsReadAction",
+					"performance_statistic-read": {
+						"title": "Reads a performance-statistic",
+						"class": "iuf\\junia\\action\\PerformanceStatisticReadAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\PerformanceStatisticsReadJsonResponder"
+							"json": "iuf\\junia\\responder\\PerformanceStatisticReadJsonResponder"
 						}
 					},
-					"performance_statistics-list": {
-						"title": "List all performance-statisticss",
-						"class": "iuf\\junia\\action\\PerformanceStatisticsListAction",
+					"performance_statistic-list": {
+						"title": "List all performance-statistics",
+						"class": "iuf\\junia\\action\\PerformanceStatisticListAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\PerformanceStatisticsListJsonResponder"
+							"json": "iuf\\junia\\responder\\PerformanceStatisticListJsonResponder"
 						}
 					},
-					"performance_statistics-update": {
-						"title": "Updates a performance-statistics",
-						"class": "iuf\\junia\\action\\PerformanceStatisticsUpdateAction",
+					"performance_statistic-update": {
+						"title": "Updates a performance-statistic",
+						"class": "iuf\\junia\\action\\PerformanceStatisticUpdateAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\PerformanceStatisticsUpdateJsonResponder"
+							"json": "iuf\\junia\\responder\\PerformanceStatisticUpdateJsonResponder"
 						}
 					},
-					"performance_statistics-delete": {
-						"title": "Deletes a performance-statistics",
-						"class": "iuf\\junia\\action\\PerformanceStatisticsDeleteAction",
+					"performance_statistic-delete": {
+						"title": "Deletes a performance-statistic",
+						"class": "iuf\\junia\\action\\PerformanceStatisticDeleteAction",
 						"acl": [
 							"admin"
 						],
 						"response": {
-							"json": "iuf\\junia\\responder\\PerformanceStatisticsDeleteJsonResponder"
+							"json": "iuf\\junia\\responder\\PerformanceStatisticDeleteJsonResponder"
+						}
+					},
+					"performance_statistic-to-routine-relationship-read": {
+						"title": "Reads the relationship of performance_statistic to routine",
+						"class": "iuf\\junia\\action\\PerformanceStatisticRoutineReadAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\PerformanceStatisticRoutineJsonResponder"
+						}
+					},
+					"performance_statistic-to-routine-relationship-update": {
+						"title": "Updates the relationship of performance_statistic to routine",
+						"class": "iuf\\junia\\action\\PerformanceStatisticRoutineUpdateAction",
+						"acl": [
+							"admin"
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\PerformanceStatisticRoutineJsonResponder"
 						}
 					}
 				}

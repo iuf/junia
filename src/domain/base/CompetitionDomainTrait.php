@@ -17,6 +17,7 @@ use keeko\framework\domain\payload\Updated;
 use keeko\framework\domain\payload\NotUpdated;
 use keeko\framework\domain\payload\Deleted;
 use keeko\framework\domain\payload\NotDeleted;
+use iuf\junia\model\StartgroupQuery;
 
 /**
  */
@@ -25,6 +26,51 @@ trait CompetitionDomainTrait {
 	/**
 	 */
 	protected $pool;
+
+	/**
+	 * Adds Startgroups to Competition
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function addStartgroups($id, $data) {
+		// find
+		$competition = $this->get($id);
+
+		if ($competition === null) {
+			return new NotFound(['message' => 'Competition not found.']);
+		}
+		 
+		// update
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Startgroup';
+			}
+			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
+			$competition->addStartgroup($startgroup);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new CompetitionEvent($competition);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(CompetitionEvent::PRE_STARTGROUPS_ADD, $event);
+		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
+		$rows = $competition->save();
+		$dispatcher->dispatch(CompetitionEvent::POST_STARTGROUPS_ADD, $event);
+		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $competition]);
+		}
+
+		return NotUpdated(['model' => $competition]);
+	}
 
 	/**
 	 * Creates a new Competition with the provided data
@@ -137,6 +183,51 @@ trait CompetitionDomainTrait {
 	}
 
 	/**
+	 * Removes Startgroups from Competition
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function removeStartgroups($id, $data) {
+		// find
+		$competition = $this->get($id);
+
+		if ($competition === null) {
+			return new NotFound(['message' => 'Competition not found.']);
+		}
+
+		// remove them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Startgroup';
+			}
+			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
+			$competition->removeStartgroup($startgroup);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new CompetitionEvent($competition);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(CompetitionEvent::PRE_STARTGROUPS_REMOVE, $event);
+		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
+		$rows = $competition->save();
+		$dispatcher->dispatch(CompetitionEvent::POST_STARTGROUPS_REMOVE, $event);
+		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $competition]);
+		}
+
+		return NotUpdated(['model' => $competition]);
+	}
+
+	/**
 	 * Updates a Competition with the given idand the provided data
 	 * 
 	 * @param mixed $id
@@ -179,6 +270,54 @@ trait CompetitionDomainTrait {
 		}
 
 		return new Updated($payload);
+	}
+
+	/**
+	 * Updates Startgroups on Competition
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function updateStartgroups($id, $data) {
+		// find
+		$competition = $this->get($id);
+
+		if ($competition === null) {
+			return new NotFound(['message' => 'Competition not found.']);
+		}
+
+		// remove all relationships before
+		StartgroupQuery::create()->filterByCompetition($competition)->delete();
+
+		// add them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Startgroup';
+			}
+			$startgroup = StartgroupQuery::create()->findOneById($entry['id']);
+			$competition->addStartgroup($startgroup);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new CompetitionEvent($competition);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(CompetitionEvent::PRE_STARTGROUPS_UPDATE, $event);
+		$dispatcher->dispatch(CompetitionEvent::PRE_SAVE, $event);
+		$rows = $competition->save();
+		$dispatcher->dispatch(CompetitionEvent::POST_STARTGROUPS_UPDATE, $event);
+		$dispatcher->dispatch(CompetitionEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $competition]);
+		}
+
+		return NotUpdated(['model' => $competition]);
 	}
 
 	/**

@@ -87,24 +87,24 @@ class RoutineTableMap extends TableMap
     const COL_STARTGROUP_ID = 'kk_junia_routine.startgroup_id';
 
     /**
-     * the column name for the performance_total_statistics_id field
+     * the column name for the performance_total_statistic_id field
      */
-    const COL_PERFORMANCE_TOTAL_STATISTICS_ID = 'kk_junia_routine.performance_total_statistics_id';
+    const COL_PERFORMANCE_TOTAL_STATISTIC_ID = 'kk_junia_routine.performance_total_statistic_id';
 
     /**
-     * the column name for the performance_execution_statistics_id field
+     * the column name for the performance_execution_statistic_id field
      */
-    const COL_PERFORMANCE_EXECUTION_STATISTICS_ID = 'kk_junia_routine.performance_execution_statistics_id';
+    const COL_PERFORMANCE_EXECUTION_STATISTIC_ID = 'kk_junia_routine.performance_execution_statistic_id';
 
     /**
-     * the column name for the performance_choreography_statistics_id field
+     * the column name for the performance_choreography_statistic_id field
      */
-    const COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID = 'kk_junia_routine.performance_choreography_statistics_id';
+    const COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID = 'kk_junia_routine.performance_choreography_statistic_id';
 
     /**
-     * the column name for the performance_music_and_timing_statistics_id field
+     * the column name for the performance_music_and_timing_statistic_id field
      */
-    const COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID = 'kk_junia_routine.performance_music_and_timing_statistics_id';
+    const COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID = 'kk_junia_routine.performance_music_and_timing_statistic_id';
 
     /**
      * The default string format for model objects of the related table
@@ -118,10 +118,10 @@ class RoutineTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'StartgroupId', 'PerformanceTotalStatisticsId', 'PerformanceExecutionStatisticsId', 'PerformanceChoreographyStatisticsId', 'PerformanceMusicAndTimingStatisticsId', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'startgroupId', 'performanceTotalStatisticsId', 'performanceExecutionStatisticsId', 'performanceChoreographyStatisticsId', 'performanceMusicAndTimingStatisticsId', ),
-        self::TYPE_COLNAME       => array(RoutineTableMap::COL_ID, RoutineTableMap::COL_NAME, RoutineTableMap::COL_STARTGROUP_ID, RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID, RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID, RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID, RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'startgroup_id', 'performance_total_statistics_id', 'performance_execution_statistics_id', 'performance_choreography_statistics_id', 'performance_music_and_timing_statistics_id', ),
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'StartgroupId', 'PerformanceTotalStatisticId', 'PerformanceExecutionStatisticId', 'PerformanceChoreographyStatisticId', 'PerformanceMusicAndTimingStatisticId', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'startgroupId', 'performanceTotalStatisticId', 'performanceExecutionStatisticId', 'performanceChoreographyStatisticId', 'performanceMusicAndTimingStatisticId', ),
+        self::TYPE_COLNAME       => array(RoutineTableMap::COL_ID, RoutineTableMap::COL_NAME, RoutineTableMap::COL_STARTGROUP_ID, RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'startgroup_id', 'performance_total_statistic_id', 'performance_execution_statistic_id', 'performance_choreography_statistic_id', 'performance_music_and_timing_statistic_id', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
 
@@ -132,10 +132,10 @@ class RoutineTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'StartgroupId' => 2, 'PerformanceTotalStatisticsId' => 3, 'PerformanceExecutionStatisticsId' => 4, 'PerformanceChoreographyStatisticsId' => 5, 'PerformanceMusicAndTimingStatisticsId' => 6, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'startgroupId' => 2, 'performanceTotalStatisticsId' => 3, 'performanceExecutionStatisticsId' => 4, 'performanceChoreographyStatisticsId' => 5, 'performanceMusicAndTimingStatisticsId' => 6, ),
-        self::TYPE_COLNAME       => array(RoutineTableMap::COL_ID => 0, RoutineTableMap::COL_NAME => 1, RoutineTableMap::COL_STARTGROUP_ID => 2, RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID => 3, RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID => 4, RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID => 5, RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID => 6, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'startgroup_id' => 2, 'performance_total_statistics_id' => 3, 'performance_execution_statistics_id' => 4, 'performance_choreography_statistics_id' => 5, 'performance_music_and_timing_statistics_id' => 6, ),
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'StartgroupId' => 2, 'PerformanceTotalStatisticId' => 3, 'PerformanceExecutionStatisticId' => 4, 'PerformanceChoreographyStatisticId' => 5, 'PerformanceMusicAndTimingStatisticId' => 6, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'startgroupId' => 2, 'performanceTotalStatisticId' => 3, 'performanceExecutionStatisticId' => 4, 'performanceChoreographyStatisticId' => 5, 'performanceMusicAndTimingStatisticId' => 6, ),
+        self::TYPE_COLNAME       => array(RoutineTableMap::COL_ID => 0, RoutineTableMap::COL_NAME => 1, RoutineTableMap::COL_STARTGROUP_ID => 2, RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID => 3, RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID => 4, RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID => 5, RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID => 6, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'startgroup_id' => 2, 'performance_total_statistic_id' => 3, 'performance_execution_statistic_id' => 4, 'performance_choreography_statistic_id' => 5, 'performance_music_and_timing_statistic_id' => 6, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
 
@@ -159,10 +159,10 @@ class RoutineTableMap extends TableMap
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('name', 'Name', 'VARCHAR', false, 100, null);
         $this->addForeignKey('startgroup_id', 'StartgroupId', 'INTEGER', 'kk_junia_startgroup', 'id', true, 10, null);
-        $this->addForeignKey('performance_total_statistics_id', 'PerformanceTotalStatisticsId', 'INTEGER', 'kk_junia_performance_statistics', 'id', false, 10, null);
-        $this->addForeignKey('performance_execution_statistics_id', 'PerformanceExecutionStatisticsId', 'INTEGER', 'kk_junia_performance_statistics', 'id', false, 10, null);
-        $this->addForeignKey('performance_choreography_statistics_id', 'PerformanceChoreographyStatisticsId', 'INTEGER', 'kk_junia_performance_statistics', 'id', false, 10, null);
-        $this->addForeignKey('performance_music_and_timing_statistics_id', 'PerformanceMusicAndTimingStatisticsId', 'INTEGER', 'kk_junia_performance_statistics', 'id', false, 10, null);
+        $this->addForeignKey('performance_total_statistic_id', 'PerformanceTotalStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
+        $this->addForeignKey('performance_execution_statistic_id', 'PerformanceExecutionStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
+        $this->addForeignKey('performance_choreography_statistic_id', 'PerformanceChoreographyStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
+        $this->addForeignKey('performance_music_and_timing_statistic_id', 'PerformanceMusicAndTimingStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
     } // initialize()
 
     /**
@@ -177,31 +177,31 @@ class RoutineTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, null, false);
-        $this->addRelation('PerformanceStatisticsRelatedByPerformanceTotalStatisticsId', '\\iuf\\junia\\model\\PerformanceStatistics', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('PerformanceTotalStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':performance_total_statistics_id',
+    0 => ':performance_total_statistic_id',
     1 => ':id',
   ),
 ), null, null, null, false);
-        $this->addRelation('PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId', '\\iuf\\junia\\model\\PerformanceStatistics', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('PerformanceExecutionStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':performance_execution_statistics_id',
+    0 => ':performance_execution_statistic_id',
     1 => ':id',
   ),
 ), null, null, null, false);
-        $this->addRelation('PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId', '\\iuf\\junia\\model\\PerformanceStatistics', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('PerformanceChoreographyStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':performance_choreography_statistics_id',
+    0 => ':performance_choreography_statistic_id',
     1 => ':id',
   ),
 ), null, null, null, false);
-        $this->addRelation('PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId', '\\iuf\\junia\\model\\PerformanceStatistics', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('PerformanceMusicAndTimingStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':performance_music_and_timing_statistics_id',
+    0 => ':performance_music_and_timing_statistic_id',
     1 => ':id',
   ),
 ), null, null, null, false);
@@ -365,18 +365,18 @@ class RoutineTableMap extends TableMap
             $criteria->addSelectColumn(RoutineTableMap::COL_ID);
             $criteria->addSelectColumn(RoutineTableMap::COL_NAME);
             $criteria->addSelectColumn(RoutineTableMap::COL_STARTGROUP_ID);
-            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID);
-            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID);
-            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID);
-            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID);
+            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID);
+            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID);
+            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID);
+            $criteria->addSelectColumn(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
             $criteria->addSelectColumn($alias . '.startgroup_id');
-            $criteria->addSelectColumn($alias . '.performance_total_statistics_id');
-            $criteria->addSelectColumn($alias . '.performance_execution_statistics_id');
-            $criteria->addSelectColumn($alias . '.performance_choreography_statistics_id');
-            $criteria->addSelectColumn($alias . '.performance_music_and_timing_statistics_id');
+            $criteria->addSelectColumn($alias . '.performance_total_statistic_id');
+            $criteria->addSelectColumn($alias . '.performance_execution_statistic_id');
+            $criteria->addSelectColumn($alias . '.performance_choreography_statistic_id');
+            $criteria->addSelectColumn($alias . '.performance_music_and_timing_statistic_id');
         }
     }
 

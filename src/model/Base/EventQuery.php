@@ -1,6 +1,6 @@
 <?php
 
-namespace iuf\junia\model\iuf\junia\model\Base;
+namespace iuf\junia\model\Base;
 
 use \Exception;
 use \PDO;
@@ -11,10 +11,9 @@ use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
-use iuf\junia\model\Startgroup;
-use iuf\junia\model\iuf\junia\model\Event as ChildEvent;
-use iuf\junia\model\iuf\junia\model\EventQuery as ChildEventQuery;
-use iuf\junia\model\iuf\junia\model\Map\EventTableMap;
+use iuf\junia\model\Event as ChildEvent;
+use iuf\junia\model\EventQuery as ChildEventQuery;
+use iuf\junia\model\Map\EventTableMap;
 
 /**
  * Base class that represents a query for the 'kk_junia_event' table.
@@ -70,13 +69,13 @@ abstract class EventQuery extends ModelCriteria
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \iuf\junia\model\iuf\junia\model\Base\EventQuery object.
+     * Initializes internal state of \iuf\junia\model\Base\EventQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'keeko', $modelName = '\\iuf\\junia\\model\\iuf\\junia\\model\\Event', $modelAlias = null)
+    public function __construct($dbName = 'keeko', $modelName = '\\iuf\\junia\\model\\Event', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }

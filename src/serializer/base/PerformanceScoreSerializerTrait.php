@@ -19,10 +19,10 @@ trait PerformanceScoreSerializerTrait {
 		return [
 			'execution' => $model->getExecution(),
 			'choreography' => $model->getChoreography(),
-			'music_and_timing' => $model->getMusicAndTiming(),
+			'music-and-timing' => $model->getMusicAndTiming(),
 			'id' => $model->getId(),
-			'routine_id' => $model->getRoutineId(),
-			'judge_id' => $model->getJudgeId(),
+			'routine-id' => $model->getRoutineId(),
+			'judge-id' => $model->getJudgeId(),
 			'total' => $model->getTotal(),
 		];
 	}
@@ -30,7 +30,7 @@ trait PerformanceScoreSerializerTrait {
 	/**
 	 */
 	public function getFields() {
-		return ['execution', 'choreography', 'music_and_timing', 'id', 'routine_id', 'judge_id', 'total'];
+		return ['execution', 'choreography', 'music-and-timing', 'id', 'routine-id', 'judge-id', 'total'];
 	}
 
 	/**
@@ -53,7 +53,7 @@ trait PerformanceScoreSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['execution', 'choreography', 'music_and_timing', 'id', 'routine_id', 'judge_id', 'total'];
+		return ['execution', 'choreography', 'music-and-timing', 'id', 'routine-id', 'judge-id', 'total'];
 	}
 
 	/**
@@ -73,7 +73,7 @@ trait PerformanceScoreSerializerTrait {
 		// attributes
 		$attribs = isset($data['attributes']) ? $data['attributes'] : [];
 
-		$model = HydrateUtils::hydrate($attribs, $model, ['execution', 'choreography', 'music_and_timing', 'id', 'routine_id', 'judge_id', 'total']);
+		$model = HydrateUtils::hydrate($attribs, $model, ['execution', 'choreography', 'music-and-timing', 'id', 'routine-id', 'judge-id', 'total']);
 
 		// relationships
 		$this->hydrateRelationships($model, $data);

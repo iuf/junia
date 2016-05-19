@@ -2,6 +2,9 @@
 namespace iuf\junia\serializer\base;
 
 use keeko\framework\utils\HydrateUtils;
+use Tobscure\JsonApi\Relationship;
+use iuf\junia\model\Startgroup;
+use Tobscure\JsonApi\Collection;
 
 /**
  */
@@ -36,6 +39,7 @@ trait CompetitionSerializerTrait {
 	 */
 	public function getRelationships() {
 		return [
+			'startgroups' => Startgroup::getSerializer()->getType(null)
 		];
 	}
 
@@ -69,6 +73,23 @@ trait CompetitionSerializerTrait {
 
 		return $model;
 	}
+
+	/**
+	 * @param mixed $model
+	 * @return Relationship
+	 */
+	public function startgroups($model) {
+		$relationship = new Relationship(new Collection($model->getStartgroups(), Startgroup::getSerializer()));
+		return $this->addRelationshipSelfLink($relationship, $model, 'startgroup');
+	}
+
+	/**
+	 * @param Relationship $relationship
+	 * @param mixed $model
+	 * @param string $related
+	 * @return Relationship
+	 */
+	abstract protected function addRelationshipSelfLink(Relationship $relationship, $model, $related);
 
 	/**
 	 * @param mixed $model

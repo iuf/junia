@@ -1,0 +1,22 @@
+{
+	"models": {
+	    "routine": {
+	        "relationships": {
+	            "routine_fk_performance_total": "one-to-one",
+	            "routine_fk_performance_execution": "one-to-one",
+	            "routine_fk_performance_choreography": "one-to-one",
+	            "routine_fk_performance_music_and_timing": "one-to-one"
+	        }
+	    },
+	    "performance_score": {
+	        "relationships": {
+	            "performance_score_fk_judge": "one-to-one"
+	        }
+	    },
+	    "judge": {
+	        "relationships": {
+	            "judge_fk_user": "one-to-one"
+	        }
+	    }
+	}
+}

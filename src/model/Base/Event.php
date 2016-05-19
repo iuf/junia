@@ -1,6 +1,6 @@
 <?php
 
-namespace iuf\junia\model\iuf\junia\model\Base;
+namespace iuf\junia\model\Base;
 
 use \DateTime;
 use \Exception;
@@ -18,12 +18,11 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 use Propel\Runtime\Util\PropelDateTime;
-use iuf\junia\model\Startgroup;
-use iuf\junia\model\StartgroupQuery;
-use iuf\junia\model\Base\Startgroup as BaseStartgroup;
-use iuf\junia\model\iuf\junia\model\Event as ChildEvent;
-use iuf\junia\model\iuf\junia\model\EventQuery as ChildEventQuery;
-use iuf\junia\model\iuf\junia\model\Map\EventTableMap;
+use iuf\junia\model\Event as ChildEvent;
+use iuf\junia\model\EventQuery as ChildEventQuery;
+use iuf\junia\model\Startgroup as ChildStartgroup;
+use iuf\junia\model\StartgroupQuery as ChildStartgroupQuery;
+use iuf\junia\model\Map\EventTableMap;
 
 /**
  * Base class that represents a row from the 'kk_junia_event' table.
@@ -37,7 +36,7 @@ abstract class Event implements ActiveRecordInterface
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\iuf\\junia\\model\\iuf\\junia\\model\\Map\\EventTableMap';
+    const TABLE_MAP = '\\iuf\\junia\\model\\Map\\EventTableMap';
 
 
     /**
@@ -91,7 +90,7 @@ abstract class Event implements ActiveRecordInterface
     protected $end;
 
     /**
-     * @var        ObjectCollection|Startgroup[] Collection to store aggregation of Startgroup objects.
+     * @var        ObjectCollection|ChildStartgroup[] Collection to store aggregation of ChildStartgroup objects.
      */
     protected $collStartgroups;
     protected $collStartgroupsPartial;
@@ -106,12 +105,12 @@ abstract class Event implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|Startgroup[]
+     * @var ObjectCollection|ChildStartgroup[]
      */
     protected $startgroupsScheduledForDeletion = null;
 
     /**
-     * Initializes internal state of iuf\junia\model\iuf\junia\model\Base\Event object.
+     * Initializes internal state of iuf\junia\model\Base\Event object.
      */
     public function __construct()
     {
@@ -391,7 +390,7 @@ abstract class Event implements ActiveRecordInterface
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event The current object (for fluent API support)
+     * @return $this|\iuf\junia\model\Event The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -411,7 +410,7 @@ abstract class Event implements ActiveRecordInterface
      * Set the value of [name] column.
      *
      * @param string $v new value
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event The current object (for fluent API support)
+     * @return $this|\iuf\junia\model\Event The current object (for fluent API support)
      */
     public function setName($v)
     {
@@ -432,7 +431,7 @@ abstract class Event implements ActiveRecordInterface
      *
      * @param  mixed $v string, integer (timestamp), or \DateTime value.
      *               Empty strings are treated as NULL.
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event The current object (for fluent API support)
+     * @return $this|\iuf\junia\model\Event The current object (for fluent API support)
      */
     public function setStart($v)
     {
@@ -452,7 +451,7 @@ abstract class Event implements ActiveRecordInterface
      *
      * @param  mixed $v string, integer (timestamp), or \DateTime value.
      *               Empty strings are treated as NULL.
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event The current object (for fluent API support)
+     * @return $this|\iuf\junia\model\Event The current object (for fluent API support)
      */
     public function setEnd($v)
     {
@@ -531,7 +530,7 @@ abstract class Event implements ActiveRecordInterface
             return $startcol + 4; // 4 = EventTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\iuf\\junia\\model\\iuf\\junia\\model\\Event'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\iuf\\junia\\model\\Event'), 0, $e);
         }
     }
 
@@ -937,7 +936,7 @@ abstract class Event implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event
+     * @return $this|\iuf\junia\model\Event
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
@@ -952,7 +951,7 @@ abstract class Event implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event
+     * @return $this|\iuf\junia\model\Event
      */
     public function setByPosition($pos, $value)
     {
@@ -1026,7 +1025,7 @@ abstract class Event implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event The current object, for fluid interface
+     * @return $this|\iuf\junia\model\Event The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1139,7 +1138,7 @@ abstract class Event implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \iuf\junia\model\iuf\junia\model\Event (or compatible) type.
+     * @param      object $copyObj An object of \iuf\junia\model\Event (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1178,7 +1177,7 @@ abstract class Event implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \iuf\junia\model\iuf\junia\model\Event Clone of current object.
+     * @return \iuf\junia\model\Event Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1251,7 +1250,7 @@ abstract class Event implements ActiveRecordInterface
     }
 
     /**
-     * Gets an array of Startgroup objects which contain a foreign key that references this object.
+     * Gets an array of ChildStartgroup objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -1261,7 +1260,7 @@ abstract class Event implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|Startgroup[] List of Startgroup objects
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
      * @throws PropelException
      */
     public function getStartgroups(Criteria $criteria = null, ConnectionInterface $con = null)
@@ -1272,7 +1271,7 @@ abstract class Event implements ActiveRecordInterface
                 // return empty collection
                 $this->initStartgroups();
             } else {
-                $collStartgroups = StartgroupQuery::create(null, $criteria)
+                $collStartgroups = ChildStartgroupQuery::create(null, $criteria)
                     ->filterByEvent($this)
                     ->find($con);
 
@@ -1309,7 +1308,7 @@ abstract class Event implements ActiveRecordInterface
     }
 
     /**
-     * Sets a collection of Startgroup objects related by a one-to-many relationship
+     * Sets a collection of ChildStartgroup objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
@@ -1320,7 +1319,7 @@ abstract class Event implements ActiveRecordInterface
      */
     public function setStartgroups(Collection $startgroups, ConnectionInterface $con = null)
     {
-        /** @var Startgroup[] $startgroupsToDelete */
+        /** @var ChildStartgroup[] $startgroupsToDelete */
         $startgroupsToDelete = $this->getStartgroups(new Criteria(), $con)->diff($startgroups);
 
 
@@ -1342,12 +1341,12 @@ abstract class Event implements ActiveRecordInterface
     }
 
     /**
-     * Returns the number of related BaseStartgroup objects.
+     * Returns the number of related Startgroup objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related BaseStartgroup objects.
+     * @return int             Count of related Startgroup objects.
      * @throws PropelException
      */
     public function countStartgroups(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
@@ -1362,7 +1361,7 @@ abstract class Event implements ActiveRecordInterface
                 return count($this->getStartgroups());
             }
 
-            $query = StartgroupQuery::create(null, $criteria);
+            $query = ChildStartgroupQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -1376,13 +1375,13 @@ abstract class Event implements ActiveRecordInterface
     }
 
     /**
-     * Method called to associate a Startgroup object to this object
-     * through the Startgroup foreign key attribute.
+     * Method called to associate a ChildStartgroup object to this object
+     * through the ChildStartgroup foreign key attribute.
      *
-     * @param  Startgroup $l Startgroup
-     * @return $this|\iuf\junia\model\iuf\junia\model\Event The current object (for fluent API support)
+     * @param  ChildStartgroup $l ChildStartgroup
+     * @return $this|\iuf\junia\model\Event The current object (for fluent API support)
      */
-    public function addStartgroup(Startgroup $l)
+    public function addStartgroup(ChildStartgroup $l)
     {
         if ($this->collStartgroups === null) {
             $this->initStartgroups();
@@ -1397,19 +1396,19 @@ abstract class Event implements ActiveRecordInterface
     }
 
     /**
-     * @param Startgroup $startgroup The Startgroup object to add.
+     * @param ChildStartgroup $startgroup The ChildStartgroup object to add.
      */
-    protected function doAddStartgroup(Startgroup $startgroup)
+    protected function doAddStartgroup(ChildStartgroup $startgroup)
     {
         $this->collStartgroups[]= $startgroup;
         $startgroup->setEvent($this);
     }
 
     /**
-     * @param  Startgroup $startgroup The Startgroup object to remove.
+     * @param  ChildStartgroup $startgroup The ChildStartgroup object to remove.
      * @return $this|ChildEvent The current object (for fluent API support)
      */
-    public function removeStartgroup(Startgroup $startgroup)
+    public function removeStartgroup(ChildStartgroup $startgroup)
     {
         if ($this->getStartgroups()->contains($startgroup)) {
             $pos = $this->collStartgroups->search($startgroup);
@@ -1440,11 +1439,11 @@ abstract class Event implements ActiveRecordInterface
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|Startgroup[] List of Startgroup objects
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
      */
     public function getStartgroupsJoinCompetition(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
-        $query = StartgroupQuery::create(null, $criteria);
+        $query = ChildStartgroupQuery::create(null, $criteria);
         $query->joinWith('Competition', $joinBehavior);
 
         return $this->getStartgroups($query, $con);

@@ -17,6 +17,7 @@ use keeko\framework\domain\payload\Updated;
 use keeko\framework\domain\payload\NotUpdated;
 use keeko\framework\domain\payload\Deleted;
 use keeko\framework\domain\payload\NotDeleted;
+use iuf\junia\model\PerformanceScoreQuery;
 
 /**
  */
@@ -25,6 +26,51 @@ trait RoutineDomainTrait {
 	/**
 	 */
 	protected $pool;
+
+	/**
+	 * Adds PerformanceScores to Routine
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function addPerformanceScores($id, $data) {
+		// find
+		$routine = $this->get($id);
+
+		if ($routine === null) {
+			return new NotFound(['message' => 'Routine not found.']);
+		}
+		 
+		// update
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for PerformanceScore';
+			}
+			$performanceScore = PerformanceScoreQuery::create()->findOneById($entry['id']);
+			$routine->addPerformanceScore($performanceScore);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new RoutineEvent($routine);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_SCORES_ADD, $event);
+		$dispatcher->dispatch(RoutineEvent::PRE_SAVE, $event);
+		$rows = $routine->save();
+		$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_SCORES_ADD, $event);
+		$dispatcher->dispatch(RoutineEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $routine]);
+		}
+
+		return NotUpdated(['model' => $routine]);
+	}
 
 	/**
 	 * Creates a new Routine with the provided data
@@ -137,13 +183,58 @@ trait RoutineDomainTrait {
 	}
 
 	/**
-	 * Sets the PerformanceStatistics id
+	 * Removes PerformanceScores from Routine
 	 * 
 	 * @param mixed $id
-	 * @param mixed $performanceStatisticsId
+	 * @param mixed $data
 	 * @return PayloadInterface
 	 */
-	public function setPerformanceStatisticsId($id, $performanceStatisticsId) {
+	public function removePerformanceScores($id, $data) {
+		// find
+		$routine = $this->get($id);
+
+		if ($routine === null) {
+			return new NotFound(['message' => 'Routine not found.']);
+		}
+
+		// remove them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for PerformanceScore';
+			}
+			$performanceScore = PerformanceScoreQuery::create()->findOneById($entry['id']);
+			$routine->removePerformanceScore($performanceScore);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new RoutineEvent($routine);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_SCORES_REMOVE, $event);
+		$dispatcher->dispatch(RoutineEvent::PRE_SAVE, $event);
+		$rows = $routine->save();
+		$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_SCORES_REMOVE, $event);
+		$dispatcher->dispatch(RoutineEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $routine]);
+		}
+
+		return NotUpdated(['model' => $routine]);
+	}
+
+	/**
+	 * Sets the PerformanceChoreographyStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $performanceChoreographyStatisticId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceChoreographyStatisticId($id, $performanceChoreographyStatisticId) {
 		// find
 		$routine = $this->get($id);
 
@@ -152,15 +243,114 @@ trait RoutineDomainTrait {
 		}
 
 		// update
-		if ($routine->getPerformanceMusicAndTimingStatisticsId() !== $performanceStatisticsId) {
-			$routine->setPerformanceMusicAndTimingStatisticsId($performanceStatisticsId);
+		if ($routine->getPerformanceChoreographyStatisticId() !== $performanceChoreographyStatisticId) {
+			$routine->setPerformanceChoreographyStatisticId($performanceChoreographyStatisticId);
 
 			$event = new RoutineEvent($routine);
 			$dispatcher = $this->getServiceContainer()->getDispatcher();
-			$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_STATISTICS_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_CHOREOGRAPHY_STATISTIC_UPDATE, $event);
 			$dispatcher->dispatch(RoutineEvent::PRE_SAVE, $event);
 			$routine->save();
-			$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_STATISTICS_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_CHOREOGRAPHY_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $routine]);
+		}
+
+		return NotUpdated(['model' => $routine]);
+	}
+
+	/**
+	 * Sets the PerformanceExecutionStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $performanceExecutionStatisticId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceExecutionStatisticId($id, $performanceExecutionStatisticId) {
+		// find
+		$routine = $this->get($id);
+
+		if ($routine === null) {
+			return new NotFound(['message' => 'Routine not found.']);
+		}
+
+		// update
+		if ($routine->getPerformanceExecutionStatisticId() !== $performanceExecutionStatisticId) {
+			$routine->setPerformanceExecutionStatisticId($performanceExecutionStatisticId);
+
+			$event = new RoutineEvent($routine);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_EXECUTION_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::PRE_SAVE, $event);
+			$routine->save();
+			$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_EXECUTION_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $routine]);
+		}
+
+		return NotUpdated(['model' => $routine]);
+	}
+
+	/**
+	 * Sets the PerformanceMusicAndTimingStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $performanceMusicAndTimingStatisticId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceMusicAndTimingStatisticId($id, $performanceMusicAndTimingStatisticId) {
+		// find
+		$routine = $this->get($id);
+
+		if ($routine === null) {
+			return new NotFound(['message' => 'Routine not found.']);
+		}
+
+		// update
+		if ($routine->getPerformanceMusicAndTimingStatisticId() !== $performanceMusicAndTimingStatisticId) {
+			$routine->setPerformanceMusicAndTimingStatisticId($performanceMusicAndTimingStatisticId);
+
+			$event = new RoutineEvent($routine);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::PRE_SAVE, $event);
+			$routine->save();
+			$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $routine]);
+		}
+
+		return NotUpdated(['model' => $routine]);
+	}
+
+	/**
+	 * Sets the PerformanceTotalStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $performanceTotalStatisticId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceTotalStatisticId($id, $performanceTotalStatisticId) {
+		// find
+		$routine = $this->get($id);
+
+		if ($routine === null) {
+			return new NotFound(['message' => 'Routine not found.']);
+		}
+
+		// update
+		if ($routine->getPerformanceTotalStatisticId() !== $performanceTotalStatisticId) {
+			$routine->setPerformanceTotalStatisticId($performanceTotalStatisticId);
+
+			$event = new RoutineEvent($routine);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_TOTAL_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(RoutineEvent::PRE_SAVE, $event);
+			$routine->save();
+			$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_TOTAL_STATISTIC_UPDATE, $event);
 			$dispatcher->dispatch(RoutineEvent::POST_SAVE, $event);
 			
 			return Updated(['model' => $routine]);
@@ -245,6 +435,54 @@ trait RoutineDomainTrait {
 		}
 
 		return new Updated($payload);
+	}
+
+	/**
+	 * Updates PerformanceScores on Routine
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function updatePerformanceScores($id, $data) {
+		// find
+		$routine = $this->get($id);
+
+		if ($routine === null) {
+			return new NotFound(['message' => 'Routine not found.']);
+		}
+
+		// remove all relationships before
+		PerformanceScoreQuery::create()->filterByRoutine($routine)->delete();
+
+		// add them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for PerformanceScore';
+			}
+			$performanceScore = PerformanceScoreQuery::create()->findOneById($entry['id']);
+			$routine->addPerformanceScore($performanceScore);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new RoutineEvent($routine);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(RoutineEvent::PRE_PERFORMANCE_SCORES_UPDATE, $event);
+		$dispatcher->dispatch(RoutineEvent::PRE_SAVE, $event);
+		$rows = $routine->save();
+		$dispatcher->dispatch(RoutineEvent::POST_PERFORMANCE_SCORES_UPDATE, $event);
+		$dispatcher->dispatch(RoutineEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $routine]);
+		}
+
+		return NotUpdated(['model' => $routine]);
 	}
 
 	/**

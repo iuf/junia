@@ -6,6 +6,7 @@ use Tobscure\JsonApi\Relationship;
 use iuf\junia\model\Startgroup;
 use Tobscure\JsonApi\Resource;
 use keeko\core\model\User;
+use iuf\junia\model\PerformanceScore;
 
 /**
  */
@@ -19,15 +20,15 @@ trait JudgeSerializerTrait {
 		return [
 			'id' => $model->getId(),
 			'position' => $model->getPosition(),
-			'startgroup_id' => $model->getStartgroupId(),
-			'user_id' => $model->getUserId(),
+			'startgroup-id' => $model->getStartgroupId(),
+			'user-id' => $model->getUserId(),
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'position', 'startgroup_id', 'user_id'];
+		return ['id', 'position', 'startgroup-id', 'user-id'];
 	}
 
 	/**
@@ -43,14 +44,15 @@ trait JudgeSerializerTrait {
 	public function getRelationships() {
 		return [
 			'startgroup' => Startgroup::getSerializer()->getType(null),
-			'user' => User::getSerializer()->getType(null)
+			'user' => User::getSerializer()->getType(null),
+			'performance-score' => PerformanceScore::getSerializer()->getType(null)
 		];
 	}
 
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'position', 'startgroup_id', 'user_id'];
+		return ['id', 'position', 'startgroup-id', 'user-id'];
 	}
 
 	/**
@@ -70,12 +72,25 @@ trait JudgeSerializerTrait {
 		// attributes
 		$attribs = isset($data['attributes']) ? $data['attributes'] : [];
 
-		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'position', 'startgroup_id', 'user_id']);
+		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'position', 'startgroup-id', 'user-id']);
 
 		// relationships
 		$this->hydrateRelationships($model, $data);
 
 		return $model;
+	}
+
+	/**
+	 * @param mixed $model
+	 * @return Relationship
+	 */
+	public function performanceScore($model) {
+		$serializer = PerformanceScore::getSerializer();
+		$relationship = new Relationship(new Resource($model->getPerformanceScore(), $serializer));
+		$relationship->setLinks([
+			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
+		]);
+		return $this->addRelationshipSelfLink($relationship, $model, 'performance-score');
 	}
 
 	/**

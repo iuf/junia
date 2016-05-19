@@ -23,18 +23,18 @@ use iuf\junia\model\Map\RoutineTableMap;
  * @method     ChildRoutineQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildRoutineQuery orderByName($order = Criteria::ASC) Order by the name column
  * @method     ChildRoutineQuery orderByStartgroupId($order = Criteria::ASC) Order by the startgroup_id column
- * @method     ChildRoutineQuery orderByPerformanceTotalStatisticsId($order = Criteria::ASC) Order by the performance_total_statistics_id column
- * @method     ChildRoutineQuery orderByPerformanceExecutionStatisticsId($order = Criteria::ASC) Order by the performance_execution_statistics_id column
- * @method     ChildRoutineQuery orderByPerformanceChoreographyStatisticsId($order = Criteria::ASC) Order by the performance_choreography_statistics_id column
- * @method     ChildRoutineQuery orderByPerformanceMusicAndTimingStatisticsId($order = Criteria::ASC) Order by the performance_music_and_timing_statistics_id column
+ * @method     ChildRoutineQuery orderByPerformanceTotalStatisticId($order = Criteria::ASC) Order by the performance_total_statistic_id column
+ * @method     ChildRoutineQuery orderByPerformanceExecutionStatisticId($order = Criteria::ASC) Order by the performance_execution_statistic_id column
+ * @method     ChildRoutineQuery orderByPerformanceChoreographyStatisticId($order = Criteria::ASC) Order by the performance_choreography_statistic_id column
+ * @method     ChildRoutineQuery orderByPerformanceMusicAndTimingStatisticId($order = Criteria::ASC) Order by the performance_music_and_timing_statistic_id column
  *
  * @method     ChildRoutineQuery groupById() Group by the id column
  * @method     ChildRoutineQuery groupByName() Group by the name column
  * @method     ChildRoutineQuery groupByStartgroupId() Group by the startgroup_id column
- * @method     ChildRoutineQuery groupByPerformanceTotalStatisticsId() Group by the performance_total_statistics_id column
- * @method     ChildRoutineQuery groupByPerformanceExecutionStatisticsId() Group by the performance_execution_statistics_id column
- * @method     ChildRoutineQuery groupByPerformanceChoreographyStatisticsId() Group by the performance_choreography_statistics_id column
- * @method     ChildRoutineQuery groupByPerformanceMusicAndTimingStatisticsId() Group by the performance_music_and_timing_statistics_id column
+ * @method     ChildRoutineQuery groupByPerformanceTotalStatisticId() Group by the performance_total_statistic_id column
+ * @method     ChildRoutineQuery groupByPerformanceExecutionStatisticId() Group by the performance_execution_statistic_id column
+ * @method     ChildRoutineQuery groupByPerformanceChoreographyStatisticId() Group by the performance_choreography_statistic_id column
+ * @method     ChildRoutineQuery groupByPerformanceMusicAndTimingStatisticId() Group by the performance_music_and_timing_statistic_id column
  *
  * @method     ChildRoutineQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildRoutineQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -44,21 +44,21 @@ use iuf\junia\model\Map\RoutineTableMap;
  * @method     ChildRoutineQuery rightJoinStartgroup($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Startgroup relation
  * @method     ChildRoutineQuery innerJoinStartgroup($relationAlias = null) Adds a INNER JOIN clause to the query using the Startgroup relation
  *
- * @method     ChildRoutineQuery leftJoinPerformanceStatisticsRelatedByPerformanceTotalStatisticsId($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceTotalStatisticsId relation
- * @method     ChildRoutineQuery rightJoinPerformanceStatisticsRelatedByPerformanceTotalStatisticsId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceTotalStatisticsId relation
- * @method     ChildRoutineQuery innerJoinPerformanceStatisticsRelatedByPerformanceTotalStatisticsId($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceTotalStatisticsId relation
+ * @method     ChildRoutineQuery leftJoinPerformanceTotalStatistic($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceTotalStatistic relation
+ * @method     ChildRoutineQuery rightJoinPerformanceTotalStatistic($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceTotalStatistic relation
+ * @method     ChildRoutineQuery innerJoinPerformanceTotalStatistic($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceTotalStatistic relation
  *
- * @method     ChildRoutineQuery leftJoinPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId relation
- * @method     ChildRoutineQuery rightJoinPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId relation
- * @method     ChildRoutineQuery innerJoinPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId relation
+ * @method     ChildRoutineQuery leftJoinPerformanceExecutionStatistic($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceExecutionStatistic relation
+ * @method     ChildRoutineQuery rightJoinPerformanceExecutionStatistic($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceExecutionStatistic relation
+ * @method     ChildRoutineQuery innerJoinPerformanceExecutionStatistic($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceExecutionStatistic relation
  *
- * @method     ChildRoutineQuery leftJoinPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId relation
- * @method     ChildRoutineQuery rightJoinPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId relation
- * @method     ChildRoutineQuery innerJoinPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId relation
+ * @method     ChildRoutineQuery leftJoinPerformanceChoreographyStatistic($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceChoreographyStatistic relation
+ * @method     ChildRoutineQuery rightJoinPerformanceChoreographyStatistic($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceChoreographyStatistic relation
+ * @method     ChildRoutineQuery innerJoinPerformanceChoreographyStatistic($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceChoreographyStatistic relation
  *
- * @method     ChildRoutineQuery leftJoinPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId relation
- * @method     ChildRoutineQuery rightJoinPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId relation
- * @method     ChildRoutineQuery innerJoinPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId relation
+ * @method     ChildRoutineQuery leftJoinPerformanceMusicAndTimingStatistic($relationAlias = null) Adds a LEFT JOIN clause to the query using the PerformanceMusicAndTimingStatistic relation
+ * @method     ChildRoutineQuery rightJoinPerformanceMusicAndTimingStatistic($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceMusicAndTimingStatistic relation
+ * @method     ChildRoutineQuery innerJoinPerformanceMusicAndTimingStatistic($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceMusicAndTimingStatistic relation
  *
  * @method     ChildRoutineQuery leftJoinScore($relationAlias = null) Adds a LEFT JOIN clause to the query using the Score relation
  * @method     ChildRoutineQuery rightJoinScore($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Score relation
@@ -68,7 +68,7 @@ use iuf\junia\model\Map\RoutineTableMap;
  * @method     ChildRoutineQuery rightJoinPerformanceScore($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PerformanceScore relation
  * @method     ChildRoutineQuery innerJoinPerformanceScore($relationAlias = null) Adds a INNER JOIN clause to the query using the PerformanceScore relation
  *
- * @method     \iuf\junia\model\StartgroupQuery|\iuf\junia\model\PerformanceStatisticsQuery|\iuf\junia\model\ScoreQuery|\iuf\junia\model\PerformanceScoreQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \iuf\junia\model\StartgroupQuery|\iuf\junia\model\PerformanceStatisticQuery|\iuf\junia\model\ScoreQuery|\iuf\junia\model\PerformanceScoreQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildRoutine findOne(ConnectionInterface $con = null) Return the first ChildRoutine matching the query
  * @method     ChildRoutine findOneOrCreate(ConnectionInterface $con = null) Return the first ChildRoutine matching the query, or a new ChildRoutine object populated from the query conditions when no match is found
@@ -76,10 +76,10 @@ use iuf\junia\model\Map\RoutineTableMap;
  * @method     ChildRoutine findOneById(int $id) Return the first ChildRoutine filtered by the id column
  * @method     ChildRoutine findOneByName(string $name) Return the first ChildRoutine filtered by the name column
  * @method     ChildRoutine findOneByStartgroupId(int $startgroup_id) Return the first ChildRoutine filtered by the startgroup_id column
- * @method     ChildRoutine findOneByPerformanceTotalStatisticsId(int $performance_total_statistics_id) Return the first ChildRoutine filtered by the performance_total_statistics_id column
- * @method     ChildRoutine findOneByPerformanceExecutionStatisticsId(int $performance_execution_statistics_id) Return the first ChildRoutine filtered by the performance_execution_statistics_id column
- * @method     ChildRoutine findOneByPerformanceChoreographyStatisticsId(int $performance_choreography_statistics_id) Return the first ChildRoutine filtered by the performance_choreography_statistics_id column
- * @method     ChildRoutine findOneByPerformanceMusicAndTimingStatisticsId(int $performance_music_and_timing_statistics_id) Return the first ChildRoutine filtered by the performance_music_and_timing_statistics_id column *
+ * @method     ChildRoutine findOneByPerformanceTotalStatisticId(int $performance_total_statistic_id) Return the first ChildRoutine filtered by the performance_total_statistic_id column
+ * @method     ChildRoutine findOneByPerformanceExecutionStatisticId(int $performance_execution_statistic_id) Return the first ChildRoutine filtered by the performance_execution_statistic_id column
+ * @method     ChildRoutine findOneByPerformanceChoreographyStatisticId(int $performance_choreography_statistic_id) Return the first ChildRoutine filtered by the performance_choreography_statistic_id column
+ * @method     ChildRoutine findOneByPerformanceMusicAndTimingStatisticId(int $performance_music_and_timing_statistic_id) Return the first ChildRoutine filtered by the performance_music_and_timing_statistic_id column *
 
  * @method     ChildRoutine requirePk($key, ConnectionInterface $con = null) Return the ChildRoutine by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildRoutine requireOne(ConnectionInterface $con = null) Return the first ChildRoutine matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -87,19 +87,19 @@ use iuf\junia\model\Map\RoutineTableMap;
  * @method     ChildRoutine requireOneById(int $id) Return the first ChildRoutine filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildRoutine requireOneByName(string $name) Return the first ChildRoutine filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildRoutine requireOneByStartgroupId(int $startgroup_id) Return the first ChildRoutine filtered by the startgroup_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildRoutine requireOneByPerformanceTotalStatisticsId(int $performance_total_statistics_id) Return the first ChildRoutine filtered by the performance_total_statistics_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildRoutine requireOneByPerformanceExecutionStatisticsId(int $performance_execution_statistics_id) Return the first ChildRoutine filtered by the performance_execution_statistics_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildRoutine requireOneByPerformanceChoreographyStatisticsId(int $performance_choreography_statistics_id) Return the first ChildRoutine filtered by the performance_choreography_statistics_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildRoutine requireOneByPerformanceMusicAndTimingStatisticsId(int $performance_music_and_timing_statistics_id) Return the first ChildRoutine filtered by the performance_music_and_timing_statistics_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildRoutine requireOneByPerformanceTotalStatisticId(int $performance_total_statistic_id) Return the first ChildRoutine filtered by the performance_total_statistic_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildRoutine requireOneByPerformanceExecutionStatisticId(int $performance_execution_statistic_id) Return the first ChildRoutine filtered by the performance_execution_statistic_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildRoutine requireOneByPerformanceChoreographyStatisticId(int $performance_choreography_statistic_id) Return the first ChildRoutine filtered by the performance_choreography_statistic_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildRoutine requireOneByPerformanceMusicAndTimingStatisticId(int $performance_music_and_timing_statistic_id) Return the first ChildRoutine filtered by the performance_music_and_timing_statistic_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildRoutine[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildRoutine objects based on current ModelCriteria
  * @method     ChildRoutine[]|ObjectCollection findById(int $id) Return ChildRoutine objects filtered by the id column
  * @method     ChildRoutine[]|ObjectCollection findByName(string $name) Return ChildRoutine objects filtered by the name column
  * @method     ChildRoutine[]|ObjectCollection findByStartgroupId(int $startgroup_id) Return ChildRoutine objects filtered by the startgroup_id column
- * @method     ChildRoutine[]|ObjectCollection findByPerformanceTotalStatisticsId(int $performance_total_statistics_id) Return ChildRoutine objects filtered by the performance_total_statistics_id column
- * @method     ChildRoutine[]|ObjectCollection findByPerformanceExecutionStatisticsId(int $performance_execution_statistics_id) Return ChildRoutine objects filtered by the performance_execution_statistics_id column
- * @method     ChildRoutine[]|ObjectCollection findByPerformanceChoreographyStatisticsId(int $performance_choreography_statistics_id) Return ChildRoutine objects filtered by the performance_choreography_statistics_id column
- * @method     ChildRoutine[]|ObjectCollection findByPerformanceMusicAndTimingStatisticsId(int $performance_music_and_timing_statistics_id) Return ChildRoutine objects filtered by the performance_music_and_timing_statistics_id column
+ * @method     ChildRoutine[]|ObjectCollection findByPerformanceTotalStatisticId(int $performance_total_statistic_id) Return ChildRoutine objects filtered by the performance_total_statistic_id column
+ * @method     ChildRoutine[]|ObjectCollection findByPerformanceExecutionStatisticId(int $performance_execution_statistic_id) Return ChildRoutine objects filtered by the performance_execution_statistic_id column
+ * @method     ChildRoutine[]|ObjectCollection findByPerformanceChoreographyStatisticId(int $performance_choreography_statistic_id) Return ChildRoutine objects filtered by the performance_choreography_statistic_id column
+ * @method     ChildRoutine[]|ObjectCollection findByPerformanceMusicAndTimingStatisticId(int $performance_music_and_timing_statistic_id) Return ChildRoutine objects filtered by the performance_music_and_timing_statistic_id column
  * @method     ChildRoutine[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -192,7 +192,7 @@ abstract class RoutineQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT `id`, `name`, `startgroup_id`, `performance_total_statistics_id`, `performance_execution_statistics_id`, `performance_choreography_statistics_id`, `performance_music_and_timing_statistics_id` FROM `kk_junia_routine` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `name`, `startgroup_id`, `performance_total_statistic_id`, `performance_execution_statistic_id`, `performance_choreography_statistic_id`, `performance_music_and_timing_statistic_id` FROM `kk_junia_routine` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -396,18 +396,18 @@ abstract class RoutineQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the performance_total_statistics_id column
+     * Filter the query on the performance_total_statistic_id column
      *
      * Example usage:
      * <code>
-     * $query->filterByPerformanceTotalStatisticsId(1234); // WHERE performance_total_statistics_id = 1234
-     * $query->filterByPerformanceTotalStatisticsId(array(12, 34)); // WHERE performance_total_statistics_id IN (12, 34)
-     * $query->filterByPerformanceTotalStatisticsId(array('min' => 12)); // WHERE performance_total_statistics_id > 12
+     * $query->filterByPerformanceTotalStatisticId(1234); // WHERE performance_total_statistic_id = 1234
+     * $query->filterByPerformanceTotalStatisticId(array(12, 34)); // WHERE performance_total_statistic_id IN (12, 34)
+     * $query->filterByPerformanceTotalStatisticId(array('min' => 12)); // WHERE performance_total_statistic_id > 12
      * </code>
      *
-     * @see       filterByPerformanceStatisticsRelatedByPerformanceTotalStatisticsId()
+     * @see       filterByPerformanceTotalStatistic()
      *
-     * @param     mixed $performanceTotalStatisticsId The value to use as filter.
+     * @param     mixed $performanceTotalStatisticId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -415,16 +415,16 @@ abstract class RoutineQuery extends ModelCriteria
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceTotalStatisticsId($performanceTotalStatisticsId = null, $comparison = null)
+    public function filterByPerformanceTotalStatisticId($performanceTotalStatisticId = null, $comparison = null)
     {
-        if (is_array($performanceTotalStatisticsId)) {
+        if (is_array($performanceTotalStatisticId)) {
             $useMinMax = false;
-            if (isset($performanceTotalStatisticsId['min'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID, $performanceTotalStatisticsId['min'], Criteria::GREATER_EQUAL);
+            if (isset($performanceTotalStatisticId['min'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, $performanceTotalStatisticId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($performanceTotalStatisticsId['max'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID, $performanceTotalStatisticsId['max'], Criteria::LESS_EQUAL);
+            if (isset($performanceTotalStatisticId['max'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, $performanceTotalStatisticId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -435,22 +435,22 @@ abstract class RoutineQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID, $performanceTotalStatisticsId, $comparison);
+        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, $performanceTotalStatisticId, $comparison);
     }
 
     /**
-     * Filter the query on the performance_execution_statistics_id column
+     * Filter the query on the performance_execution_statistic_id column
      *
      * Example usage:
      * <code>
-     * $query->filterByPerformanceExecutionStatisticsId(1234); // WHERE performance_execution_statistics_id = 1234
-     * $query->filterByPerformanceExecutionStatisticsId(array(12, 34)); // WHERE performance_execution_statistics_id IN (12, 34)
-     * $query->filterByPerformanceExecutionStatisticsId(array('min' => 12)); // WHERE performance_execution_statistics_id > 12
+     * $query->filterByPerformanceExecutionStatisticId(1234); // WHERE performance_execution_statistic_id = 1234
+     * $query->filterByPerformanceExecutionStatisticId(array(12, 34)); // WHERE performance_execution_statistic_id IN (12, 34)
+     * $query->filterByPerformanceExecutionStatisticId(array('min' => 12)); // WHERE performance_execution_statistic_id > 12
      * </code>
      *
-     * @see       filterByPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId()
+     * @see       filterByPerformanceExecutionStatistic()
      *
-     * @param     mixed $performanceExecutionStatisticsId The value to use as filter.
+     * @param     mixed $performanceExecutionStatisticId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -458,16 +458,16 @@ abstract class RoutineQuery extends ModelCriteria
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceExecutionStatisticsId($performanceExecutionStatisticsId = null, $comparison = null)
+    public function filterByPerformanceExecutionStatisticId($performanceExecutionStatisticId = null, $comparison = null)
     {
-        if (is_array($performanceExecutionStatisticsId)) {
+        if (is_array($performanceExecutionStatisticId)) {
             $useMinMax = false;
-            if (isset($performanceExecutionStatisticsId['min'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID, $performanceExecutionStatisticsId['min'], Criteria::GREATER_EQUAL);
+            if (isset($performanceExecutionStatisticId['min'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, $performanceExecutionStatisticId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($performanceExecutionStatisticsId['max'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID, $performanceExecutionStatisticsId['max'], Criteria::LESS_EQUAL);
+            if (isset($performanceExecutionStatisticId['max'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, $performanceExecutionStatisticId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -478,22 +478,22 @@ abstract class RoutineQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID, $performanceExecutionStatisticsId, $comparison);
+        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, $performanceExecutionStatisticId, $comparison);
     }
 
     /**
-     * Filter the query on the performance_choreography_statistics_id column
+     * Filter the query on the performance_choreography_statistic_id column
      *
      * Example usage:
      * <code>
-     * $query->filterByPerformanceChoreographyStatisticsId(1234); // WHERE performance_choreography_statistics_id = 1234
-     * $query->filterByPerformanceChoreographyStatisticsId(array(12, 34)); // WHERE performance_choreography_statistics_id IN (12, 34)
-     * $query->filterByPerformanceChoreographyStatisticsId(array('min' => 12)); // WHERE performance_choreography_statistics_id > 12
+     * $query->filterByPerformanceChoreographyStatisticId(1234); // WHERE performance_choreography_statistic_id = 1234
+     * $query->filterByPerformanceChoreographyStatisticId(array(12, 34)); // WHERE performance_choreography_statistic_id IN (12, 34)
+     * $query->filterByPerformanceChoreographyStatisticId(array('min' => 12)); // WHERE performance_choreography_statistic_id > 12
      * </code>
      *
-     * @see       filterByPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId()
+     * @see       filterByPerformanceChoreographyStatistic()
      *
-     * @param     mixed $performanceChoreographyStatisticsId The value to use as filter.
+     * @param     mixed $performanceChoreographyStatisticId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -501,16 +501,16 @@ abstract class RoutineQuery extends ModelCriteria
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceChoreographyStatisticsId($performanceChoreographyStatisticsId = null, $comparison = null)
+    public function filterByPerformanceChoreographyStatisticId($performanceChoreographyStatisticId = null, $comparison = null)
     {
-        if (is_array($performanceChoreographyStatisticsId)) {
+        if (is_array($performanceChoreographyStatisticId)) {
             $useMinMax = false;
-            if (isset($performanceChoreographyStatisticsId['min'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID, $performanceChoreographyStatisticsId['min'], Criteria::GREATER_EQUAL);
+            if (isset($performanceChoreographyStatisticId['min'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, $performanceChoreographyStatisticId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($performanceChoreographyStatisticsId['max'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID, $performanceChoreographyStatisticsId['max'], Criteria::LESS_EQUAL);
+            if (isset($performanceChoreographyStatisticId['max'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, $performanceChoreographyStatisticId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -521,22 +521,22 @@ abstract class RoutineQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID, $performanceChoreographyStatisticsId, $comparison);
+        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, $performanceChoreographyStatisticId, $comparison);
     }
 
     /**
-     * Filter the query on the performance_music_and_timing_statistics_id column
+     * Filter the query on the performance_music_and_timing_statistic_id column
      *
      * Example usage:
      * <code>
-     * $query->filterByPerformanceMusicAndTimingStatisticsId(1234); // WHERE performance_music_and_timing_statistics_id = 1234
-     * $query->filterByPerformanceMusicAndTimingStatisticsId(array(12, 34)); // WHERE performance_music_and_timing_statistics_id IN (12, 34)
-     * $query->filterByPerformanceMusicAndTimingStatisticsId(array('min' => 12)); // WHERE performance_music_and_timing_statistics_id > 12
+     * $query->filterByPerformanceMusicAndTimingStatisticId(1234); // WHERE performance_music_and_timing_statistic_id = 1234
+     * $query->filterByPerformanceMusicAndTimingStatisticId(array(12, 34)); // WHERE performance_music_and_timing_statistic_id IN (12, 34)
+     * $query->filterByPerformanceMusicAndTimingStatisticId(array('min' => 12)); // WHERE performance_music_and_timing_statistic_id > 12
      * </code>
      *
-     * @see       filterByPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId()
+     * @see       filterByPerformanceMusicAndTimingStatistic()
      *
-     * @param     mixed $performanceMusicAndTimingStatisticsId The value to use as filter.
+     * @param     mixed $performanceMusicAndTimingStatisticId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -544,16 +544,16 @@ abstract class RoutineQuery extends ModelCriteria
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceMusicAndTimingStatisticsId($performanceMusicAndTimingStatisticsId = null, $comparison = null)
+    public function filterByPerformanceMusicAndTimingStatisticId($performanceMusicAndTimingStatisticId = null, $comparison = null)
     {
-        if (is_array($performanceMusicAndTimingStatisticsId)) {
+        if (is_array($performanceMusicAndTimingStatisticId)) {
             $useMinMax = false;
-            if (isset($performanceMusicAndTimingStatisticsId['min'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID, $performanceMusicAndTimingStatisticsId['min'], Criteria::GREATER_EQUAL);
+            if (isset($performanceMusicAndTimingStatisticId['min'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, $performanceMusicAndTimingStatisticId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($performanceMusicAndTimingStatisticsId['max'])) {
-                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID, $performanceMusicAndTimingStatisticsId['max'], Criteria::LESS_EQUAL);
+            if (isset($performanceMusicAndTimingStatisticId['max'])) {
+                $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, $performanceMusicAndTimingStatisticId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -564,7 +564,7 @@ abstract class RoutineQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID, $performanceMusicAndTimingStatisticsId, $comparison);
+        return $this->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, $performanceMusicAndTimingStatisticId, $comparison);
     }
 
     /**
@@ -645,44 +645,44 @@ abstract class RoutineQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \iuf\junia\model\PerformanceStatistics object
+     * Filter the query by a related \iuf\junia\model\PerformanceStatistic object
      *
-     * @param \iuf\junia\model\PerformanceStatistics|ObjectCollection $performanceStatistics The related object(s) to use as filter
+     * @param \iuf\junia\model\PerformanceStatistic|ObjectCollection $performanceStatistic The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceStatisticsRelatedByPerformanceTotalStatisticsId($performanceStatistics, $comparison = null)
+    public function filterByPerformanceTotalStatistic($performanceStatistic, $comparison = null)
     {
-        if ($performanceStatistics instanceof \iuf\junia\model\PerformanceStatistics) {
+        if ($performanceStatistic instanceof \iuf\junia\model\PerformanceStatistic) {
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID, $performanceStatistics->getId(), $comparison);
-        } elseif ($performanceStatistics instanceof ObjectCollection) {
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, $performanceStatistic->getId(), $comparison);
+        } elseif ($performanceStatistic instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTICS_ID, $performanceStatistics->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, $performanceStatistic->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByPerformanceStatisticsRelatedByPerformanceTotalStatisticsId() only accepts arguments of type \iuf\junia\model\PerformanceStatistics or Collection');
+            throw new PropelException('filterByPerformanceTotalStatistic() only accepts arguments of type \iuf\junia\model\PerformanceStatistic or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceTotalStatisticsId relation
+     * Adds a JOIN clause to the query using the PerformanceTotalStatistic relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function joinPerformanceStatisticsRelatedByPerformanceTotalStatisticsId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinPerformanceTotalStatistic($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('PerformanceStatisticsRelatedByPerformanceTotalStatisticsId');
+        $relationMap = $tableMap->getRelation('PerformanceTotalStatistic');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -697,14 +697,14 @@ abstract class RoutineQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'PerformanceStatisticsRelatedByPerformanceTotalStatisticsId');
+            $this->addJoinObject($join, 'PerformanceTotalStatistic');
         }
 
         return $this;
     }
 
     /**
-     * Use the PerformanceStatisticsRelatedByPerformanceTotalStatisticsId relation PerformanceStatistics object
+     * Use the PerformanceTotalStatistic relation PerformanceStatistic object
      *
      * @see useQuery()
      *
@@ -712,54 +712,54 @@ abstract class RoutineQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \iuf\junia\model\PerformanceStatisticsQuery A secondary query class using the current class as primary query
+     * @return \iuf\junia\model\PerformanceStatisticQuery A secondary query class using the current class as primary query
      */
-    public function usePerformanceStatisticsRelatedByPerformanceTotalStatisticsIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function usePerformanceTotalStatisticQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinPerformanceStatisticsRelatedByPerformanceTotalStatisticsId($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PerformanceStatisticsRelatedByPerformanceTotalStatisticsId', '\iuf\junia\model\PerformanceStatisticsQuery');
+            ->joinPerformanceTotalStatistic($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'PerformanceTotalStatistic', '\iuf\junia\model\PerformanceStatisticQuery');
     }
 
     /**
-     * Filter the query by a related \iuf\junia\model\PerformanceStatistics object
+     * Filter the query by a related \iuf\junia\model\PerformanceStatistic object
      *
-     * @param \iuf\junia\model\PerformanceStatistics|ObjectCollection $performanceStatistics The related object(s) to use as filter
+     * @param \iuf\junia\model\PerformanceStatistic|ObjectCollection $performanceStatistic The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId($performanceStatistics, $comparison = null)
+    public function filterByPerformanceExecutionStatistic($performanceStatistic, $comparison = null)
     {
-        if ($performanceStatistics instanceof \iuf\junia\model\PerformanceStatistics) {
+        if ($performanceStatistic instanceof \iuf\junia\model\PerformanceStatistic) {
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID, $performanceStatistics->getId(), $comparison);
-        } elseif ($performanceStatistics instanceof ObjectCollection) {
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, $performanceStatistic->getId(), $comparison);
+        } elseif ($performanceStatistic instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTICS_ID, $performanceStatistics->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, $performanceStatistic->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId() only accepts arguments of type \iuf\junia\model\PerformanceStatistics or Collection');
+            throw new PropelException('filterByPerformanceExecutionStatistic() only accepts arguments of type \iuf\junia\model\PerformanceStatistic or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId relation
+     * Adds a JOIN clause to the query using the PerformanceExecutionStatistic relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function joinPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinPerformanceExecutionStatistic($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId');
+        $relationMap = $tableMap->getRelation('PerformanceExecutionStatistic');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -774,14 +774,14 @@ abstract class RoutineQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId');
+            $this->addJoinObject($join, 'PerformanceExecutionStatistic');
         }
 
         return $this;
     }
 
     /**
-     * Use the PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId relation PerformanceStatistics object
+     * Use the PerformanceExecutionStatistic relation PerformanceStatistic object
      *
      * @see useQuery()
      *
@@ -789,54 +789,54 @@ abstract class RoutineQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \iuf\junia\model\PerformanceStatisticsQuery A secondary query class using the current class as primary query
+     * @return \iuf\junia\model\PerformanceStatisticQuery A secondary query class using the current class as primary query
      */
-    public function usePerformanceStatisticsRelatedByPerformanceExecutionStatisticsIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function usePerformanceExecutionStatisticQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinPerformanceStatisticsRelatedByPerformanceExecutionStatisticsId($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PerformanceStatisticsRelatedByPerformanceExecutionStatisticsId', '\iuf\junia\model\PerformanceStatisticsQuery');
+            ->joinPerformanceExecutionStatistic($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'PerformanceExecutionStatistic', '\iuf\junia\model\PerformanceStatisticQuery');
     }
 
     /**
-     * Filter the query by a related \iuf\junia\model\PerformanceStatistics object
+     * Filter the query by a related \iuf\junia\model\PerformanceStatistic object
      *
-     * @param \iuf\junia\model\PerformanceStatistics|ObjectCollection $performanceStatistics The related object(s) to use as filter
+     * @param \iuf\junia\model\PerformanceStatistic|ObjectCollection $performanceStatistic The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId($performanceStatistics, $comparison = null)
+    public function filterByPerformanceChoreographyStatistic($performanceStatistic, $comparison = null)
     {
-        if ($performanceStatistics instanceof \iuf\junia\model\PerformanceStatistics) {
+        if ($performanceStatistic instanceof \iuf\junia\model\PerformanceStatistic) {
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID, $performanceStatistics->getId(), $comparison);
-        } elseif ($performanceStatistics instanceof ObjectCollection) {
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, $performanceStatistic->getId(), $comparison);
+        } elseif ($performanceStatistic instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTICS_ID, $performanceStatistics->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, $performanceStatistic->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId() only accepts arguments of type \iuf\junia\model\PerformanceStatistics or Collection');
+            throw new PropelException('filterByPerformanceChoreographyStatistic() only accepts arguments of type \iuf\junia\model\PerformanceStatistic or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId relation
+     * Adds a JOIN clause to the query using the PerformanceChoreographyStatistic relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function joinPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinPerformanceChoreographyStatistic($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId');
+        $relationMap = $tableMap->getRelation('PerformanceChoreographyStatistic');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -851,14 +851,14 @@ abstract class RoutineQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId');
+            $this->addJoinObject($join, 'PerformanceChoreographyStatistic');
         }
 
         return $this;
     }
 
     /**
-     * Use the PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId relation PerformanceStatistics object
+     * Use the PerformanceChoreographyStatistic relation PerformanceStatistic object
      *
      * @see useQuery()
      *
@@ -866,54 +866,54 @@ abstract class RoutineQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \iuf\junia\model\PerformanceStatisticsQuery A secondary query class using the current class as primary query
+     * @return \iuf\junia\model\PerformanceStatisticQuery A secondary query class using the current class as primary query
      */
-    public function usePerformanceStatisticsRelatedByPerformanceChoreographyStatisticsIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function usePerformanceChoreographyStatisticQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinPerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PerformanceStatisticsRelatedByPerformanceChoreographyStatisticsId', '\iuf\junia\model\PerformanceStatisticsQuery');
+            ->joinPerformanceChoreographyStatistic($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'PerformanceChoreographyStatistic', '\iuf\junia\model\PerformanceStatisticQuery');
     }
 
     /**
-     * Filter the query by a related \iuf\junia\model\PerformanceStatistics object
+     * Filter the query by a related \iuf\junia\model\PerformanceStatistic object
      *
-     * @param \iuf\junia\model\PerformanceStatistics|ObjectCollection $performanceStatistics The related object(s) to use as filter
+     * @param \iuf\junia\model\PerformanceStatistic|ObjectCollection $performanceStatistic The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return ChildRoutineQuery The current query, for fluid interface
      */
-    public function filterByPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId($performanceStatistics, $comparison = null)
+    public function filterByPerformanceMusicAndTimingStatistic($performanceStatistic, $comparison = null)
     {
-        if ($performanceStatistics instanceof \iuf\junia\model\PerformanceStatistics) {
+        if ($performanceStatistic instanceof \iuf\junia\model\PerformanceStatistic) {
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID, $performanceStatistics->getId(), $comparison);
-        } elseif ($performanceStatistics instanceof ObjectCollection) {
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, $performanceStatistic->getId(), $comparison);
+        } elseif ($performanceStatistic instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTICS_ID, $performanceStatistics->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(RoutineTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, $performanceStatistic->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId() only accepts arguments of type \iuf\junia\model\PerformanceStatistics or Collection');
+            throw new PropelException('filterByPerformanceMusicAndTimingStatistic() only accepts arguments of type \iuf\junia\model\PerformanceStatistic or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId relation
+     * Adds a JOIN clause to the query using the PerformanceMusicAndTimingStatistic relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildRoutineQuery The current query, for fluid interface
      */
-    public function joinPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinPerformanceMusicAndTimingStatistic($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId');
+        $relationMap = $tableMap->getRelation('PerformanceMusicAndTimingStatistic');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -928,14 +928,14 @@ abstract class RoutineQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId');
+            $this->addJoinObject($join, 'PerformanceMusicAndTimingStatistic');
         }
 
         return $this;
     }
 
     /**
-     * Use the PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId relation PerformanceStatistics object
+     * Use the PerformanceMusicAndTimingStatistic relation PerformanceStatistic object
      *
      * @see useQuery()
      *
@@ -943,13 +943,13 @@ abstract class RoutineQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \iuf\junia\model\PerformanceStatisticsQuery A secondary query class using the current class as primary query
+     * @return \iuf\junia\model\PerformanceStatisticQuery A secondary query class using the current class as primary query
      */
-    public function usePerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function usePerformanceMusicAndTimingStatisticQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinPerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PerformanceStatisticsRelatedByPerformanceMusicAndTimingStatisticsId', '\iuf\junia\model\PerformanceStatisticsQuery');
+            ->joinPerformanceMusicAndTimingStatistic($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'PerformanceMusicAndTimingStatistic', '\iuf\junia\model\PerformanceStatisticQuery');
     }
 
     /**
