@@ -4,6 +4,7 @@ namespace iuf\junia\action;
 use keeko\framework\foundation\AbstractAction;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use keeko\framework\utils\Parameters;
 use iuf\junia\domain\StartgroupDomain;
 
@@ -15,6 +16,13 @@ use iuf\junia\domain\StartgroupDomain;
  * @author gossi
  */
 class StartgroupListAction extends AbstractAction {
+
+	/**
+	 * @param OptionsResolver $resolver
+	 */
+	public function configureParams(OptionsResolver $resolver) {
+		$resolver->setDefaults(['include' => [], 'fields' => [], 'sort' => [], 'filter' => [], 'page' => []]);
+	}
 
 	/**
 	 * Automatically generated run method

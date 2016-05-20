@@ -21,6 +21,7 @@ class RoutineReadAction extends AbstractAction {
 	 */
 	public function configureParams(OptionsResolver $resolver) {
 		$resolver->setRequired(['id']);
+		$resolver->setDefaults(['include' => [], 'fields' => []]);
 	}
 
 	/**
