@@ -17,6 +17,8 @@ use keeko\framework\domain\payload\Updated;
 use keeko\framework\domain\payload\NotUpdated;
 use keeko\framework\domain\payload\Deleted;
 use keeko\framework\domain\payload\NotDeleted;
+use iuf\junia\model\EventQuery;
+use iuf\junia\model\StartgroupQuery;
 
 /**
  */
@@ -25,6 +27,96 @@ trait PerformanceStatisticDomainTrait {
 	/**
 	 */
 	protected $pool;
+
+	/**
+	 * Adds Events to PerformanceStatistic
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function addEvents($id, $data) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'PerformanceStatistic not found.']);
+		}
+		 
+		// update
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Event';
+			}
+			$related = EventQuery::create()->findOneById($entry['id']);
+			$model->addEvent($related);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new PerformanceStatisticEvent($model);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_EVENTS_ADD, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
+		$rows = $model->save();
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_EVENTS_ADD, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
+	 * Adds Startgroups to PerformanceStatistic
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function addStartgroups($id, $data) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'PerformanceStatistic not found.']);
+		}
+		 
+		// update
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Startgroup';
+			}
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->addStartgroup($related);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new PerformanceStatisticEvent($model);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_STARTGROUPS_ADD, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
+		$rows = $model->save();
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_STARTGROUPS_ADD, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
 
 	/**
 	 * Creates a new PerformanceStatistic with the provided data
@@ -137,6 +229,96 @@ trait PerformanceStatisticDomainTrait {
 	}
 
 	/**
+	 * Removes Events from PerformanceStatistic
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function removeEvents($id, $data) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'PerformanceStatistic not found.']);
+		}
+
+		// remove them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Event';
+			}
+			$related = EventQuery::create()->findOneById($entry['id']);
+			$model->removeEvent($related);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new PerformanceStatisticEvent($model);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_EVENTS_REMOVE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
+		$rows = $model->save();
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_EVENTS_REMOVE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
+	 * Removes Startgroups from PerformanceStatistic
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function removeStartgroups($id, $data) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'PerformanceStatistic not found.']);
+		}
+
+		// remove them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Startgroup';
+			}
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->removeStartgroup($related);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new PerformanceStatisticEvent($model);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_STARTGROUPS_REMOVE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
+		$rows = $model->save();
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_STARTGROUPS_REMOVE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
 	 * Sets the Routine id
 	 * 
 	 * @param mixed $id
@@ -212,6 +394,102 @@ trait PerformanceStatisticDomainTrait {
 		}
 
 		return new Updated($payload);
+	}
+
+	/**
+	 * Updates Events on PerformanceStatistic
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function updateEvents($id, $data) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'PerformanceStatistic not found.']);
+		}
+
+		// remove all relationships before
+		EventQuery::create()->filterByPerformanceMusicAndTimingStatistic($model)->delete();
+
+		// add them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Event';
+			}
+			$related = EventQuery::create()->findOneById($entry['id']);
+			$model->addEvent($related);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new PerformanceStatisticEvent($model);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_EVENTS_UPDATE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
+		$rows = $model->save();
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_EVENTS_UPDATE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
+	 * Updates Startgroups on PerformanceStatistic
+	 * 
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @return PayloadInterface
+	 */
+	public function updateStartgroups($id, $data) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'PerformanceStatistic not found.']);
+		}
+
+		// remove all relationships before
+		StartgroupQuery::create()->filterByPerformanceMusicAndTimingStatistic($model)->delete();
+
+		// add them
+		$errors = [];
+		foreach ($data as $entry) {
+			if (!isset($entry['id'])) {
+				$errors[] = 'Missing id for Startgroup';
+			}
+			$related = StartgroupQuery::create()->findOneById($entry['id']);
+			$model->addStartgroup($related);
+		}
+
+		if (count($errors) > 0) {
+			return new NotValid(['errors' => $errors]);
+		}
+
+		// save and dispatch events
+		$event = new PerformanceStatisticEvent($model);
+		$dispatcher = $this->getServiceContainer()->getDispatcher();
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_STARTGROUPS_UPDATE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::PRE_SAVE, $event);
+		$rows = $model->save();
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_STARTGROUPS_UPDATE, $event);
+		$dispatcher->dispatch(PerformanceStatisticEvent::POST_SAVE, $event);
+
+		if ($rows > 0) {
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
 	}
 
 	/**

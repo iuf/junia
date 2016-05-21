@@ -40,6 +40,38 @@ use iuf\junia\model\Map\PerformanceStatisticTableMap;
  * @method     ChildPerformanceStatisticQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildPerformanceStatisticQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildPerformanceStatisticQuery leftJoinEventRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the EventRelatedByPerformanceTotalStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinEventRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EventRelatedByPerformanceTotalStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinEventRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the EventRelatedByPerformanceTotalStatisticId relation
+ *
+ * @method     ChildPerformanceStatisticQuery leftJoinEventRelatedByPerformanceExecutionStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the EventRelatedByPerformanceExecutionStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinEventRelatedByPerformanceExecutionStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EventRelatedByPerformanceExecutionStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinEventRelatedByPerformanceExecutionStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the EventRelatedByPerformanceExecutionStatisticId relation
+ *
+ * @method     ChildPerformanceStatisticQuery leftJoinEventRelatedByPerformanceChoreographyStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the EventRelatedByPerformanceChoreographyStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinEventRelatedByPerformanceChoreographyStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EventRelatedByPerformanceChoreographyStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinEventRelatedByPerformanceChoreographyStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the EventRelatedByPerformanceChoreographyStatisticId relation
+ *
+ * @method     ChildPerformanceStatisticQuery leftJoinEventRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the EventRelatedByPerformanceMusicAndTimingStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinEventRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EventRelatedByPerformanceMusicAndTimingStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinEventRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the EventRelatedByPerformanceMusicAndTimingStatisticId relation
+ *
+ * @method     ChildPerformanceStatisticQuery leftJoinStartgroupRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the StartgroupRelatedByPerformanceTotalStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinStartgroupRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the StartgroupRelatedByPerformanceTotalStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinStartgroupRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the StartgroupRelatedByPerformanceTotalStatisticId relation
+ *
+ * @method     ChildPerformanceStatisticQuery leftJoinStartgroupRelatedByPerformanceExecutionStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the StartgroupRelatedByPerformanceExecutionStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinStartgroupRelatedByPerformanceExecutionStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the StartgroupRelatedByPerformanceExecutionStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinStartgroupRelatedByPerformanceExecutionStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the StartgroupRelatedByPerformanceExecutionStatisticId relation
+ *
+ * @method     ChildPerformanceStatisticQuery leftJoinStartgroupRelatedByPerformanceChoreographyStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the StartgroupRelatedByPerformanceChoreographyStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinStartgroupRelatedByPerformanceChoreographyStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the StartgroupRelatedByPerformanceChoreographyStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinStartgroupRelatedByPerformanceChoreographyStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the StartgroupRelatedByPerformanceChoreographyStatisticId relation
+ *
+ * @method     ChildPerformanceStatisticQuery leftJoinStartgroupRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the StartgroupRelatedByPerformanceMusicAndTimingStatisticId relation
+ * @method     ChildPerformanceStatisticQuery rightJoinStartgroupRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the StartgroupRelatedByPerformanceMusicAndTimingStatisticId relation
+ * @method     ChildPerformanceStatisticQuery innerJoinStartgroupRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the StartgroupRelatedByPerformanceMusicAndTimingStatisticId relation
+ *
  * @method     ChildPerformanceStatisticQuery leftJoinRoutineRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a LEFT JOIN clause to the query using the RoutineRelatedByPerformanceTotalStatisticId relation
  * @method     ChildPerformanceStatisticQuery rightJoinRoutineRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the RoutineRelatedByPerformanceTotalStatisticId relation
  * @method     ChildPerformanceStatisticQuery innerJoinRoutineRelatedByPerformanceTotalStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the RoutineRelatedByPerformanceTotalStatisticId relation
@@ -56,7 +88,7 @@ use iuf\junia\model\Map\PerformanceStatisticTableMap;
  * @method     ChildPerformanceStatisticQuery rightJoinRoutineRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the RoutineRelatedByPerformanceMusicAndTimingStatisticId relation
  * @method     ChildPerformanceStatisticQuery innerJoinRoutineRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null) Adds a INNER JOIN clause to the query using the RoutineRelatedByPerformanceMusicAndTimingStatisticId relation
  *
- * @method     \iuf\junia\model\RoutineQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \iuf\junia\model\EventQuery|\iuf\junia\model\StartgroupQuery|\iuf\junia\model\RoutineQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildPerformanceStatistic findOne(ConnectionInterface $con = null) Return the first ChildPerformanceStatistic matching the query
  * @method     ChildPerformanceStatistic findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPerformanceStatistic matching the query, or a new ChildPerformanceStatistic object populated from the query conditions when no match is found
@@ -555,6 +587,590 @@ abstract class PerformanceStatisticQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIANCE, $variance, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Event object
+     *
+     * @param \iuf\junia\model\Event|ObjectCollection $event the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByEventRelatedByPerformanceTotalStatisticId($event, $comparison = null)
+    {
+        if ($event instanceof \iuf\junia\model\Event) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $event->getPerformanceTotalStatisticId(), $comparison);
+        } elseif ($event instanceof ObjectCollection) {
+            return $this
+                ->useEventRelatedByPerformanceTotalStatisticIdQuery()
+                ->filterByPrimaryKeys($event->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByEventRelatedByPerformanceTotalStatisticId() only accepts arguments of type \iuf\junia\model\Event or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the EventRelatedByPerformanceTotalStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinEventRelatedByPerformanceTotalStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('EventRelatedByPerformanceTotalStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'EventRelatedByPerformanceTotalStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the EventRelatedByPerformanceTotalStatisticId relation Event object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\EventQuery A secondary query class using the current class as primary query
+     */
+    public function useEventRelatedByPerformanceTotalStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinEventRelatedByPerformanceTotalStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'EventRelatedByPerformanceTotalStatisticId', '\iuf\junia\model\EventQuery');
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Event object
+     *
+     * @param \iuf\junia\model\Event|ObjectCollection $event the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByEventRelatedByPerformanceExecutionStatisticId($event, $comparison = null)
+    {
+        if ($event instanceof \iuf\junia\model\Event) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $event->getPerformanceExecutionStatisticId(), $comparison);
+        } elseif ($event instanceof ObjectCollection) {
+            return $this
+                ->useEventRelatedByPerformanceExecutionStatisticIdQuery()
+                ->filterByPrimaryKeys($event->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByEventRelatedByPerformanceExecutionStatisticId() only accepts arguments of type \iuf\junia\model\Event or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the EventRelatedByPerformanceExecutionStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinEventRelatedByPerformanceExecutionStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('EventRelatedByPerformanceExecutionStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'EventRelatedByPerformanceExecutionStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the EventRelatedByPerformanceExecutionStatisticId relation Event object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\EventQuery A secondary query class using the current class as primary query
+     */
+    public function useEventRelatedByPerformanceExecutionStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinEventRelatedByPerformanceExecutionStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'EventRelatedByPerformanceExecutionStatisticId', '\iuf\junia\model\EventQuery');
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Event object
+     *
+     * @param \iuf\junia\model\Event|ObjectCollection $event the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByEventRelatedByPerformanceChoreographyStatisticId($event, $comparison = null)
+    {
+        if ($event instanceof \iuf\junia\model\Event) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $event->getPerformanceChoreographyStatisticId(), $comparison);
+        } elseif ($event instanceof ObjectCollection) {
+            return $this
+                ->useEventRelatedByPerformanceChoreographyStatisticIdQuery()
+                ->filterByPrimaryKeys($event->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByEventRelatedByPerformanceChoreographyStatisticId() only accepts arguments of type \iuf\junia\model\Event or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the EventRelatedByPerformanceChoreographyStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinEventRelatedByPerformanceChoreographyStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('EventRelatedByPerformanceChoreographyStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'EventRelatedByPerformanceChoreographyStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the EventRelatedByPerformanceChoreographyStatisticId relation Event object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\EventQuery A secondary query class using the current class as primary query
+     */
+    public function useEventRelatedByPerformanceChoreographyStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinEventRelatedByPerformanceChoreographyStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'EventRelatedByPerformanceChoreographyStatisticId', '\iuf\junia\model\EventQuery');
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Event object
+     *
+     * @param \iuf\junia\model\Event|ObjectCollection $event the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByEventRelatedByPerformanceMusicAndTimingStatisticId($event, $comparison = null)
+    {
+        if ($event instanceof \iuf\junia\model\Event) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $event->getPerformanceMusicAndTimingStatisticId(), $comparison);
+        } elseif ($event instanceof ObjectCollection) {
+            return $this
+                ->useEventRelatedByPerformanceMusicAndTimingStatisticIdQuery()
+                ->filterByPrimaryKeys($event->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByEventRelatedByPerformanceMusicAndTimingStatisticId() only accepts arguments of type \iuf\junia\model\Event or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the EventRelatedByPerformanceMusicAndTimingStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinEventRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('EventRelatedByPerformanceMusicAndTimingStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'EventRelatedByPerformanceMusicAndTimingStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the EventRelatedByPerformanceMusicAndTimingStatisticId relation Event object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\EventQuery A secondary query class using the current class as primary query
+     */
+    public function useEventRelatedByPerformanceMusicAndTimingStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinEventRelatedByPerformanceMusicAndTimingStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'EventRelatedByPerformanceMusicAndTimingStatisticId', '\iuf\junia\model\EventQuery');
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Startgroup object
+     *
+     * @param \iuf\junia\model\Startgroup|ObjectCollection $startgroup the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByStartgroupRelatedByPerformanceTotalStatisticId($startgroup, $comparison = null)
+    {
+        if ($startgroup instanceof \iuf\junia\model\Startgroup) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $startgroup->getPerformanceTotalStatisticId(), $comparison);
+        } elseif ($startgroup instanceof ObjectCollection) {
+            return $this
+                ->useStartgroupRelatedByPerformanceTotalStatisticIdQuery()
+                ->filterByPrimaryKeys($startgroup->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByStartgroupRelatedByPerformanceTotalStatisticId() only accepts arguments of type \iuf\junia\model\Startgroup or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the StartgroupRelatedByPerformanceTotalStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinStartgroupRelatedByPerformanceTotalStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('StartgroupRelatedByPerformanceTotalStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'StartgroupRelatedByPerformanceTotalStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the StartgroupRelatedByPerformanceTotalStatisticId relation Startgroup object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\StartgroupQuery A secondary query class using the current class as primary query
+     */
+    public function useStartgroupRelatedByPerformanceTotalStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinStartgroupRelatedByPerformanceTotalStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'StartgroupRelatedByPerformanceTotalStatisticId', '\iuf\junia\model\StartgroupQuery');
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Startgroup object
+     *
+     * @param \iuf\junia\model\Startgroup|ObjectCollection $startgroup the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByStartgroupRelatedByPerformanceExecutionStatisticId($startgroup, $comparison = null)
+    {
+        if ($startgroup instanceof \iuf\junia\model\Startgroup) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $startgroup->getPerformanceExecutionStatisticId(), $comparison);
+        } elseif ($startgroup instanceof ObjectCollection) {
+            return $this
+                ->useStartgroupRelatedByPerformanceExecutionStatisticIdQuery()
+                ->filterByPrimaryKeys($startgroup->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByStartgroupRelatedByPerformanceExecutionStatisticId() only accepts arguments of type \iuf\junia\model\Startgroup or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the StartgroupRelatedByPerformanceExecutionStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinStartgroupRelatedByPerformanceExecutionStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('StartgroupRelatedByPerformanceExecutionStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'StartgroupRelatedByPerformanceExecutionStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the StartgroupRelatedByPerformanceExecutionStatisticId relation Startgroup object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\StartgroupQuery A secondary query class using the current class as primary query
+     */
+    public function useStartgroupRelatedByPerformanceExecutionStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinStartgroupRelatedByPerformanceExecutionStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'StartgroupRelatedByPerformanceExecutionStatisticId', '\iuf\junia\model\StartgroupQuery');
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Startgroup object
+     *
+     * @param \iuf\junia\model\Startgroup|ObjectCollection $startgroup the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByStartgroupRelatedByPerformanceChoreographyStatisticId($startgroup, $comparison = null)
+    {
+        if ($startgroup instanceof \iuf\junia\model\Startgroup) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $startgroup->getPerformanceChoreographyStatisticId(), $comparison);
+        } elseif ($startgroup instanceof ObjectCollection) {
+            return $this
+                ->useStartgroupRelatedByPerformanceChoreographyStatisticIdQuery()
+                ->filterByPrimaryKeys($startgroup->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByStartgroupRelatedByPerformanceChoreographyStatisticId() only accepts arguments of type \iuf\junia\model\Startgroup or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the StartgroupRelatedByPerformanceChoreographyStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinStartgroupRelatedByPerformanceChoreographyStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('StartgroupRelatedByPerformanceChoreographyStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'StartgroupRelatedByPerformanceChoreographyStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the StartgroupRelatedByPerformanceChoreographyStatisticId relation Startgroup object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\StartgroupQuery A secondary query class using the current class as primary query
+     */
+    public function useStartgroupRelatedByPerformanceChoreographyStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinStartgroupRelatedByPerformanceChoreographyStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'StartgroupRelatedByPerformanceChoreographyStatisticId', '\iuf\junia\model\StartgroupQuery');
+    }
+
+    /**
+     * Filter the query by a related \iuf\junia\model\Startgroup object
+     *
+     * @param \iuf\junia\model\Startgroup|ObjectCollection $startgroup the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByStartgroupRelatedByPerformanceMusicAndTimingStatisticId($startgroup, $comparison = null)
+    {
+        if ($startgroup instanceof \iuf\junia\model\Startgroup) {
+            return $this
+                ->addUsingAlias(PerformanceStatisticTableMap::COL_ID, $startgroup->getPerformanceMusicAndTimingStatisticId(), $comparison);
+        } elseif ($startgroup instanceof ObjectCollection) {
+            return $this
+                ->useStartgroupRelatedByPerformanceMusicAndTimingStatisticIdQuery()
+                ->filterByPrimaryKeys($startgroup->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByStartgroupRelatedByPerformanceMusicAndTimingStatisticId() only accepts arguments of type \iuf\junia\model\Startgroup or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the StartgroupRelatedByPerformanceMusicAndTimingStatisticId relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function joinStartgroupRelatedByPerformanceMusicAndTimingStatisticId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('StartgroupRelatedByPerformanceMusicAndTimingStatisticId');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'StartgroupRelatedByPerformanceMusicAndTimingStatisticId');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the StartgroupRelatedByPerformanceMusicAndTimingStatisticId relation Startgroup object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \iuf\junia\model\StartgroupQuery A secondary query class using the current class as primary query
+     */
+    public function useStartgroupRelatedByPerformanceMusicAndTimingStatisticIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinStartgroupRelatedByPerformanceMusicAndTimingStatisticId($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'StartgroupRelatedByPerformanceMusicAndTimingStatisticId', '\iuf\junia\model\StartgroupQuery');
     }
 
     /**

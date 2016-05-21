@@ -59,7 +59,7 @@ class EventTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 5;
+    const NUM_COLUMNS = 9;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class EventTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 5;
+    const NUM_HYDRATE_COLUMNS = 9;
 
     /**
      * the column name for the id field
@@ -92,6 +92,26 @@ class EventTableMap extends TableMap
     const COL_END = 'kk_junia_event.end';
 
     /**
+     * the column name for the performance_total_statistic_id field
+     */
+    const COL_PERFORMANCE_TOTAL_STATISTIC_ID = 'kk_junia_event.performance_total_statistic_id';
+
+    /**
+     * the column name for the performance_execution_statistic_id field
+     */
+    const COL_PERFORMANCE_EXECUTION_STATISTIC_ID = 'kk_junia_event.performance_execution_statistic_id';
+
+    /**
+     * the column name for the performance_choreography_statistic_id field
+     */
+    const COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID = 'kk_junia_event.performance_choreography_statistic_id';
+
+    /**
+     * the column name for the performance_music_and_timing_statistic_id field
+     */
+    const COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID = 'kk_junia_event.performance_music_and_timing_statistic_id';
+
+    /**
      * the column name for the slug field
      */
     const COL_SLUG = 'kk_junia_event.slug';
@@ -108,11 +128,11 @@ class EventTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'Start', 'End', 'Slug', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'start', 'end', 'slug', ),
-        self::TYPE_COLNAME       => array(EventTableMap::COL_ID, EventTableMap::COL_NAME, EventTableMap::COL_START, EventTableMap::COL_END, EventTableMap::COL_SLUG, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'start', 'end', 'slug', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'Start', 'End', 'PerformanceTotalStatisticId', 'PerformanceExecutionStatisticId', 'PerformanceChoreographyStatisticId', 'PerformanceMusicAndTimingStatisticId', 'Slug', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'start', 'end', 'performanceTotalStatisticId', 'performanceExecutionStatisticId', 'performanceChoreographyStatisticId', 'performanceMusicAndTimingStatisticId', 'slug', ),
+        self::TYPE_COLNAME       => array(EventTableMap::COL_ID, EventTableMap::COL_NAME, EventTableMap::COL_START, EventTableMap::COL_END, EventTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, EventTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, EventTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, EventTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, EventTableMap::COL_SLUG, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'start', 'end', 'performance_total_statistic_id', 'performance_execution_statistic_id', 'performance_choreography_statistic_id', 'performance_music_and_timing_statistic_id', 'slug', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -122,11 +142,11 @@ class EventTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'Start' => 2, 'End' => 3, 'Slug' => 4, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, 'slug' => 4, ),
-        self::TYPE_COLNAME       => array(EventTableMap::COL_ID => 0, EventTableMap::COL_NAME => 1, EventTableMap::COL_START => 2, EventTableMap::COL_END => 3, EventTableMap::COL_SLUG => 4, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, 'slug' => 4, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'Start' => 2, 'End' => 3, 'PerformanceTotalStatisticId' => 4, 'PerformanceExecutionStatisticId' => 5, 'PerformanceChoreographyStatisticId' => 6, 'PerformanceMusicAndTimingStatisticId' => 7, 'Slug' => 8, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, 'performanceTotalStatisticId' => 4, 'performanceExecutionStatisticId' => 5, 'performanceChoreographyStatisticId' => 6, 'performanceMusicAndTimingStatisticId' => 7, 'slug' => 8, ),
+        self::TYPE_COLNAME       => array(EventTableMap::COL_ID => 0, EventTableMap::COL_NAME => 1, EventTableMap::COL_START => 2, EventTableMap::COL_END => 3, EventTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID => 4, EventTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID => 5, EventTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID => 6, EventTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID => 7, EventTableMap::COL_SLUG => 8, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'start' => 2, 'end' => 3, 'performance_total_statistic_id' => 4, 'performance_execution_statistic_id' => 5, 'performance_choreography_statistic_id' => 6, 'performance_music_and_timing_statistic_id' => 7, 'slug' => 8, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -151,6 +171,10 @@ class EventTableMap extends TableMap
         $this->getColumn('name')->setPrimaryString(true);
         $this->addColumn('start', 'Start', 'DATE', false, null, null);
         $this->addColumn('end', 'End', 'DATE', false, null, null);
+        $this->addForeignKey('performance_total_statistic_id', 'PerformanceTotalStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
+        $this->addForeignKey('performance_execution_statistic_id', 'PerformanceExecutionStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
+        $this->addForeignKey('performance_choreography_statistic_id', 'PerformanceChoreographyStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
+        $this->addForeignKey('performance_music_and_timing_statistic_id', 'PerformanceMusicAndTimingStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
         $this->addColumn('slug', 'Slug', 'VARCHAR', false, 255, null);
     } // initialize()
 
@@ -159,6 +183,34 @@ class EventTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('PerformanceTotalStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':performance_total_statistic_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('PerformanceExecutionStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':performance_execution_statistic_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('PerformanceChoreographyStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':performance_choreography_statistic_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('PerformanceMusicAndTimingStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':performance_music_and_timing_statistic_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
         $this->addRelation('Startgroup', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
@@ -326,12 +378,20 @@ class EventTableMap extends TableMap
             $criteria->addSelectColumn(EventTableMap::COL_NAME);
             $criteria->addSelectColumn(EventTableMap::COL_START);
             $criteria->addSelectColumn(EventTableMap::COL_END);
+            $criteria->addSelectColumn(EventTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID);
+            $criteria->addSelectColumn(EventTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID);
+            $criteria->addSelectColumn(EventTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID);
+            $criteria->addSelectColumn(EventTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID);
             $criteria->addSelectColumn(EventTableMap::COL_SLUG);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
             $criteria->addSelectColumn($alias . '.start');
             $criteria->addSelectColumn($alias . '.end');
+            $criteria->addSelectColumn($alias . '.performance_total_statistic_id');
+            $criteria->addSelectColumn($alias . '.performance_execution_statistic_id');
+            $criteria->addSelectColumn($alias . '.performance_choreography_statistic_id');
+            $criteria->addSelectColumn($alias . '.performance_music_and_timing_statistic_id');
             $criteria->addSelectColumn($alias . '.slug');
         }
     }

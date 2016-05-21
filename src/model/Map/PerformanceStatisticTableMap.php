@@ -170,6 +170,62 @@ class PerformanceStatisticTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('EventRelatedByPerformanceTotalStatisticId', '\\iuf\\junia\\model\\Event', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_total_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'EventsRelatedByPerformanceTotalStatisticId', false);
+        $this->addRelation('EventRelatedByPerformanceExecutionStatisticId', '\\iuf\\junia\\model\\Event', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_execution_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'EventsRelatedByPerformanceExecutionStatisticId', false);
+        $this->addRelation('EventRelatedByPerformanceChoreographyStatisticId', '\\iuf\\junia\\model\\Event', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_choreography_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'EventsRelatedByPerformanceChoreographyStatisticId', false);
+        $this->addRelation('EventRelatedByPerformanceMusicAndTimingStatisticId', '\\iuf\\junia\\model\\Event', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_music_and_timing_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'EventsRelatedByPerformanceMusicAndTimingStatisticId', false);
+        $this->addRelation('StartgroupRelatedByPerformanceTotalStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_total_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'StartgroupsRelatedByPerformanceTotalStatisticId', false);
+        $this->addRelation('StartgroupRelatedByPerformanceExecutionStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_execution_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'StartgroupsRelatedByPerformanceExecutionStatisticId', false);
+        $this->addRelation('StartgroupRelatedByPerformanceChoreographyStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_choreography_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'StartgroupsRelatedByPerformanceChoreographyStatisticId', false);
+        $this->addRelation('StartgroupRelatedByPerformanceMusicAndTimingStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':performance_music_and_timing_statistic_id',
+    1 => ':id',
+  ),
+), null, null, 'StartgroupsRelatedByPerformanceMusicAndTimingStatisticId', false);
         $this->addRelation('RoutineRelatedByPerformanceTotalStatisticId', '\\iuf\\junia\\model\\Routine', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (

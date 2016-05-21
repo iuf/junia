@@ -16,10 +16,14 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
+use iuf\junia\model\Event as ChildEvent;
+use iuf\junia\model\EventQuery as ChildEventQuery;
 use iuf\junia\model\PerformanceStatistic as ChildPerformanceStatistic;
 use iuf\junia\model\PerformanceStatisticQuery as ChildPerformanceStatisticQuery;
 use iuf\junia\model\Routine as ChildRoutine;
 use iuf\junia\model\RoutineQuery as ChildRoutineQuery;
+use iuf\junia\model\Startgroup as ChildStartgroup;
+use iuf\junia\model\StartgroupQuery as ChildStartgroupQuery;
 use iuf\junia\model\Map\PerformanceStatisticTableMap;
 
 /**
@@ -106,6 +110,54 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     protected $variance;
 
     /**
+     * @var        ObjectCollection|ChildEvent[] Collection to store aggregation of ChildEvent objects.
+     */
+    protected $collEventsRelatedByPerformanceTotalStatisticId;
+    protected $collEventsRelatedByPerformanceTotalStatisticIdPartial;
+
+    /**
+     * @var        ObjectCollection|ChildEvent[] Collection to store aggregation of ChildEvent objects.
+     */
+    protected $collEventsRelatedByPerformanceExecutionStatisticId;
+    protected $collEventsRelatedByPerformanceExecutionStatisticIdPartial;
+
+    /**
+     * @var        ObjectCollection|ChildEvent[] Collection to store aggregation of ChildEvent objects.
+     */
+    protected $collEventsRelatedByPerformanceChoreographyStatisticId;
+    protected $collEventsRelatedByPerformanceChoreographyStatisticIdPartial;
+
+    /**
+     * @var        ObjectCollection|ChildEvent[] Collection to store aggregation of ChildEvent objects.
+     */
+    protected $collEventsRelatedByPerformanceMusicAndTimingStatisticId;
+    protected $collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial;
+
+    /**
+     * @var        ObjectCollection|ChildStartgroup[] Collection to store aggregation of ChildStartgroup objects.
+     */
+    protected $collStartgroupsRelatedByPerformanceTotalStatisticId;
+    protected $collStartgroupsRelatedByPerformanceTotalStatisticIdPartial;
+
+    /**
+     * @var        ObjectCollection|ChildStartgroup[] Collection to store aggregation of ChildStartgroup objects.
+     */
+    protected $collStartgroupsRelatedByPerformanceExecutionStatisticId;
+    protected $collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial;
+
+    /**
+     * @var        ObjectCollection|ChildStartgroup[] Collection to store aggregation of ChildStartgroup objects.
+     */
+    protected $collStartgroupsRelatedByPerformanceChoreographyStatisticId;
+    protected $collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial;
+
+    /**
+     * @var        ObjectCollection|ChildStartgroup[] Collection to store aggregation of ChildStartgroup objects.
+     */
+    protected $collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId;
+    protected $collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial;
+
+    /**
      * @var        ObjectCollection|ChildRoutine[] Collection to store aggregation of ChildRoutine objects.
      */
     protected $collRoutinesRelatedByPerformanceTotalStatisticId;
@@ -136,6 +188,54 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
      * @var boolean
      */
     protected $alreadyInSave = false;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildEvent[]
+     */
+    protected $eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildEvent[]
+     */
+    protected $eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildEvent[]
+     */
+    protected $eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildEvent[]
+     */
+    protected $eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildStartgroup[]
+     */
+    protected $startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildStartgroup[]
+     */
+    protected $startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildStartgroup[]
+     */
+    protected $startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildStartgroup[]
+     */
+    protected $startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -713,6 +813,22 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->collEventsRelatedByPerformanceTotalStatisticId = null;
+
+            $this->collEventsRelatedByPerformanceExecutionStatisticId = null;
+
+            $this->collEventsRelatedByPerformanceChoreographyStatisticId = null;
+
+            $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId = null;
+
+            $this->collStartgroupsRelatedByPerformanceTotalStatisticId = null;
+
+            $this->collStartgroupsRelatedByPerformanceExecutionStatisticId = null;
+
+            $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId = null;
+
+            $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = null;
+
             $this->collRoutinesRelatedByPerformanceTotalStatisticId = null;
 
             $this->collRoutinesRelatedByPerformanceExecutionStatisticId = null;
@@ -829,6 +945,150 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
                     $affectedRows += $this->doUpdate($con);
                 }
                 $this->resetModified();
+            }
+
+            if ($this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion !== null) {
+                if (!$this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion as $eventRelatedByPerformanceTotalStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $eventRelatedByPerformanceTotalStatisticId->save($con);
+                    }
+                    $this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collEventsRelatedByPerformanceTotalStatisticId !== null) {
+                foreach ($this->collEventsRelatedByPerformanceTotalStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion !== null) {
+                if (!$this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion as $eventRelatedByPerformanceExecutionStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $eventRelatedByPerformanceExecutionStatisticId->save($con);
+                    }
+                    $this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collEventsRelatedByPerformanceExecutionStatisticId !== null) {
+                foreach ($this->collEventsRelatedByPerformanceExecutionStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion !== null) {
+                if (!$this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion as $eventRelatedByPerformanceChoreographyStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $eventRelatedByPerformanceChoreographyStatisticId->save($con);
+                    }
+                    $this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collEventsRelatedByPerformanceChoreographyStatisticId !== null) {
+                foreach ($this->collEventsRelatedByPerformanceChoreographyStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion !== null) {
+                if (!$this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion as $eventRelatedByPerformanceMusicAndTimingStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $eventRelatedByPerformanceMusicAndTimingStatisticId->save($con);
+                    }
+                    $this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collEventsRelatedByPerformanceMusicAndTimingStatisticId !== null) {
+                foreach ($this->collEventsRelatedByPerformanceMusicAndTimingStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion !== null) {
+                if (!$this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion as $startgroupRelatedByPerformanceTotalStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $startgroupRelatedByPerformanceTotalStatisticId->save($con);
+                    }
+                    $this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collStartgroupsRelatedByPerformanceTotalStatisticId !== null) {
+                foreach ($this->collStartgroupsRelatedByPerformanceTotalStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion !== null) {
+                if (!$this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion as $startgroupRelatedByPerformanceExecutionStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $startgroupRelatedByPerformanceExecutionStatisticId->save($con);
+                    }
+                    $this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collStartgroupsRelatedByPerformanceExecutionStatisticId !== null) {
+                foreach ($this->collStartgroupsRelatedByPerformanceExecutionStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion !== null) {
+                if (!$this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion as $startgroupRelatedByPerformanceChoreographyStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $startgroupRelatedByPerformanceChoreographyStatisticId->save($con);
+                    }
+                    $this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collStartgroupsRelatedByPerformanceChoreographyStatisticId !== null) {
+                foreach ($this->collStartgroupsRelatedByPerformanceChoreographyStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion !== null) {
+                if (!$this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion as $startgroupRelatedByPerformanceMusicAndTimingStatisticId) {
+                        // need to save related object because we set the relation to null
+                        $startgroupRelatedByPerformanceMusicAndTimingStatisticId->save($con);
+                    }
+                    $this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId !== null) {
+                foreach ($this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             if ($this->routinesRelatedByPerformanceTotalStatisticIdScheduledForDeletion !== null) {
@@ -1109,6 +1369,126 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
+            if (null !== $this->collEventsRelatedByPerformanceTotalStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'events';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_events';
+                        break;
+                    default:
+                        $key = 'Events';
+                }
+
+                $result[$key] = $this->collEventsRelatedByPerformanceTotalStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collEventsRelatedByPerformanceExecutionStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'events';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_events';
+                        break;
+                    default:
+                        $key = 'Events';
+                }
+
+                $result[$key] = $this->collEventsRelatedByPerformanceExecutionStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collEventsRelatedByPerformanceChoreographyStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'events';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_events';
+                        break;
+                    default:
+                        $key = 'Events';
+                }
+
+                $result[$key] = $this->collEventsRelatedByPerformanceChoreographyStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'events';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_events';
+                        break;
+                    default:
+                        $key = 'Events';
+                }
+
+                $result[$key] = $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collStartgroupsRelatedByPerformanceTotalStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'startgroups';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_startgroups';
+                        break;
+                    default:
+                        $key = 'Startgroups';
+                }
+
+                $result[$key] = $this->collStartgroupsRelatedByPerformanceTotalStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collStartgroupsRelatedByPerformanceExecutionStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'startgroups';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_startgroups';
+                        break;
+                    default:
+                        $key = 'Startgroups';
+                }
+
+                $result[$key] = $this->collStartgroupsRelatedByPerformanceExecutionStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'startgroups';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_startgroups';
+                        break;
+                    default:
+                        $key = 'Startgroups';
+                }
+
+                $result[$key] = $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'startgroups';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_startgroups';
+                        break;
+                    default:
+                        $key = 'Startgroups';
+                }
+
+                $result[$key] = $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
             if (null !== $this->collRoutinesRelatedByPerformanceTotalStatisticId) {
 
                 switch ($keyType) {
@@ -1431,6 +1811,54 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
+            foreach ($this->getEventsRelatedByPerformanceTotalStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addEventRelatedByPerformanceTotalStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getEventsRelatedByPerformanceExecutionStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addEventRelatedByPerformanceExecutionStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getEventsRelatedByPerformanceChoreographyStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addEventRelatedByPerformanceChoreographyStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getEventsRelatedByPerformanceMusicAndTimingStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addEventRelatedByPerformanceMusicAndTimingStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getStartgroupsRelatedByPerformanceTotalStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addStartgroupRelatedByPerformanceTotalStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getStartgroupsRelatedByPerformanceExecutionStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addStartgroupRelatedByPerformanceExecutionStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getStartgroupsRelatedByPerformanceChoreographyStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addStartgroupRelatedByPerformanceChoreographyStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getStartgroupsRelatedByPerformanceMusicAndTimingStatisticId() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addStartgroupRelatedByPerformanceMusicAndTimingStatisticId($relObj->copy($deepCopy));
+                }
+            }
+
             foreach ($this->getRoutinesRelatedByPerformanceTotalStatisticId() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addRoutineRelatedByPerformanceTotalStatisticId($relObj->copy($deepCopy));
@@ -1496,6 +1924,30 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
+        if ('EventRelatedByPerformanceTotalStatisticId' == $relationName) {
+            return $this->initEventsRelatedByPerformanceTotalStatisticId();
+        }
+        if ('EventRelatedByPerformanceExecutionStatisticId' == $relationName) {
+            return $this->initEventsRelatedByPerformanceExecutionStatisticId();
+        }
+        if ('EventRelatedByPerformanceChoreographyStatisticId' == $relationName) {
+            return $this->initEventsRelatedByPerformanceChoreographyStatisticId();
+        }
+        if ('EventRelatedByPerformanceMusicAndTimingStatisticId' == $relationName) {
+            return $this->initEventsRelatedByPerformanceMusicAndTimingStatisticId();
+        }
+        if ('StartgroupRelatedByPerformanceTotalStatisticId' == $relationName) {
+            return $this->initStartgroupsRelatedByPerformanceTotalStatisticId();
+        }
+        if ('StartgroupRelatedByPerformanceExecutionStatisticId' == $relationName) {
+            return $this->initStartgroupsRelatedByPerformanceExecutionStatisticId();
+        }
+        if ('StartgroupRelatedByPerformanceChoreographyStatisticId' == $relationName) {
+            return $this->initStartgroupsRelatedByPerformanceChoreographyStatisticId();
+        }
+        if ('StartgroupRelatedByPerformanceMusicAndTimingStatisticId' == $relationName) {
+            return $this->initStartgroupsRelatedByPerformanceMusicAndTimingStatisticId();
+        }
         if ('RoutineRelatedByPerformanceTotalStatisticId' == $relationName) {
             return $this->initRoutinesRelatedByPerformanceTotalStatisticId();
         }
@@ -1508,6 +1960,1950 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
         if ('RoutineRelatedByPerformanceMusicAndTimingStatisticId' == $relationName) {
             return $this->initRoutinesRelatedByPerformanceMusicAndTimingStatisticId();
         }
+    }
+
+    /**
+     * Clears out the collEventsRelatedByPerformanceTotalStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addEventsRelatedByPerformanceTotalStatisticId()
+     */
+    public function clearEventsRelatedByPerformanceTotalStatisticId()
+    {
+        $this->collEventsRelatedByPerformanceTotalStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collEventsRelatedByPerformanceTotalStatisticId collection loaded partially.
+     */
+    public function resetPartialEventsRelatedByPerformanceTotalStatisticId($v = true)
+    {
+        $this->collEventsRelatedByPerformanceTotalStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collEventsRelatedByPerformanceTotalStatisticId collection.
+     *
+     * By default this just sets the collEventsRelatedByPerformanceTotalStatisticId collection to an empty array (like clearcollEventsRelatedByPerformanceTotalStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initEventsRelatedByPerformanceTotalStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collEventsRelatedByPerformanceTotalStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collEventsRelatedByPerformanceTotalStatisticId = new ObjectCollection();
+        $this->collEventsRelatedByPerformanceTotalStatisticId->setModel('\iuf\junia\model\Event');
+    }
+
+    /**
+     * Gets an array of ChildEvent objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildEvent[] List of ChildEvent objects
+     * @throws PropelException
+     */
+    public function getEventsRelatedByPerformanceTotalStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceTotalStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceTotalStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceTotalStatisticId) {
+                // return empty collection
+                $this->initEventsRelatedByPerformanceTotalStatisticId();
+            } else {
+                $collEventsRelatedByPerformanceTotalStatisticId = ChildEventQuery::create(null, $criteria)
+                    ->filterByPerformanceTotalStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collEventsRelatedByPerformanceTotalStatisticIdPartial && count($collEventsRelatedByPerformanceTotalStatisticId)) {
+                        $this->initEventsRelatedByPerformanceTotalStatisticId(false);
+
+                        foreach ($collEventsRelatedByPerformanceTotalStatisticId as $obj) {
+                            if (false == $this->collEventsRelatedByPerformanceTotalStatisticId->contains($obj)) {
+                                $this->collEventsRelatedByPerformanceTotalStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collEventsRelatedByPerformanceTotalStatisticIdPartial = true;
+                    }
+
+                    return $collEventsRelatedByPerformanceTotalStatisticId;
+                }
+
+                if ($partial && $this->collEventsRelatedByPerformanceTotalStatisticId) {
+                    foreach ($this->collEventsRelatedByPerformanceTotalStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collEventsRelatedByPerformanceTotalStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collEventsRelatedByPerformanceTotalStatisticId = $collEventsRelatedByPerformanceTotalStatisticId;
+                $this->collEventsRelatedByPerformanceTotalStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collEventsRelatedByPerformanceTotalStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildEvent objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $eventsRelatedByPerformanceTotalStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setEventsRelatedByPerformanceTotalStatisticId(Collection $eventsRelatedByPerformanceTotalStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildEvent[] $eventsRelatedByPerformanceTotalStatisticIdToDelete */
+        $eventsRelatedByPerformanceTotalStatisticIdToDelete = $this->getEventsRelatedByPerformanceTotalStatisticId(new Criteria(), $con)->diff($eventsRelatedByPerformanceTotalStatisticId);
+
+
+        $this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = $eventsRelatedByPerformanceTotalStatisticIdToDelete;
+
+        foreach ($eventsRelatedByPerformanceTotalStatisticIdToDelete as $eventRelatedByPerformanceTotalStatisticIdRemoved) {
+            $eventRelatedByPerformanceTotalStatisticIdRemoved->setPerformanceTotalStatistic(null);
+        }
+
+        $this->collEventsRelatedByPerformanceTotalStatisticId = null;
+        foreach ($eventsRelatedByPerformanceTotalStatisticId as $eventRelatedByPerformanceTotalStatisticId) {
+            $this->addEventRelatedByPerformanceTotalStatisticId($eventRelatedByPerformanceTotalStatisticId);
+        }
+
+        $this->collEventsRelatedByPerformanceTotalStatisticId = $eventsRelatedByPerformanceTotalStatisticId;
+        $this->collEventsRelatedByPerformanceTotalStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Event objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Event objects.
+     * @throws PropelException
+     */
+    public function countEventsRelatedByPerformanceTotalStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceTotalStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceTotalStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceTotalStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getEventsRelatedByPerformanceTotalStatisticId());
+            }
+
+            $query = ChildEventQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceTotalStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collEventsRelatedByPerformanceTotalStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildEvent object to this object
+     * through the ChildEvent foreign key attribute.
+     *
+     * @param  ChildEvent $l ChildEvent
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addEventRelatedByPerformanceTotalStatisticId(ChildEvent $l)
+    {
+        if ($this->collEventsRelatedByPerformanceTotalStatisticId === null) {
+            $this->initEventsRelatedByPerformanceTotalStatisticId();
+            $this->collEventsRelatedByPerformanceTotalStatisticIdPartial = true;
+        }
+
+        if (!$this->collEventsRelatedByPerformanceTotalStatisticId->contains($l)) {
+            $this->doAddEventRelatedByPerformanceTotalStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildEvent $eventRelatedByPerformanceTotalStatisticId The ChildEvent object to add.
+     */
+    protected function doAddEventRelatedByPerformanceTotalStatisticId(ChildEvent $eventRelatedByPerformanceTotalStatisticId)
+    {
+        $this->collEventsRelatedByPerformanceTotalStatisticId[]= $eventRelatedByPerformanceTotalStatisticId;
+        $eventRelatedByPerformanceTotalStatisticId->setPerformanceTotalStatistic($this);
+    }
+
+    /**
+     * @param  ChildEvent $eventRelatedByPerformanceTotalStatisticId The ChildEvent object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeEventRelatedByPerformanceTotalStatisticId(ChildEvent $eventRelatedByPerformanceTotalStatisticId)
+    {
+        if ($this->getEventsRelatedByPerformanceTotalStatisticId()->contains($eventRelatedByPerformanceTotalStatisticId)) {
+            $pos = $this->collEventsRelatedByPerformanceTotalStatisticId->search($eventRelatedByPerformanceTotalStatisticId);
+            $this->collEventsRelatedByPerformanceTotalStatisticId->remove($pos);
+            if (null === $this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion) {
+                $this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = clone $this->collEventsRelatedByPerformanceTotalStatisticId;
+                $this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion->clear();
+            }
+            $this->eventsRelatedByPerformanceTotalStatisticIdScheduledForDeletion[]= $eventRelatedByPerformanceTotalStatisticId;
+            $eventRelatedByPerformanceTotalStatisticId->setPerformanceTotalStatistic(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Clears out the collEventsRelatedByPerformanceExecutionStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addEventsRelatedByPerformanceExecutionStatisticId()
+     */
+    public function clearEventsRelatedByPerformanceExecutionStatisticId()
+    {
+        $this->collEventsRelatedByPerformanceExecutionStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collEventsRelatedByPerformanceExecutionStatisticId collection loaded partially.
+     */
+    public function resetPartialEventsRelatedByPerformanceExecutionStatisticId($v = true)
+    {
+        $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collEventsRelatedByPerformanceExecutionStatisticId collection.
+     *
+     * By default this just sets the collEventsRelatedByPerformanceExecutionStatisticId collection to an empty array (like clearcollEventsRelatedByPerformanceExecutionStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initEventsRelatedByPerformanceExecutionStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collEventsRelatedByPerformanceExecutionStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collEventsRelatedByPerformanceExecutionStatisticId = new ObjectCollection();
+        $this->collEventsRelatedByPerformanceExecutionStatisticId->setModel('\iuf\junia\model\Event');
+    }
+
+    /**
+     * Gets an array of ChildEvent objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildEvent[] List of ChildEvent objects
+     * @throws PropelException
+     */
+    public function getEventsRelatedByPerformanceExecutionStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceExecutionStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceExecutionStatisticId) {
+                // return empty collection
+                $this->initEventsRelatedByPerformanceExecutionStatisticId();
+            } else {
+                $collEventsRelatedByPerformanceExecutionStatisticId = ChildEventQuery::create(null, $criteria)
+                    ->filterByPerformanceExecutionStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial && count($collEventsRelatedByPerformanceExecutionStatisticId)) {
+                        $this->initEventsRelatedByPerformanceExecutionStatisticId(false);
+
+                        foreach ($collEventsRelatedByPerformanceExecutionStatisticId as $obj) {
+                            if (false == $this->collEventsRelatedByPerformanceExecutionStatisticId->contains($obj)) {
+                                $this->collEventsRelatedByPerformanceExecutionStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial = true;
+                    }
+
+                    return $collEventsRelatedByPerformanceExecutionStatisticId;
+                }
+
+                if ($partial && $this->collEventsRelatedByPerformanceExecutionStatisticId) {
+                    foreach ($this->collEventsRelatedByPerformanceExecutionStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collEventsRelatedByPerformanceExecutionStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collEventsRelatedByPerformanceExecutionStatisticId = $collEventsRelatedByPerformanceExecutionStatisticId;
+                $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collEventsRelatedByPerformanceExecutionStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildEvent objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $eventsRelatedByPerformanceExecutionStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setEventsRelatedByPerformanceExecutionStatisticId(Collection $eventsRelatedByPerformanceExecutionStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildEvent[] $eventsRelatedByPerformanceExecutionStatisticIdToDelete */
+        $eventsRelatedByPerformanceExecutionStatisticIdToDelete = $this->getEventsRelatedByPerformanceExecutionStatisticId(new Criteria(), $con)->diff($eventsRelatedByPerformanceExecutionStatisticId);
+
+
+        $this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = $eventsRelatedByPerformanceExecutionStatisticIdToDelete;
+
+        foreach ($eventsRelatedByPerformanceExecutionStatisticIdToDelete as $eventRelatedByPerformanceExecutionStatisticIdRemoved) {
+            $eventRelatedByPerformanceExecutionStatisticIdRemoved->setPerformanceExecutionStatistic(null);
+        }
+
+        $this->collEventsRelatedByPerformanceExecutionStatisticId = null;
+        foreach ($eventsRelatedByPerformanceExecutionStatisticId as $eventRelatedByPerformanceExecutionStatisticId) {
+            $this->addEventRelatedByPerformanceExecutionStatisticId($eventRelatedByPerformanceExecutionStatisticId);
+        }
+
+        $this->collEventsRelatedByPerformanceExecutionStatisticId = $eventsRelatedByPerformanceExecutionStatisticId;
+        $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Event objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Event objects.
+     * @throws PropelException
+     */
+    public function countEventsRelatedByPerformanceExecutionStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceExecutionStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceExecutionStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getEventsRelatedByPerformanceExecutionStatisticId());
+            }
+
+            $query = ChildEventQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceExecutionStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collEventsRelatedByPerformanceExecutionStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildEvent object to this object
+     * through the ChildEvent foreign key attribute.
+     *
+     * @param  ChildEvent $l ChildEvent
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addEventRelatedByPerformanceExecutionStatisticId(ChildEvent $l)
+    {
+        if ($this->collEventsRelatedByPerformanceExecutionStatisticId === null) {
+            $this->initEventsRelatedByPerformanceExecutionStatisticId();
+            $this->collEventsRelatedByPerformanceExecutionStatisticIdPartial = true;
+        }
+
+        if (!$this->collEventsRelatedByPerformanceExecutionStatisticId->contains($l)) {
+            $this->doAddEventRelatedByPerformanceExecutionStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildEvent $eventRelatedByPerformanceExecutionStatisticId The ChildEvent object to add.
+     */
+    protected function doAddEventRelatedByPerformanceExecutionStatisticId(ChildEvent $eventRelatedByPerformanceExecutionStatisticId)
+    {
+        $this->collEventsRelatedByPerformanceExecutionStatisticId[]= $eventRelatedByPerformanceExecutionStatisticId;
+        $eventRelatedByPerformanceExecutionStatisticId->setPerformanceExecutionStatistic($this);
+    }
+
+    /**
+     * @param  ChildEvent $eventRelatedByPerformanceExecutionStatisticId The ChildEvent object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeEventRelatedByPerformanceExecutionStatisticId(ChildEvent $eventRelatedByPerformanceExecutionStatisticId)
+    {
+        if ($this->getEventsRelatedByPerformanceExecutionStatisticId()->contains($eventRelatedByPerformanceExecutionStatisticId)) {
+            $pos = $this->collEventsRelatedByPerformanceExecutionStatisticId->search($eventRelatedByPerformanceExecutionStatisticId);
+            $this->collEventsRelatedByPerformanceExecutionStatisticId->remove($pos);
+            if (null === $this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion) {
+                $this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = clone $this->collEventsRelatedByPerformanceExecutionStatisticId;
+                $this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion->clear();
+            }
+            $this->eventsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion[]= $eventRelatedByPerformanceExecutionStatisticId;
+            $eventRelatedByPerformanceExecutionStatisticId->setPerformanceExecutionStatistic(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Clears out the collEventsRelatedByPerformanceChoreographyStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addEventsRelatedByPerformanceChoreographyStatisticId()
+     */
+    public function clearEventsRelatedByPerformanceChoreographyStatisticId()
+    {
+        $this->collEventsRelatedByPerformanceChoreographyStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collEventsRelatedByPerformanceChoreographyStatisticId collection loaded partially.
+     */
+    public function resetPartialEventsRelatedByPerformanceChoreographyStatisticId($v = true)
+    {
+        $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collEventsRelatedByPerformanceChoreographyStatisticId collection.
+     *
+     * By default this just sets the collEventsRelatedByPerformanceChoreographyStatisticId collection to an empty array (like clearcollEventsRelatedByPerformanceChoreographyStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initEventsRelatedByPerformanceChoreographyStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collEventsRelatedByPerformanceChoreographyStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collEventsRelatedByPerformanceChoreographyStatisticId = new ObjectCollection();
+        $this->collEventsRelatedByPerformanceChoreographyStatisticId->setModel('\iuf\junia\model\Event');
+    }
+
+    /**
+     * Gets an array of ChildEvent objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildEvent[] List of ChildEvent objects
+     * @throws PropelException
+     */
+    public function getEventsRelatedByPerformanceChoreographyStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceChoreographyStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceChoreographyStatisticId) {
+                // return empty collection
+                $this->initEventsRelatedByPerformanceChoreographyStatisticId();
+            } else {
+                $collEventsRelatedByPerformanceChoreographyStatisticId = ChildEventQuery::create(null, $criteria)
+                    ->filterByPerformanceChoreographyStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial && count($collEventsRelatedByPerformanceChoreographyStatisticId)) {
+                        $this->initEventsRelatedByPerformanceChoreographyStatisticId(false);
+
+                        foreach ($collEventsRelatedByPerformanceChoreographyStatisticId as $obj) {
+                            if (false == $this->collEventsRelatedByPerformanceChoreographyStatisticId->contains($obj)) {
+                                $this->collEventsRelatedByPerformanceChoreographyStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial = true;
+                    }
+
+                    return $collEventsRelatedByPerformanceChoreographyStatisticId;
+                }
+
+                if ($partial && $this->collEventsRelatedByPerformanceChoreographyStatisticId) {
+                    foreach ($this->collEventsRelatedByPerformanceChoreographyStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collEventsRelatedByPerformanceChoreographyStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collEventsRelatedByPerformanceChoreographyStatisticId = $collEventsRelatedByPerformanceChoreographyStatisticId;
+                $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collEventsRelatedByPerformanceChoreographyStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildEvent objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $eventsRelatedByPerformanceChoreographyStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setEventsRelatedByPerformanceChoreographyStatisticId(Collection $eventsRelatedByPerformanceChoreographyStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildEvent[] $eventsRelatedByPerformanceChoreographyStatisticIdToDelete */
+        $eventsRelatedByPerformanceChoreographyStatisticIdToDelete = $this->getEventsRelatedByPerformanceChoreographyStatisticId(new Criteria(), $con)->diff($eventsRelatedByPerformanceChoreographyStatisticId);
+
+
+        $this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = $eventsRelatedByPerformanceChoreographyStatisticIdToDelete;
+
+        foreach ($eventsRelatedByPerformanceChoreographyStatisticIdToDelete as $eventRelatedByPerformanceChoreographyStatisticIdRemoved) {
+            $eventRelatedByPerformanceChoreographyStatisticIdRemoved->setPerformanceChoreographyStatistic(null);
+        }
+
+        $this->collEventsRelatedByPerformanceChoreographyStatisticId = null;
+        foreach ($eventsRelatedByPerformanceChoreographyStatisticId as $eventRelatedByPerformanceChoreographyStatisticId) {
+            $this->addEventRelatedByPerformanceChoreographyStatisticId($eventRelatedByPerformanceChoreographyStatisticId);
+        }
+
+        $this->collEventsRelatedByPerformanceChoreographyStatisticId = $eventsRelatedByPerformanceChoreographyStatisticId;
+        $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Event objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Event objects.
+     * @throws PropelException
+     */
+    public function countEventsRelatedByPerformanceChoreographyStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceChoreographyStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceChoreographyStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getEventsRelatedByPerformanceChoreographyStatisticId());
+            }
+
+            $query = ChildEventQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceChoreographyStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collEventsRelatedByPerformanceChoreographyStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildEvent object to this object
+     * through the ChildEvent foreign key attribute.
+     *
+     * @param  ChildEvent $l ChildEvent
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addEventRelatedByPerformanceChoreographyStatisticId(ChildEvent $l)
+    {
+        if ($this->collEventsRelatedByPerformanceChoreographyStatisticId === null) {
+            $this->initEventsRelatedByPerformanceChoreographyStatisticId();
+            $this->collEventsRelatedByPerformanceChoreographyStatisticIdPartial = true;
+        }
+
+        if (!$this->collEventsRelatedByPerformanceChoreographyStatisticId->contains($l)) {
+            $this->doAddEventRelatedByPerformanceChoreographyStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildEvent $eventRelatedByPerformanceChoreographyStatisticId The ChildEvent object to add.
+     */
+    protected function doAddEventRelatedByPerformanceChoreographyStatisticId(ChildEvent $eventRelatedByPerformanceChoreographyStatisticId)
+    {
+        $this->collEventsRelatedByPerformanceChoreographyStatisticId[]= $eventRelatedByPerformanceChoreographyStatisticId;
+        $eventRelatedByPerformanceChoreographyStatisticId->setPerformanceChoreographyStatistic($this);
+    }
+
+    /**
+     * @param  ChildEvent $eventRelatedByPerformanceChoreographyStatisticId The ChildEvent object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeEventRelatedByPerformanceChoreographyStatisticId(ChildEvent $eventRelatedByPerformanceChoreographyStatisticId)
+    {
+        if ($this->getEventsRelatedByPerformanceChoreographyStatisticId()->contains($eventRelatedByPerformanceChoreographyStatisticId)) {
+            $pos = $this->collEventsRelatedByPerformanceChoreographyStatisticId->search($eventRelatedByPerformanceChoreographyStatisticId);
+            $this->collEventsRelatedByPerformanceChoreographyStatisticId->remove($pos);
+            if (null === $this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion) {
+                $this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = clone $this->collEventsRelatedByPerformanceChoreographyStatisticId;
+                $this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion->clear();
+            }
+            $this->eventsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion[]= $eventRelatedByPerformanceChoreographyStatisticId;
+            $eventRelatedByPerformanceChoreographyStatisticId->setPerformanceChoreographyStatistic(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Clears out the collEventsRelatedByPerformanceMusicAndTimingStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addEventsRelatedByPerformanceMusicAndTimingStatisticId()
+     */
+    public function clearEventsRelatedByPerformanceMusicAndTimingStatisticId()
+    {
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collEventsRelatedByPerformanceMusicAndTimingStatisticId collection loaded partially.
+     */
+    public function resetPartialEventsRelatedByPerformanceMusicAndTimingStatisticId($v = true)
+    {
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collEventsRelatedByPerformanceMusicAndTimingStatisticId collection.
+     *
+     * By default this just sets the collEventsRelatedByPerformanceMusicAndTimingStatisticId collection to an empty array (like clearcollEventsRelatedByPerformanceMusicAndTimingStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initEventsRelatedByPerformanceMusicAndTimingStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId = new ObjectCollection();
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId->setModel('\iuf\junia\model\Event');
+    }
+
+    /**
+     * Gets an array of ChildEvent objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildEvent[] List of ChildEvent objects
+     * @throws PropelException
+     */
+    public function getEventsRelatedByPerformanceMusicAndTimingStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId) {
+                // return empty collection
+                $this->initEventsRelatedByPerformanceMusicAndTimingStatisticId();
+            } else {
+                $collEventsRelatedByPerformanceMusicAndTimingStatisticId = ChildEventQuery::create(null, $criteria)
+                    ->filterByPerformanceMusicAndTimingStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial && count($collEventsRelatedByPerformanceMusicAndTimingStatisticId)) {
+                        $this->initEventsRelatedByPerformanceMusicAndTimingStatisticId(false);
+
+                        foreach ($collEventsRelatedByPerformanceMusicAndTimingStatisticId as $obj) {
+                            if (false == $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId->contains($obj)) {
+                                $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial = true;
+                    }
+
+                    return $collEventsRelatedByPerformanceMusicAndTimingStatisticId;
+                }
+
+                if ($partial && $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId) {
+                    foreach ($this->collEventsRelatedByPerformanceMusicAndTimingStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collEventsRelatedByPerformanceMusicAndTimingStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId = $collEventsRelatedByPerformanceMusicAndTimingStatisticId;
+                $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildEvent objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $eventsRelatedByPerformanceMusicAndTimingStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setEventsRelatedByPerformanceMusicAndTimingStatisticId(Collection $eventsRelatedByPerformanceMusicAndTimingStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildEvent[] $eventsRelatedByPerformanceMusicAndTimingStatisticIdToDelete */
+        $eventsRelatedByPerformanceMusicAndTimingStatisticIdToDelete = $this->getEventsRelatedByPerformanceMusicAndTimingStatisticId(new Criteria(), $con)->diff($eventsRelatedByPerformanceMusicAndTimingStatisticId);
+
+
+        $this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = $eventsRelatedByPerformanceMusicAndTimingStatisticIdToDelete;
+
+        foreach ($eventsRelatedByPerformanceMusicAndTimingStatisticIdToDelete as $eventRelatedByPerformanceMusicAndTimingStatisticIdRemoved) {
+            $eventRelatedByPerformanceMusicAndTimingStatisticIdRemoved->setPerformanceMusicAndTimingStatistic(null);
+        }
+
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId = null;
+        foreach ($eventsRelatedByPerformanceMusicAndTimingStatisticId as $eventRelatedByPerformanceMusicAndTimingStatisticId) {
+            $this->addEventRelatedByPerformanceMusicAndTimingStatisticId($eventRelatedByPerformanceMusicAndTimingStatisticId);
+        }
+
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId = $eventsRelatedByPerformanceMusicAndTimingStatisticId;
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Event objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Event objects.
+     * @throws PropelException
+     */
+    public function countEventsRelatedByPerformanceMusicAndTimingStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial && !$this->isNew();
+        if (null === $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getEventsRelatedByPerformanceMusicAndTimingStatisticId());
+            }
+
+            $query = ChildEventQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceMusicAndTimingStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collEventsRelatedByPerformanceMusicAndTimingStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildEvent object to this object
+     * through the ChildEvent foreign key attribute.
+     *
+     * @param  ChildEvent $l ChildEvent
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addEventRelatedByPerformanceMusicAndTimingStatisticId(ChildEvent $l)
+    {
+        if ($this->collEventsRelatedByPerformanceMusicAndTimingStatisticId === null) {
+            $this->initEventsRelatedByPerformanceMusicAndTimingStatisticId();
+            $this->collEventsRelatedByPerformanceMusicAndTimingStatisticIdPartial = true;
+        }
+
+        if (!$this->collEventsRelatedByPerformanceMusicAndTimingStatisticId->contains($l)) {
+            $this->doAddEventRelatedByPerformanceMusicAndTimingStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildEvent $eventRelatedByPerformanceMusicAndTimingStatisticId The ChildEvent object to add.
+     */
+    protected function doAddEventRelatedByPerformanceMusicAndTimingStatisticId(ChildEvent $eventRelatedByPerformanceMusicAndTimingStatisticId)
+    {
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId[]= $eventRelatedByPerformanceMusicAndTimingStatisticId;
+        $eventRelatedByPerformanceMusicAndTimingStatisticId->setPerformanceMusicAndTimingStatistic($this);
+    }
+
+    /**
+     * @param  ChildEvent $eventRelatedByPerformanceMusicAndTimingStatisticId The ChildEvent object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeEventRelatedByPerformanceMusicAndTimingStatisticId(ChildEvent $eventRelatedByPerformanceMusicAndTimingStatisticId)
+    {
+        if ($this->getEventsRelatedByPerformanceMusicAndTimingStatisticId()->contains($eventRelatedByPerformanceMusicAndTimingStatisticId)) {
+            $pos = $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId->search($eventRelatedByPerformanceMusicAndTimingStatisticId);
+            $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId->remove($pos);
+            if (null === $this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion) {
+                $this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = clone $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId;
+                $this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion->clear();
+            }
+            $this->eventsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion[]= $eventRelatedByPerformanceMusicAndTimingStatisticId;
+            $eventRelatedByPerformanceMusicAndTimingStatisticId->setPerformanceMusicAndTimingStatistic(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Clears out the collStartgroupsRelatedByPerformanceTotalStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addStartgroupsRelatedByPerformanceTotalStatisticId()
+     */
+    public function clearStartgroupsRelatedByPerformanceTotalStatisticId()
+    {
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collStartgroupsRelatedByPerformanceTotalStatisticId collection loaded partially.
+     */
+    public function resetPartialStartgroupsRelatedByPerformanceTotalStatisticId($v = true)
+    {
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collStartgroupsRelatedByPerformanceTotalStatisticId collection.
+     *
+     * By default this just sets the collStartgroupsRelatedByPerformanceTotalStatisticId collection to an empty array (like clearcollStartgroupsRelatedByPerformanceTotalStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initStartgroupsRelatedByPerformanceTotalStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collStartgroupsRelatedByPerformanceTotalStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticId = new ObjectCollection();
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticId->setModel('\iuf\junia\model\Startgroup');
+    }
+
+    /**
+     * Gets an array of ChildStartgroup objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     * @throws PropelException
+     */
+    public function getStartgroupsRelatedByPerformanceTotalStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceTotalStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceTotalStatisticId) {
+                // return empty collection
+                $this->initStartgroupsRelatedByPerformanceTotalStatisticId();
+            } else {
+                $collStartgroupsRelatedByPerformanceTotalStatisticId = ChildStartgroupQuery::create(null, $criteria)
+                    ->filterByPerformanceTotalStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial && count($collStartgroupsRelatedByPerformanceTotalStatisticId)) {
+                        $this->initStartgroupsRelatedByPerformanceTotalStatisticId(false);
+
+                        foreach ($collStartgroupsRelatedByPerformanceTotalStatisticId as $obj) {
+                            if (false == $this->collStartgroupsRelatedByPerformanceTotalStatisticId->contains($obj)) {
+                                $this->collStartgroupsRelatedByPerformanceTotalStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial = true;
+                    }
+
+                    return $collStartgroupsRelatedByPerformanceTotalStatisticId;
+                }
+
+                if ($partial && $this->collStartgroupsRelatedByPerformanceTotalStatisticId) {
+                    foreach ($this->collStartgroupsRelatedByPerformanceTotalStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collStartgroupsRelatedByPerformanceTotalStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collStartgroupsRelatedByPerformanceTotalStatisticId = $collStartgroupsRelatedByPerformanceTotalStatisticId;
+                $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collStartgroupsRelatedByPerformanceTotalStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildStartgroup objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $startgroupsRelatedByPerformanceTotalStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setStartgroupsRelatedByPerformanceTotalStatisticId(Collection $startgroupsRelatedByPerformanceTotalStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildStartgroup[] $startgroupsRelatedByPerformanceTotalStatisticIdToDelete */
+        $startgroupsRelatedByPerformanceTotalStatisticIdToDelete = $this->getStartgroupsRelatedByPerformanceTotalStatisticId(new Criteria(), $con)->diff($startgroupsRelatedByPerformanceTotalStatisticId);
+
+
+        $this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = $startgroupsRelatedByPerformanceTotalStatisticIdToDelete;
+
+        foreach ($startgroupsRelatedByPerformanceTotalStatisticIdToDelete as $startgroupRelatedByPerformanceTotalStatisticIdRemoved) {
+            $startgroupRelatedByPerformanceTotalStatisticIdRemoved->setPerformanceTotalStatistic(null);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticId = null;
+        foreach ($startgroupsRelatedByPerformanceTotalStatisticId as $startgroupRelatedByPerformanceTotalStatisticId) {
+            $this->addStartgroupRelatedByPerformanceTotalStatisticId($startgroupRelatedByPerformanceTotalStatisticId);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticId = $startgroupsRelatedByPerformanceTotalStatisticId;
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Startgroup objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Startgroup objects.
+     * @throws PropelException
+     */
+    public function countStartgroupsRelatedByPerformanceTotalStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceTotalStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceTotalStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getStartgroupsRelatedByPerformanceTotalStatisticId());
+            }
+
+            $query = ChildStartgroupQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceTotalStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collStartgroupsRelatedByPerformanceTotalStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildStartgroup object to this object
+     * through the ChildStartgroup foreign key attribute.
+     *
+     * @param  ChildStartgroup $l ChildStartgroup
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addStartgroupRelatedByPerformanceTotalStatisticId(ChildStartgroup $l)
+    {
+        if ($this->collStartgroupsRelatedByPerformanceTotalStatisticId === null) {
+            $this->initStartgroupsRelatedByPerformanceTotalStatisticId();
+            $this->collStartgroupsRelatedByPerformanceTotalStatisticIdPartial = true;
+        }
+
+        if (!$this->collStartgroupsRelatedByPerformanceTotalStatisticId->contains($l)) {
+            $this->doAddStartgroupRelatedByPerformanceTotalStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildStartgroup $startgroupRelatedByPerformanceTotalStatisticId The ChildStartgroup object to add.
+     */
+    protected function doAddStartgroupRelatedByPerformanceTotalStatisticId(ChildStartgroup $startgroupRelatedByPerformanceTotalStatisticId)
+    {
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticId[]= $startgroupRelatedByPerformanceTotalStatisticId;
+        $startgroupRelatedByPerformanceTotalStatisticId->setPerformanceTotalStatistic($this);
+    }
+
+    /**
+     * @param  ChildStartgroup $startgroupRelatedByPerformanceTotalStatisticId The ChildStartgroup object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeStartgroupRelatedByPerformanceTotalStatisticId(ChildStartgroup $startgroupRelatedByPerformanceTotalStatisticId)
+    {
+        if ($this->getStartgroupsRelatedByPerformanceTotalStatisticId()->contains($startgroupRelatedByPerformanceTotalStatisticId)) {
+            $pos = $this->collStartgroupsRelatedByPerformanceTotalStatisticId->search($startgroupRelatedByPerformanceTotalStatisticId);
+            $this->collStartgroupsRelatedByPerformanceTotalStatisticId->remove($pos);
+            if (null === $this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion) {
+                $this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion = clone $this->collStartgroupsRelatedByPerformanceTotalStatisticId;
+                $this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion->clear();
+            }
+            $this->startgroupsRelatedByPerformanceTotalStatisticIdScheduledForDeletion[]= $startgroupRelatedByPerformanceTotalStatisticId;
+            $startgroupRelatedByPerformanceTotalStatisticId->setPerformanceTotalStatistic(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceTotalStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceTotalStatisticIdJoinCompetition(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Competition', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceTotalStatisticId($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceTotalStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceTotalStatisticIdJoinEvent(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Event', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceTotalStatisticId($query, $con);
+    }
+
+    /**
+     * Clears out the collStartgroupsRelatedByPerformanceExecutionStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addStartgroupsRelatedByPerformanceExecutionStatisticId()
+     */
+    public function clearStartgroupsRelatedByPerformanceExecutionStatisticId()
+    {
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collStartgroupsRelatedByPerformanceExecutionStatisticId collection loaded partially.
+     */
+    public function resetPartialStartgroupsRelatedByPerformanceExecutionStatisticId($v = true)
+    {
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collStartgroupsRelatedByPerformanceExecutionStatisticId collection.
+     *
+     * By default this just sets the collStartgroupsRelatedByPerformanceExecutionStatisticId collection to an empty array (like clearcollStartgroupsRelatedByPerformanceExecutionStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initStartgroupsRelatedByPerformanceExecutionStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collStartgroupsRelatedByPerformanceExecutionStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticId = new ObjectCollection();
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticId->setModel('\iuf\junia\model\Startgroup');
+    }
+
+    /**
+     * Gets an array of ChildStartgroup objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     * @throws PropelException
+     */
+    public function getStartgroupsRelatedByPerformanceExecutionStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceExecutionStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceExecutionStatisticId) {
+                // return empty collection
+                $this->initStartgroupsRelatedByPerformanceExecutionStatisticId();
+            } else {
+                $collStartgroupsRelatedByPerformanceExecutionStatisticId = ChildStartgroupQuery::create(null, $criteria)
+                    ->filterByPerformanceExecutionStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial && count($collStartgroupsRelatedByPerformanceExecutionStatisticId)) {
+                        $this->initStartgroupsRelatedByPerformanceExecutionStatisticId(false);
+
+                        foreach ($collStartgroupsRelatedByPerformanceExecutionStatisticId as $obj) {
+                            if (false == $this->collStartgroupsRelatedByPerformanceExecutionStatisticId->contains($obj)) {
+                                $this->collStartgroupsRelatedByPerformanceExecutionStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial = true;
+                    }
+
+                    return $collStartgroupsRelatedByPerformanceExecutionStatisticId;
+                }
+
+                if ($partial && $this->collStartgroupsRelatedByPerformanceExecutionStatisticId) {
+                    foreach ($this->collStartgroupsRelatedByPerformanceExecutionStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collStartgroupsRelatedByPerformanceExecutionStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collStartgroupsRelatedByPerformanceExecutionStatisticId = $collStartgroupsRelatedByPerformanceExecutionStatisticId;
+                $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collStartgroupsRelatedByPerformanceExecutionStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildStartgroup objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $startgroupsRelatedByPerformanceExecutionStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setStartgroupsRelatedByPerformanceExecutionStatisticId(Collection $startgroupsRelatedByPerformanceExecutionStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildStartgroup[] $startgroupsRelatedByPerformanceExecutionStatisticIdToDelete */
+        $startgroupsRelatedByPerformanceExecutionStatisticIdToDelete = $this->getStartgroupsRelatedByPerformanceExecutionStatisticId(new Criteria(), $con)->diff($startgroupsRelatedByPerformanceExecutionStatisticId);
+
+
+        $this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = $startgroupsRelatedByPerformanceExecutionStatisticIdToDelete;
+
+        foreach ($startgroupsRelatedByPerformanceExecutionStatisticIdToDelete as $startgroupRelatedByPerformanceExecutionStatisticIdRemoved) {
+            $startgroupRelatedByPerformanceExecutionStatisticIdRemoved->setPerformanceExecutionStatistic(null);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticId = null;
+        foreach ($startgroupsRelatedByPerformanceExecutionStatisticId as $startgroupRelatedByPerformanceExecutionStatisticId) {
+            $this->addStartgroupRelatedByPerformanceExecutionStatisticId($startgroupRelatedByPerformanceExecutionStatisticId);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticId = $startgroupsRelatedByPerformanceExecutionStatisticId;
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Startgroup objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Startgroup objects.
+     * @throws PropelException
+     */
+    public function countStartgroupsRelatedByPerformanceExecutionStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceExecutionStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceExecutionStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getStartgroupsRelatedByPerformanceExecutionStatisticId());
+            }
+
+            $query = ChildStartgroupQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceExecutionStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collStartgroupsRelatedByPerformanceExecutionStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildStartgroup object to this object
+     * through the ChildStartgroup foreign key attribute.
+     *
+     * @param  ChildStartgroup $l ChildStartgroup
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addStartgroupRelatedByPerformanceExecutionStatisticId(ChildStartgroup $l)
+    {
+        if ($this->collStartgroupsRelatedByPerformanceExecutionStatisticId === null) {
+            $this->initStartgroupsRelatedByPerformanceExecutionStatisticId();
+            $this->collStartgroupsRelatedByPerformanceExecutionStatisticIdPartial = true;
+        }
+
+        if (!$this->collStartgroupsRelatedByPerformanceExecutionStatisticId->contains($l)) {
+            $this->doAddStartgroupRelatedByPerformanceExecutionStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildStartgroup $startgroupRelatedByPerformanceExecutionStatisticId The ChildStartgroup object to add.
+     */
+    protected function doAddStartgroupRelatedByPerformanceExecutionStatisticId(ChildStartgroup $startgroupRelatedByPerformanceExecutionStatisticId)
+    {
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticId[]= $startgroupRelatedByPerformanceExecutionStatisticId;
+        $startgroupRelatedByPerformanceExecutionStatisticId->setPerformanceExecutionStatistic($this);
+    }
+
+    /**
+     * @param  ChildStartgroup $startgroupRelatedByPerformanceExecutionStatisticId The ChildStartgroup object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeStartgroupRelatedByPerformanceExecutionStatisticId(ChildStartgroup $startgroupRelatedByPerformanceExecutionStatisticId)
+    {
+        if ($this->getStartgroupsRelatedByPerformanceExecutionStatisticId()->contains($startgroupRelatedByPerformanceExecutionStatisticId)) {
+            $pos = $this->collStartgroupsRelatedByPerformanceExecutionStatisticId->search($startgroupRelatedByPerformanceExecutionStatisticId);
+            $this->collStartgroupsRelatedByPerformanceExecutionStatisticId->remove($pos);
+            if (null === $this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion) {
+                $this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion = clone $this->collStartgroupsRelatedByPerformanceExecutionStatisticId;
+                $this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion->clear();
+            }
+            $this->startgroupsRelatedByPerformanceExecutionStatisticIdScheduledForDeletion[]= $startgroupRelatedByPerformanceExecutionStatisticId;
+            $startgroupRelatedByPerformanceExecutionStatisticId->setPerformanceExecutionStatistic(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceExecutionStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceExecutionStatisticIdJoinCompetition(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Competition', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceExecutionStatisticId($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceExecutionStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceExecutionStatisticIdJoinEvent(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Event', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceExecutionStatisticId($query, $con);
+    }
+
+    /**
+     * Clears out the collStartgroupsRelatedByPerformanceChoreographyStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addStartgroupsRelatedByPerformanceChoreographyStatisticId()
+     */
+    public function clearStartgroupsRelatedByPerformanceChoreographyStatisticId()
+    {
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collStartgroupsRelatedByPerformanceChoreographyStatisticId collection loaded partially.
+     */
+    public function resetPartialStartgroupsRelatedByPerformanceChoreographyStatisticId($v = true)
+    {
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collStartgroupsRelatedByPerformanceChoreographyStatisticId collection.
+     *
+     * By default this just sets the collStartgroupsRelatedByPerformanceChoreographyStatisticId collection to an empty array (like clearcollStartgroupsRelatedByPerformanceChoreographyStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initStartgroupsRelatedByPerformanceChoreographyStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId = new ObjectCollection();
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId->setModel('\iuf\junia\model\Startgroup');
+    }
+
+    /**
+     * Gets an array of ChildStartgroup objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     * @throws PropelException
+     */
+    public function getStartgroupsRelatedByPerformanceChoreographyStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId) {
+                // return empty collection
+                $this->initStartgroupsRelatedByPerformanceChoreographyStatisticId();
+            } else {
+                $collStartgroupsRelatedByPerformanceChoreographyStatisticId = ChildStartgroupQuery::create(null, $criteria)
+                    ->filterByPerformanceChoreographyStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial && count($collStartgroupsRelatedByPerformanceChoreographyStatisticId)) {
+                        $this->initStartgroupsRelatedByPerformanceChoreographyStatisticId(false);
+
+                        foreach ($collStartgroupsRelatedByPerformanceChoreographyStatisticId as $obj) {
+                            if (false == $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId->contains($obj)) {
+                                $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial = true;
+                    }
+
+                    return $collStartgroupsRelatedByPerformanceChoreographyStatisticId;
+                }
+
+                if ($partial && $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId) {
+                    foreach ($this->collStartgroupsRelatedByPerformanceChoreographyStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collStartgroupsRelatedByPerformanceChoreographyStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId = $collStartgroupsRelatedByPerformanceChoreographyStatisticId;
+                $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildStartgroup objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $startgroupsRelatedByPerformanceChoreographyStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setStartgroupsRelatedByPerformanceChoreographyStatisticId(Collection $startgroupsRelatedByPerformanceChoreographyStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildStartgroup[] $startgroupsRelatedByPerformanceChoreographyStatisticIdToDelete */
+        $startgroupsRelatedByPerformanceChoreographyStatisticIdToDelete = $this->getStartgroupsRelatedByPerformanceChoreographyStatisticId(new Criteria(), $con)->diff($startgroupsRelatedByPerformanceChoreographyStatisticId);
+
+
+        $this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = $startgroupsRelatedByPerformanceChoreographyStatisticIdToDelete;
+
+        foreach ($startgroupsRelatedByPerformanceChoreographyStatisticIdToDelete as $startgroupRelatedByPerformanceChoreographyStatisticIdRemoved) {
+            $startgroupRelatedByPerformanceChoreographyStatisticIdRemoved->setPerformanceChoreographyStatistic(null);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId = null;
+        foreach ($startgroupsRelatedByPerformanceChoreographyStatisticId as $startgroupRelatedByPerformanceChoreographyStatisticId) {
+            $this->addStartgroupRelatedByPerformanceChoreographyStatisticId($startgroupRelatedByPerformanceChoreographyStatisticId);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId = $startgroupsRelatedByPerformanceChoreographyStatisticId;
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Startgroup objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Startgroup objects.
+     * @throws PropelException
+     */
+    public function countStartgroupsRelatedByPerformanceChoreographyStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getStartgroupsRelatedByPerformanceChoreographyStatisticId());
+            }
+
+            $query = ChildStartgroupQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceChoreographyStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collStartgroupsRelatedByPerformanceChoreographyStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildStartgroup object to this object
+     * through the ChildStartgroup foreign key attribute.
+     *
+     * @param  ChildStartgroup $l ChildStartgroup
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addStartgroupRelatedByPerformanceChoreographyStatisticId(ChildStartgroup $l)
+    {
+        if ($this->collStartgroupsRelatedByPerformanceChoreographyStatisticId === null) {
+            $this->initStartgroupsRelatedByPerformanceChoreographyStatisticId();
+            $this->collStartgroupsRelatedByPerformanceChoreographyStatisticIdPartial = true;
+        }
+
+        if (!$this->collStartgroupsRelatedByPerformanceChoreographyStatisticId->contains($l)) {
+            $this->doAddStartgroupRelatedByPerformanceChoreographyStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildStartgroup $startgroupRelatedByPerformanceChoreographyStatisticId The ChildStartgroup object to add.
+     */
+    protected function doAddStartgroupRelatedByPerformanceChoreographyStatisticId(ChildStartgroup $startgroupRelatedByPerformanceChoreographyStatisticId)
+    {
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId[]= $startgroupRelatedByPerformanceChoreographyStatisticId;
+        $startgroupRelatedByPerformanceChoreographyStatisticId->setPerformanceChoreographyStatistic($this);
+    }
+
+    /**
+     * @param  ChildStartgroup $startgroupRelatedByPerformanceChoreographyStatisticId The ChildStartgroup object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeStartgroupRelatedByPerformanceChoreographyStatisticId(ChildStartgroup $startgroupRelatedByPerformanceChoreographyStatisticId)
+    {
+        if ($this->getStartgroupsRelatedByPerformanceChoreographyStatisticId()->contains($startgroupRelatedByPerformanceChoreographyStatisticId)) {
+            $pos = $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId->search($startgroupRelatedByPerformanceChoreographyStatisticId);
+            $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId->remove($pos);
+            if (null === $this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion) {
+                $this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion = clone $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId;
+                $this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion->clear();
+            }
+            $this->startgroupsRelatedByPerformanceChoreographyStatisticIdScheduledForDeletion[]= $startgroupRelatedByPerformanceChoreographyStatisticId;
+            $startgroupRelatedByPerformanceChoreographyStatisticId->setPerformanceChoreographyStatistic(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceChoreographyStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceChoreographyStatisticIdJoinCompetition(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Competition', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceChoreographyStatisticId($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceChoreographyStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceChoreographyStatisticIdJoinEvent(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Event', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceChoreographyStatisticId($query, $con);
+    }
+
+    /**
+     * Clears out the collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addStartgroupsRelatedByPerformanceMusicAndTimingStatisticId()
+     */
+    public function clearStartgroupsRelatedByPerformanceMusicAndTimingStatisticId()
+    {
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId collection loaded partially.
+     */
+    public function resetPartialStartgroupsRelatedByPerformanceMusicAndTimingStatisticId($v = true)
+    {
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId collection.
+     *
+     * By default this just sets the collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId collection to an empty array (like clearcollStartgroupsRelatedByPerformanceMusicAndTimingStatisticId());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initStartgroupsRelatedByPerformanceMusicAndTimingStatisticId($overrideExisting = true)
+    {
+        if (null !== $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId && !$overrideExisting) {
+            return;
+        }
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = new ObjectCollection();
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId->setModel('\iuf\junia\model\Startgroup');
+    }
+
+    /**
+     * Gets an array of ChildStartgroup objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildPerformanceStatistic is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     * @throws PropelException
+     */
+    public function getStartgroupsRelatedByPerformanceMusicAndTimingStatisticId(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId) {
+                // return empty collection
+                $this->initStartgroupsRelatedByPerformanceMusicAndTimingStatisticId();
+            } else {
+                $collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = ChildStartgroupQuery::create(null, $criteria)
+                    ->filterByPerformanceMusicAndTimingStatistic($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial && count($collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId)) {
+                        $this->initStartgroupsRelatedByPerformanceMusicAndTimingStatisticId(false);
+
+                        foreach ($collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId as $obj) {
+                            if (false == $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId->contains($obj)) {
+                                $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId->append($obj);
+                            }
+                        }
+
+                        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial = true;
+                    }
+
+                    return $collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId;
+                }
+
+                if ($partial && $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId) {
+                    foreach ($this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId as $obj) {
+                        if ($obj->isNew()) {
+                            $collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = $collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId;
+                $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial = false;
+            }
+        }
+
+        return $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId;
+    }
+
+    /**
+     * Sets a collection of ChildStartgroup objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $startgroupsRelatedByPerformanceMusicAndTimingStatisticId A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function setStartgroupsRelatedByPerformanceMusicAndTimingStatisticId(Collection $startgroupsRelatedByPerformanceMusicAndTimingStatisticId, ConnectionInterface $con = null)
+    {
+        /** @var ChildStartgroup[] $startgroupsRelatedByPerformanceMusicAndTimingStatisticIdToDelete */
+        $startgroupsRelatedByPerformanceMusicAndTimingStatisticIdToDelete = $this->getStartgroupsRelatedByPerformanceMusicAndTimingStatisticId(new Criteria(), $con)->diff($startgroupsRelatedByPerformanceMusicAndTimingStatisticId);
+
+
+        $this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = $startgroupsRelatedByPerformanceMusicAndTimingStatisticIdToDelete;
+
+        foreach ($startgroupsRelatedByPerformanceMusicAndTimingStatisticIdToDelete as $startgroupRelatedByPerformanceMusicAndTimingStatisticIdRemoved) {
+            $startgroupRelatedByPerformanceMusicAndTimingStatisticIdRemoved->setPerformanceMusicAndTimingStatistic(null);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = null;
+        foreach ($startgroupsRelatedByPerformanceMusicAndTimingStatisticId as $startgroupRelatedByPerformanceMusicAndTimingStatisticId) {
+            $this->addStartgroupRelatedByPerformanceMusicAndTimingStatisticId($startgroupRelatedByPerformanceMusicAndTimingStatisticId);
+        }
+
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = $startgroupsRelatedByPerformanceMusicAndTimingStatisticId;
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Startgroup objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Startgroup objects.
+     * @throws PropelException
+     */
+    public function countStartgroupsRelatedByPerformanceMusicAndTimingStatisticId(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial && !$this->isNew();
+        if (null === $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getStartgroupsRelatedByPerformanceMusicAndTimingStatisticId());
+            }
+
+            $query = ChildStartgroupQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByPerformanceMusicAndTimingStatistic($this)
+                ->count($con);
+        }
+
+        return count($this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId);
+    }
+
+    /**
+     * Method called to associate a ChildStartgroup object to this object
+     * through the ChildStartgroup foreign key attribute.
+     *
+     * @param  ChildStartgroup $l ChildStartgroup
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function addStartgroupRelatedByPerformanceMusicAndTimingStatisticId(ChildStartgroup $l)
+    {
+        if ($this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId === null) {
+            $this->initStartgroupsRelatedByPerformanceMusicAndTimingStatisticId();
+            $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdPartial = true;
+        }
+
+        if (!$this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId->contains($l)) {
+            $this->doAddStartgroupRelatedByPerformanceMusicAndTimingStatisticId($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildStartgroup $startgroupRelatedByPerformanceMusicAndTimingStatisticId The ChildStartgroup object to add.
+     */
+    protected function doAddStartgroupRelatedByPerformanceMusicAndTimingStatisticId(ChildStartgroup $startgroupRelatedByPerformanceMusicAndTimingStatisticId)
+    {
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId[]= $startgroupRelatedByPerformanceMusicAndTimingStatisticId;
+        $startgroupRelatedByPerformanceMusicAndTimingStatisticId->setPerformanceMusicAndTimingStatistic($this);
+    }
+
+    /**
+     * @param  ChildStartgroup $startgroupRelatedByPerformanceMusicAndTimingStatisticId The ChildStartgroup object to remove.
+     * @return $this|ChildPerformanceStatistic The current object (for fluent API support)
+     */
+    public function removeStartgroupRelatedByPerformanceMusicAndTimingStatisticId(ChildStartgroup $startgroupRelatedByPerformanceMusicAndTimingStatisticId)
+    {
+        if ($this->getStartgroupsRelatedByPerformanceMusicAndTimingStatisticId()->contains($startgroupRelatedByPerformanceMusicAndTimingStatisticId)) {
+            $pos = $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId->search($startgroupRelatedByPerformanceMusicAndTimingStatisticId);
+            $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId->remove($pos);
+            if (null === $this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion) {
+                $this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion = clone $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId;
+                $this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion->clear();
+            }
+            $this->startgroupsRelatedByPerformanceMusicAndTimingStatisticIdScheduledForDeletion[]= $startgroupRelatedByPerformanceMusicAndTimingStatisticId;
+            $startgroupRelatedByPerformanceMusicAndTimingStatisticId->setPerformanceMusicAndTimingStatistic(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceMusicAndTimingStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdJoinCompetition(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Competition', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceMusicAndTimingStatisticId($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PerformanceStatistic is new, it will return
+     * an empty collection; or if this PerformanceStatistic has previously
+     * been saved, it will retrieve related StartgroupsRelatedByPerformanceMusicAndTimingStatisticId from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PerformanceStatistic.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildStartgroup[] List of ChildStartgroup objects
+     */
+    public function getStartgroupsRelatedByPerformanceMusicAndTimingStatisticIdJoinEvent(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildStartgroupQuery::create(null, $criteria);
+        $query->joinWith('Event', $joinBehavior);
+
+        return $this->getStartgroupsRelatedByPerformanceMusicAndTimingStatisticId($query, $con);
     }
 
     /**
@@ -2514,6 +4910,46 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->collEventsRelatedByPerformanceTotalStatisticId) {
+                foreach ($this->collEventsRelatedByPerformanceTotalStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collEventsRelatedByPerformanceExecutionStatisticId) {
+                foreach ($this->collEventsRelatedByPerformanceExecutionStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collEventsRelatedByPerformanceChoreographyStatisticId) {
+                foreach ($this->collEventsRelatedByPerformanceChoreographyStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collEventsRelatedByPerformanceMusicAndTimingStatisticId) {
+                foreach ($this->collEventsRelatedByPerformanceMusicAndTimingStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collStartgroupsRelatedByPerformanceTotalStatisticId) {
+                foreach ($this->collStartgroupsRelatedByPerformanceTotalStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collStartgroupsRelatedByPerformanceExecutionStatisticId) {
+                foreach ($this->collStartgroupsRelatedByPerformanceExecutionStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collStartgroupsRelatedByPerformanceChoreographyStatisticId) {
+                foreach ($this->collStartgroupsRelatedByPerformanceChoreographyStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId) {
+                foreach ($this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collRoutinesRelatedByPerformanceTotalStatisticId) {
                 foreach ($this->collRoutinesRelatedByPerformanceTotalStatisticId as $o) {
                     $o->clearAllReferences($deep);
@@ -2536,6 +4972,14 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
             }
         } // if ($deep)
 
+        $this->collEventsRelatedByPerformanceTotalStatisticId = null;
+        $this->collEventsRelatedByPerformanceExecutionStatisticId = null;
+        $this->collEventsRelatedByPerformanceChoreographyStatisticId = null;
+        $this->collEventsRelatedByPerformanceMusicAndTimingStatisticId = null;
+        $this->collStartgroupsRelatedByPerformanceTotalStatisticId = null;
+        $this->collStartgroupsRelatedByPerformanceExecutionStatisticId = null;
+        $this->collStartgroupsRelatedByPerformanceChoreographyStatisticId = null;
+        $this->collStartgroupsRelatedByPerformanceMusicAndTimingStatisticId = null;
         $this->collRoutinesRelatedByPerformanceTotalStatisticId = null;
         $this->collRoutinesRelatedByPerformanceExecutionStatisticId = null;
         $this->collRoutinesRelatedByPerformanceChoreographyStatisticId = null;

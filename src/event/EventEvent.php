@@ -18,6 +18,22 @@ class EventEvent extends Event {
 
 	/**
 	 */
+	const POST_PERFORMANCE_CHOREOGRAPHY_STATISTIC_UPDATE = 'iuf.junia.event.post_performance_choreography_statistic_update';
+
+	/**
+	 */
+	const POST_PERFORMANCE_EXECUTION_STATISTIC_UPDATE = 'iuf.junia.event.post_performance_execution_statistic_update';
+
+	/**
+	 */
+	const POST_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_UPDATE = 'iuf.junia.event.post_performance_music_and_timing_statistic_update';
+
+	/**
+	 */
+	const POST_PERFORMANCE_TOTAL_STATISTIC_UPDATE = 'iuf.junia.event.post_performance_total_statistic_update';
+
+	/**
+	 */
 	const POST_SAVE = 'iuf.junia.event.post_save';
 
 	/**
@@ -43,6 +59,22 @@ class EventEvent extends Event {
 	/**
 	 */
 	const PRE_DELETE = 'iuf.junia.event.pre_delete';
+
+	/**
+	 */
+	const PRE_PERFORMANCE_CHOREOGRAPHY_STATISTIC_UPDATE = 'iuf.junia.event.pre_performance_choreography_statistic_update';
+
+	/**
+	 */
+	const PRE_PERFORMANCE_EXECUTION_STATISTIC_UPDATE = 'iuf.junia.event.pre_performance_execution_statistic_update';
+
+	/**
+	 */
+	const PRE_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_UPDATE = 'iuf.junia.event.pre_performance_music_and_timing_statistic_update';
+
+	/**
+	 */
+	const PRE_PERFORMANCE_TOTAL_STATISTIC_UPDATE = 'iuf.junia.event.pre_performance_total_statistic_update';
 
 	/**
 	 */

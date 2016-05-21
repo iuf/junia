@@ -228,6 +228,138 @@ trait EventDomainTrait {
 	}
 
 	/**
+	 * Sets the PerformanceChoreographyStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $relatedId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceChoreographyStatisticId($id, $relatedId) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'Event not found.']);
+		}
+
+		// update
+		if ($model->getPerformanceChoreographyStatisticId() !== $relatedId) {
+			$model->setPerformanceChoreographyStatisticId($relatedId);
+
+			$event = new EventEvent($model);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(EventEvent::PRE_PERFORMANCE_CHOREOGRAPHY_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
+			$model->save();
+			$dispatcher->dispatch(EventEvent::POST_PERFORMANCE_CHOREOGRAPHY_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
+	 * Sets the PerformanceExecutionStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $relatedId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceExecutionStatisticId($id, $relatedId) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'Event not found.']);
+		}
+
+		// update
+		if ($model->getPerformanceExecutionStatisticId() !== $relatedId) {
+			$model->setPerformanceExecutionStatisticId($relatedId);
+
+			$event = new EventEvent($model);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(EventEvent::PRE_PERFORMANCE_EXECUTION_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
+			$model->save();
+			$dispatcher->dispatch(EventEvent::POST_PERFORMANCE_EXECUTION_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
+	 * Sets the PerformanceMusicAndTimingStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $relatedId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceMusicAndTimingStatisticId($id, $relatedId) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'Event not found.']);
+		}
+
+		// update
+		if ($model->getPerformanceMusicAndTimingStatisticId() !== $relatedId) {
+			$model->setPerformanceMusicAndTimingStatisticId($relatedId);
+
+			$event = new EventEvent($model);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(EventEvent::PRE_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
+			$model->save();
+			$dispatcher->dispatch(EventEvent::POST_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
+	 * Sets the PerformanceTotalStatistic id
+	 * 
+	 * @param mixed $id
+	 * @param mixed $relatedId
+	 * @return PayloadInterface
+	 */
+	public function setPerformanceTotalStatisticId($id, $relatedId) {
+		// find
+		$model = $this->get($id);
+
+		if ($model === null) {
+			return new NotFound(['message' => 'Event not found.']);
+		}
+
+		// update
+		if ($model->getPerformanceTotalStatisticId() !== $relatedId) {
+			$model->setPerformanceTotalStatisticId($relatedId);
+
+			$event = new EventEvent($model);
+			$dispatcher = $this->getServiceContainer()->getDispatcher();
+			$dispatcher->dispatch(EventEvent::PRE_PERFORMANCE_TOTAL_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::PRE_SAVE, $event);
+			$model->save();
+			$dispatcher->dispatch(EventEvent::POST_PERFORMANCE_TOTAL_STATISTIC_UPDATE, $event);
+			$dispatcher->dispatch(EventEvent::POST_SAVE, $event);
+			
+			return Updated(['model' => $model]);
+		}
+
+		return NotUpdated(['model' => $model]);
+	}
+
+	/**
 	 * Updates a Event with the given idand the provided data
 	 * 
 	 * @param mixed $id

@@ -7,6 +7,7 @@ use keeko\framework\foundation\AbstractPayloadResponder;
 use iuf\junia\model\Startgroup;
 use iuf\junia\model\Competition;
 use iuf\junia\model\Event;
+use iuf\junia\model\PerformanceStatistic;
 use iuf\junia\model\Routine;
 use iuf\junia\model\Judge;
 use keeko\framework\domain\payload\Found;
@@ -30,11 +31,15 @@ class StartgroupListJsonResponder extends AbstractPayloadResponder {
 		$data = $payload->getModel();
 		$serializer = Startgroup::getSerializer();
 		$resource = new Collection($data, $serializer);
-		$resource = $resource->with($params->getInclude(['competition', 'event', 'routine', 'judge']));
+		$resource = $resource->with($params->getInclude(['competition', 'event', 'performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'routine', 'judge']));
 		$resource = $resource->fields($params->getFields([
 			'startgroup' => Startgroup::getSerializer()->getFields(),
 			'competition' => Competition::getSerializer()->getFields(),
 			'event' => Event::getSerializer()->getFields(),
+			'performance-total-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'performance-execution-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'performance-choreography-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'performance-music-and-timing-statistic' => PerformanceStatistic::getSerializer()->getFields(),
 			'routine' => Routine::getSerializer()->getFields(),
 			'judge' => Judge::getSerializer()->getFields()
 		]));

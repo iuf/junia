@@ -18,8 +18,8 @@ class EventDomain extends AbstractDomain {
 	 */
 	protected function applyFilter(EventQuery $query, $filter) {
 		foreach ($filter as $column => $value) {
-			$method = 'filterBy' . NameUtils::toStudlyCase($column);
-			$query->$method($value);
+		    $method = 'filterBy' . NameUtils::toStudlyCase($column);
+		    $query->{$method}($value);
 		}
 	}
 }

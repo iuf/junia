@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use keeko\framework\domain\payload\NotValid;
 use keeko\framework\exceptions\ValidationException;
 use iuf\junia\model\PerformanceStatistic;
+use iuf\junia\model\Event;
+use iuf\junia\model\Startgroup;
 use iuf\junia\model\Routine;
 use keeko\framework\domain\payload\Updated;
 use Tobscure\JsonApi\Document;
@@ -55,9 +57,11 @@ class PerformanceStatisticUpdateJsonResponder extends AbstractPayloadResponder {
 		$params = new Parameters($request->query->all());
 		$serializer = PerformanceStatistic::getSerializer();
 		$resource = new Resource($payload->getModel(), $serializer);
-		$resource = $resource->with($params->getInclude(['routine']));
+		$resource = $resource->with($params->getInclude(['event', 'startgroup', 'routine']));
 		$resource = $resource->fields($params->getFields([
 			'performance-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'event' => Event::getSerializer()->getFields(),
+			'startgroup' => Startgroup::getSerializer()->getFields(),
 			'routine' => Routine::getSerializer()->getFields()
 		]));
 		$document = new Document($resource);

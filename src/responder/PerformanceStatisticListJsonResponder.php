@@ -5,6 +5,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use keeko\framework\foundation\AbstractPayloadResponder;
 use iuf\junia\model\PerformanceStatistic;
+use iuf\junia\model\Event;
+use iuf\junia\model\Startgroup;
 use iuf\junia\model\Routine;
 use keeko\framework\domain\payload\Found;
 use Tobscure\JsonApi\Document;
@@ -27,9 +29,11 @@ class PerformanceStatisticListJsonResponder extends AbstractPayloadResponder {
 		$data = $payload->getModel();
 		$serializer = PerformanceStatistic::getSerializer();
 		$resource = new Collection($data, $serializer);
-		$resource = $resource->with($params->getInclude(['routine']));
+		$resource = $resource->with($params->getInclude(['event', 'startgroup', 'routine']));
 		$resource = $resource->fields($params->getFields([
 			'performance-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'event' => Event::getSerializer()->getFields(),
+			'startgroup' => Startgroup::getSerializer()->getFields(),
 			'routine' => Routine::getSerializer()->getFields()
 		]));
 		$document = new Document($resource);

@@ -1,6 +1,9 @@
 {
     "version": "1.0",
     "name": "iuf/junia",
+    "path-mappings": {
+        "/iuf/junia": "/res"
+    },
     "config": {
         "bootstrap-file": "vendor/autoload.php"
     },

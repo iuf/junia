@@ -3,12 +3,24 @@ namespace iuf\junia\serializer\base;
 
 use keeko\framework\utils\HydrateUtils;
 use Tobscure\JsonApi\Relationship;
+use iuf\junia\model\Event;
+use Tobscure\JsonApi\Collection;
+use iuf\junia\model\Startgroup;
 use iuf\junia\model\Routine;
 use Tobscure\JsonApi\Resource;
 
 /**
  */
 trait PerformanceStatisticSerializerTrait {
+
+	/**
+	 * @param mixed $model
+	 * @return Relationship
+	 */
+	public function events($model) {
+		$relationship = new Relationship(new Collection($model->getEvents(), Event::getSerializer()));
+		return $this->addRelationshipSelfLink($relationship, $model, 'event');
+	}
 
 	/**
 	 * @param mixed $model
@@ -44,6 +56,8 @@ trait PerformanceStatisticSerializerTrait {
 	 */
 	public function getRelationships() {
 		return [
+			'events' => Event::getSerializer()->getType(null),
+			'startgroups' => Startgroup::getSerializer()->getType(null),
 			'routine' => Routine::getSerializer()->getType(null)
 		];
 	}
@@ -90,6 +104,15 @@ trait PerformanceStatisticSerializerTrait {
 			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
 		]);
 		return $this->addRelationshipSelfLink($relationship, $model, 'routine');
+	}
+
+	/**
+	 * @param mixed $model
+	 * @return Relationship
+	 */
+	public function startgroups($model) {
+		$relationship = new Relationship(new Collection($model->getStartgroups(), Startgroup::getSerializer()));
+		return $this->addRelationshipSelfLink($relationship, $model, 'startgroup');
 	}
 
 	/**

@@ -11,6 +11,23 @@
 		<column name="name" type="VARCHAR" size="100" primaryString="true"/>
 		<column name="start" type="DATE"/>
 		<column name="end" type="DATE"/>
+		<column name="performance_total_statistic_id" type="INTEGER" size="10"/>
+		<column name="performance_execution_statistic_id" type="INTEGER" size="10"/>
+		<column name="performance_choreography_statistic_id" type="INTEGER" size="10"/>
+		<column name="performance_music_and_timing_statistic_id" type="INTEGER" size="10"/>
+
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_total" phpName="PerformanceTotalStatistic">
+			<reference local="performance_total_statistic_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_execution" phpName="PerformanceExecutionStatistic">
+			<reference local="performance_execution_statistic_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_choreography" phpName="PerformanceChoreographyStatistic">
+			<reference local="performance_choreography_statistic_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic">
+			<reference local="performance_music_and_timing_statistic_id" foreign="id"/>
+		</foreign-key>
 		
 		<behavior name="sluggable"/>
 	</table>
@@ -29,12 +46,28 @@
 		<column name="name" type="VARCHAR" size="100"/>
 		<column name="competition_id" type="INTEGER" size="10" required="true"/>
 		<column name="event_id" type="INTEGER" size="10" required="true"/>
-
+		<column name="performance_total_statistic_id" type="INTEGER" size="10"/>
+		<column name="performance_execution_statistic_id" type="INTEGER" size="10"/>
+		<column name="performance_choreography_statistic_id" type="INTEGER" size="10"/>
+		<column name="performance_music_and_timing_statistic_id" type="INTEGER" size="10"/>
+		
 		<foreign-key foreignTable="competition" name="startgroup_fk_competition">
 			<reference local="competition_id" foreign="id"/>
 		</foreign-key>
 		<foreign-key foreignTable="event" name="startgroup_fk_event">
 			<reference local="event_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_total" phpName="PerformanceTotalStatistic">
+			<reference local="performance_total_statistic_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_execution" phpName="PerformanceExecutionStatistic">
+			<reference local="performance_execution_statistic_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_choreography" phpName="PerformanceChoreographyStatistic">
+			<reference local="performance_choreography_statistic_id" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic">
+			<reference local="performance_music_and_timing_statistic_id" foreign="id"/>
 		</foreign-key>
 	</table>
 
@@ -42,7 +75,6 @@
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="100"/>
 		<column name="startgroup_id" type="INTEGER" size="10" required="true"/>
-		
 		<column name="performance_total_statistic_id" type="INTEGER" size="10"/>
 		<column name="performance_execution_statistic_id" type="INTEGER" size="10"/>
 		<column name="performance_choreography_statistic_id" type="INTEGER" size="10"/>
@@ -74,7 +106,6 @@
 		<foreign-key foreignTable="startgroup" name="judge_fk_startgroup">
 			<reference local="startgroup_id" foreign="id"/>
 		</foreign-key>
-		
 		<foreign-key foreignTable="user" name="judge_fk_user">
 			<reference local="user_id" foreign="id"/>
 		</foreign-key>

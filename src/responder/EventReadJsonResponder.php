@@ -7,6 +7,7 @@ use keeko\framework\foundation\AbstractPayloadResponder;
 use keeko\framework\domain\payload\NotFound;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use iuf\junia\model\Event;
+use iuf\junia\model\PerformanceStatistic;
 use iuf\junia\model\Startgroup;
 use keeko\framework\domain\payload\Found;
 use Tobscure\JsonApi\Document;
@@ -28,9 +29,13 @@ class EventReadJsonResponder extends AbstractPayloadResponder {
 		$params = new Parameters($request->query->all());
 		$serializer = Event::getSerializer();
 		$resource = new Resource($payload->getModel(), $serializer);
-		$resource = $resource->with($params->getInclude(['startgroup']));
+		$resource = $resource->with($params->getInclude(['performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'startgroup']));
 		$resource = $resource->fields($params->getFields([
 			'event' => Event::getSerializer()->getFields(),
+			'performance-total-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'performance-execution-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'performance-choreography-statistic' => PerformanceStatistic::getSerializer()->getFields(),
+			'performance-music-and-timing-statistic' => PerformanceStatistic::getSerializer()->getFields(),
 			'startgroup' => Startgroup::getSerializer()->getFields()
 		]));
 		$document = new Document($resource);

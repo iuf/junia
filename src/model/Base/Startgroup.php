@@ -22,6 +22,8 @@ use iuf\junia\model\Event as ChildEvent;
 use iuf\junia\model\EventQuery as ChildEventQuery;
 use iuf\junia\model\Judge as ChildJudge;
 use iuf\junia\model\JudgeQuery as ChildJudgeQuery;
+use iuf\junia\model\PerformanceStatistic as ChildPerformanceStatistic;
+use iuf\junia\model\PerformanceStatisticQuery as ChildPerformanceStatisticQuery;
 use iuf\junia\model\Routine as ChildRoutine;
 use iuf\junia\model\RoutineQuery as ChildRoutineQuery;
 use iuf\junia\model\Startgroup as ChildStartgroup;
@@ -94,6 +96,30 @@ abstract class Startgroup implements ActiveRecordInterface
     protected $event_id;
 
     /**
+     * The value for the performance_total_statistic_id field.
+     * @var        int
+     */
+    protected $performance_total_statistic_id;
+
+    /**
+     * The value for the performance_execution_statistic_id field.
+     * @var        int
+     */
+    protected $performance_execution_statistic_id;
+
+    /**
+     * The value for the performance_choreography_statistic_id field.
+     * @var        int
+     */
+    protected $performance_choreography_statistic_id;
+
+    /**
+     * The value for the performance_music_and_timing_statistic_id field.
+     * @var        int
+     */
+    protected $performance_music_and_timing_statistic_id;
+
+    /**
      * @var        ChildCompetition
      */
     protected $aCompetition;
@@ -102,6 +128,26 @@ abstract class Startgroup implements ActiveRecordInterface
      * @var        ChildEvent
      */
     protected $aEvent;
+
+    /**
+     * @var        ChildPerformanceStatistic
+     */
+    protected $aPerformanceTotalStatistic;
+
+    /**
+     * @var        ChildPerformanceStatistic
+     */
+    protected $aPerformanceExecutionStatistic;
+
+    /**
+     * @var        ChildPerformanceStatistic
+     */
+    protected $aPerformanceChoreographyStatistic;
+
+    /**
+     * @var        ChildPerformanceStatistic
+     */
+    protected $aPerformanceMusicAndTimingStatistic;
 
     /**
      * @var        ObjectCollection|ChildRoutine[] Collection to store aggregation of ChildRoutine objects.
@@ -393,6 +439,46 @@ abstract class Startgroup implements ActiveRecordInterface
     }
 
     /**
+     * Get the [performance_total_statistic_id] column value.
+     *
+     * @return int
+     */
+    public function getPerformanceTotalStatisticId()
+    {
+        return $this->performance_total_statistic_id;
+    }
+
+    /**
+     * Get the [performance_execution_statistic_id] column value.
+     *
+     * @return int
+     */
+    public function getPerformanceExecutionStatisticId()
+    {
+        return $this->performance_execution_statistic_id;
+    }
+
+    /**
+     * Get the [performance_choreography_statistic_id] column value.
+     *
+     * @return int
+     */
+    public function getPerformanceChoreographyStatisticId()
+    {
+        return $this->performance_choreography_statistic_id;
+    }
+
+    /**
+     * Get the [performance_music_and_timing_statistic_id] column value.
+     *
+     * @return int
+     */
+    public function getPerformanceMusicAndTimingStatisticId()
+    {
+        return $this->performance_music_and_timing_statistic_id;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -481,6 +567,102 @@ abstract class Startgroup implements ActiveRecordInterface
     } // setEventId()
 
     /**
+     * Set the value of [performance_total_statistic_id] column.
+     *
+     * @param int $v new value
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     */
+    public function setPerformanceTotalStatisticId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->performance_total_statistic_id !== $v) {
+            $this->performance_total_statistic_id = $v;
+            $this->modifiedColumns[StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID] = true;
+        }
+
+        if ($this->aPerformanceTotalStatistic !== null && $this->aPerformanceTotalStatistic->getId() !== $v) {
+            $this->aPerformanceTotalStatistic = null;
+        }
+
+        return $this;
+    } // setPerformanceTotalStatisticId()
+
+    /**
+     * Set the value of [performance_execution_statistic_id] column.
+     *
+     * @param int $v new value
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     */
+    public function setPerformanceExecutionStatisticId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->performance_execution_statistic_id !== $v) {
+            $this->performance_execution_statistic_id = $v;
+            $this->modifiedColumns[StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID] = true;
+        }
+
+        if ($this->aPerformanceExecutionStatistic !== null && $this->aPerformanceExecutionStatistic->getId() !== $v) {
+            $this->aPerformanceExecutionStatistic = null;
+        }
+
+        return $this;
+    } // setPerformanceExecutionStatisticId()
+
+    /**
+     * Set the value of [performance_choreography_statistic_id] column.
+     *
+     * @param int $v new value
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     */
+    public function setPerformanceChoreographyStatisticId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->performance_choreography_statistic_id !== $v) {
+            $this->performance_choreography_statistic_id = $v;
+            $this->modifiedColumns[StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID] = true;
+        }
+
+        if ($this->aPerformanceChoreographyStatistic !== null && $this->aPerformanceChoreographyStatistic->getId() !== $v) {
+            $this->aPerformanceChoreographyStatistic = null;
+        }
+
+        return $this;
+    } // setPerformanceChoreographyStatisticId()
+
+    /**
+     * Set the value of [performance_music_and_timing_statistic_id] column.
+     *
+     * @param int $v new value
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     */
+    public function setPerformanceMusicAndTimingStatisticId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->performance_music_and_timing_statistic_id !== $v) {
+            $this->performance_music_and_timing_statistic_id = $v;
+            $this->modifiedColumns[StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID] = true;
+        }
+
+        if ($this->aPerformanceMusicAndTimingStatistic !== null && $this->aPerformanceMusicAndTimingStatistic->getId() !== $v) {
+            $this->aPerformanceMusicAndTimingStatistic = null;
+        }
+
+        return $this;
+    } // setPerformanceMusicAndTimingStatisticId()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -527,6 +709,18 @@ abstract class Startgroup implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : StartgroupTableMap::translateFieldName('EventId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->event_id = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : StartgroupTableMap::translateFieldName('PerformanceTotalStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_total_statistic_id = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : StartgroupTableMap::translateFieldName('PerformanceExecutionStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_execution_statistic_id = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : StartgroupTableMap::translateFieldName('PerformanceChoreographyStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_choreography_statistic_id = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : StartgroupTableMap::translateFieldName('PerformanceMusicAndTimingStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->performance_music_and_timing_statistic_id = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -535,7 +729,7 @@ abstract class Startgroup implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 4; // 4 = StartgroupTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 8; // 8 = StartgroupTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\iuf\\junia\\model\\Startgroup'), 0, $e);
@@ -562,6 +756,18 @@ abstract class Startgroup implements ActiveRecordInterface
         }
         if ($this->aEvent !== null && $this->event_id !== $this->aEvent->getId()) {
             $this->aEvent = null;
+        }
+        if ($this->aPerformanceTotalStatistic !== null && $this->performance_total_statistic_id !== $this->aPerformanceTotalStatistic->getId()) {
+            $this->aPerformanceTotalStatistic = null;
+        }
+        if ($this->aPerformanceExecutionStatistic !== null && $this->performance_execution_statistic_id !== $this->aPerformanceExecutionStatistic->getId()) {
+            $this->aPerformanceExecutionStatistic = null;
+        }
+        if ($this->aPerformanceChoreographyStatistic !== null && $this->performance_choreography_statistic_id !== $this->aPerformanceChoreographyStatistic->getId()) {
+            $this->aPerformanceChoreographyStatistic = null;
+        }
+        if ($this->aPerformanceMusicAndTimingStatistic !== null && $this->performance_music_and_timing_statistic_id !== $this->aPerformanceMusicAndTimingStatistic->getId()) {
+            $this->aPerformanceMusicAndTimingStatistic = null;
         }
     } // ensureConsistency
 
@@ -604,6 +810,10 @@ abstract class Startgroup implements ActiveRecordInterface
 
             $this->aCompetition = null;
             $this->aEvent = null;
+            $this->aPerformanceTotalStatistic = null;
+            $this->aPerformanceExecutionStatistic = null;
+            $this->aPerformanceChoreographyStatistic = null;
+            $this->aPerformanceMusicAndTimingStatistic = null;
             $this->collRoutines = null;
 
             $this->collJudges = null;
@@ -726,6 +936,34 @@ abstract class Startgroup implements ActiveRecordInterface
                 $this->setEvent($this->aEvent);
             }
 
+            if ($this->aPerformanceTotalStatistic !== null) {
+                if ($this->aPerformanceTotalStatistic->isModified() || $this->aPerformanceTotalStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceTotalStatistic->save($con);
+                }
+                $this->setPerformanceTotalStatistic($this->aPerformanceTotalStatistic);
+            }
+
+            if ($this->aPerformanceExecutionStatistic !== null) {
+                if ($this->aPerformanceExecutionStatistic->isModified() || $this->aPerformanceExecutionStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceExecutionStatistic->save($con);
+                }
+                $this->setPerformanceExecutionStatistic($this->aPerformanceExecutionStatistic);
+            }
+
+            if ($this->aPerformanceChoreographyStatistic !== null) {
+                if ($this->aPerformanceChoreographyStatistic->isModified() || $this->aPerformanceChoreographyStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceChoreographyStatistic->save($con);
+                }
+                $this->setPerformanceChoreographyStatistic($this->aPerformanceChoreographyStatistic);
+            }
+
+            if ($this->aPerformanceMusicAndTimingStatistic !== null) {
+                if ($this->aPerformanceMusicAndTimingStatistic->isModified() || $this->aPerformanceMusicAndTimingStatistic->isNew()) {
+                    $affectedRows += $this->aPerformanceMusicAndTimingStatistic->save($con);
+                }
+                $this->setPerformanceMusicAndTimingStatistic($this->aPerformanceMusicAndTimingStatistic);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -809,6 +1047,18 @@ abstract class Startgroup implements ActiveRecordInterface
         if ($this->isColumnModified(StartgroupTableMap::COL_EVENT_ID)) {
             $modifiedColumns[':p' . $index++]  = '`event_id`';
         }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_total_statistic_id`';
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_execution_statistic_id`';
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_choreography_statistic_id`';
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`performance_music_and_timing_statistic_id`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `kk_junia_startgroup` (%s) VALUES (%s)',
@@ -831,6 +1081,18 @@ abstract class Startgroup implements ActiveRecordInterface
                         break;
                     case '`event_id`':
                         $stmt->bindValue($identifier, $this->event_id, PDO::PARAM_INT);
+                        break;
+                    case '`performance_total_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_total_statistic_id, PDO::PARAM_INT);
+                        break;
+                    case '`performance_execution_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_execution_statistic_id, PDO::PARAM_INT);
+                        break;
+                    case '`performance_choreography_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_choreography_statistic_id, PDO::PARAM_INT);
+                        break;
+                    case '`performance_music_and_timing_statistic_id`':
+                        $stmt->bindValue($identifier, $this->performance_music_and_timing_statistic_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -906,6 +1168,18 @@ abstract class Startgroup implements ActiveRecordInterface
             case 3:
                 return $this->getEventId();
                 break;
+            case 4:
+                return $this->getPerformanceTotalStatisticId();
+                break;
+            case 5:
+                return $this->getPerformanceExecutionStatisticId();
+                break;
+            case 6:
+                return $this->getPerformanceChoreographyStatisticId();
+                break;
+            case 7:
+                return $this->getPerformanceMusicAndTimingStatisticId();
+                break;
             default:
                 return null;
                 break;
@@ -940,6 +1214,10 @@ abstract class Startgroup implements ActiveRecordInterface
             $keys[1] => $this->getName(),
             $keys[2] => $this->getCompetitionId(),
             $keys[3] => $this->getEventId(),
+            $keys[4] => $this->getPerformanceTotalStatisticId(),
+            $keys[5] => $this->getPerformanceExecutionStatisticId(),
+            $keys[6] => $this->getPerformanceChoreographyStatisticId(),
+            $keys[7] => $this->getPerformanceMusicAndTimingStatisticId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -976,6 +1254,66 @@ abstract class Startgroup implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->aEvent->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aPerformanceTotalStatistic) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'performanceStatistic';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_performance_statistic';
+                        break;
+                    default:
+                        $key = 'PerformanceStatistic';
+                }
+
+                $result[$key] = $this->aPerformanceTotalStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aPerformanceExecutionStatistic) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'performanceStatistic';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_performance_statistic';
+                        break;
+                    default:
+                        $key = 'PerformanceStatistic';
+                }
+
+                $result[$key] = $this->aPerformanceExecutionStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aPerformanceChoreographyStatistic) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'performanceStatistic';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_performance_statistic';
+                        break;
+                    default:
+                        $key = 'PerformanceStatistic';
+                }
+
+                $result[$key] = $this->aPerformanceChoreographyStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aPerformanceMusicAndTimingStatistic) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'performanceStatistic';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'kk_junia_performance_statistic';
+                        break;
+                    default:
+                        $key = 'PerformanceStatistic';
+                }
+
+                $result[$key] = $this->aPerformanceMusicAndTimingStatistic->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
             if (null !== $this->collRoutines) {
 
@@ -1053,6 +1391,18 @@ abstract class Startgroup implements ActiveRecordInterface
             case 3:
                 $this->setEventId($value);
                 break;
+            case 4:
+                $this->setPerformanceTotalStatisticId($value);
+                break;
+            case 5:
+                $this->setPerformanceExecutionStatisticId($value);
+                break;
+            case 6:
+                $this->setPerformanceChoreographyStatisticId($value);
+                break;
+            case 7:
+                $this->setPerformanceMusicAndTimingStatisticId($value);
+                break;
         } // switch()
 
         return $this;
@@ -1090,6 +1440,18 @@ abstract class Startgroup implements ActiveRecordInterface
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->setEventId($arr[$keys[3]]);
+        }
+        if (array_key_exists($keys[4], $arr)) {
+            $this->setPerformanceTotalStatisticId($arr[$keys[4]]);
+        }
+        if (array_key_exists($keys[5], $arr)) {
+            $this->setPerformanceExecutionStatisticId($arr[$keys[5]]);
+        }
+        if (array_key_exists($keys[6], $arr)) {
+            $this->setPerformanceChoreographyStatisticId($arr[$keys[6]]);
+        }
+        if (array_key_exists($keys[7], $arr)) {
+            $this->setPerformanceMusicAndTimingStatisticId($arr[$keys[7]]);
         }
     }
 
@@ -1143,6 +1505,18 @@ abstract class Startgroup implements ActiveRecordInterface
         }
         if ($this->isColumnModified(StartgroupTableMap::COL_EVENT_ID)) {
             $criteria->add(StartgroupTableMap::COL_EVENT_ID, $this->event_id);
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID)) {
+            $criteria->add(StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, $this->performance_total_statistic_id);
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID)) {
+            $criteria->add(StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, $this->performance_execution_statistic_id);
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID)) {
+            $criteria->add(StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, $this->performance_choreography_statistic_id);
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID)) {
+            $criteria->add(StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, $this->performance_music_and_timing_statistic_id);
         }
 
         return $criteria;
@@ -1233,6 +1607,10 @@ abstract class Startgroup implements ActiveRecordInterface
         $copyObj->setName($this->getName());
         $copyObj->setCompetitionId($this->getCompetitionId());
         $copyObj->setEventId($this->getEventId());
+        $copyObj->setPerformanceTotalStatisticId($this->getPerformanceTotalStatisticId());
+        $copyObj->setPerformanceExecutionStatisticId($this->getPerformanceExecutionStatisticId());
+        $copyObj->setPerformanceChoreographyStatisticId($this->getPerformanceChoreographyStatisticId());
+        $copyObj->setPerformanceMusicAndTimingStatisticId($this->getPerformanceMusicAndTimingStatisticId());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1381,6 +1759,210 @@ abstract class Startgroup implements ActiveRecordInterface
         }
 
         return $this->aEvent;
+    }
+
+    /**
+     * Declares an association between this object and a ChildPerformanceStatistic object.
+     *
+     * @param  ChildPerformanceStatistic $v
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setPerformanceTotalStatistic(ChildPerformanceStatistic $v = null)
+    {
+        if ($v === null) {
+            $this->setPerformanceTotalStatisticId(NULL);
+        } else {
+            $this->setPerformanceTotalStatisticId($v->getId());
+        }
+
+        $this->aPerformanceTotalStatistic = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
+        if ($v !== null) {
+            $v->addStartgroupRelatedByPerformanceTotalStatisticId($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildPerformanceStatistic object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
+     * @throws PropelException
+     */
+    public function getPerformanceTotalStatistic(ConnectionInterface $con = null)
+    {
+        if ($this->aPerformanceTotalStatistic === null && ($this->performance_total_statistic_id !== null)) {
+            $this->aPerformanceTotalStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_total_statistic_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPerformanceTotalStatistic->addStartgroupsRelatedByPerformanceTotalStatisticId($this);
+             */
+        }
+
+        return $this->aPerformanceTotalStatistic;
+    }
+
+    /**
+     * Declares an association between this object and a ChildPerformanceStatistic object.
+     *
+     * @param  ChildPerformanceStatistic $v
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setPerformanceExecutionStatistic(ChildPerformanceStatistic $v = null)
+    {
+        if ($v === null) {
+            $this->setPerformanceExecutionStatisticId(NULL);
+        } else {
+            $this->setPerformanceExecutionStatisticId($v->getId());
+        }
+
+        $this->aPerformanceExecutionStatistic = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
+        if ($v !== null) {
+            $v->addStartgroupRelatedByPerformanceExecutionStatisticId($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildPerformanceStatistic object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
+     * @throws PropelException
+     */
+    public function getPerformanceExecutionStatistic(ConnectionInterface $con = null)
+    {
+        if ($this->aPerformanceExecutionStatistic === null && ($this->performance_execution_statistic_id !== null)) {
+            $this->aPerformanceExecutionStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_execution_statistic_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPerformanceExecutionStatistic->addStartgroupsRelatedByPerformanceExecutionStatisticId($this);
+             */
+        }
+
+        return $this->aPerformanceExecutionStatistic;
+    }
+
+    /**
+     * Declares an association between this object and a ChildPerformanceStatistic object.
+     *
+     * @param  ChildPerformanceStatistic $v
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setPerformanceChoreographyStatistic(ChildPerformanceStatistic $v = null)
+    {
+        if ($v === null) {
+            $this->setPerformanceChoreographyStatisticId(NULL);
+        } else {
+            $this->setPerformanceChoreographyStatisticId($v->getId());
+        }
+
+        $this->aPerformanceChoreographyStatistic = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
+        if ($v !== null) {
+            $v->addStartgroupRelatedByPerformanceChoreographyStatisticId($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildPerformanceStatistic object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
+     * @throws PropelException
+     */
+    public function getPerformanceChoreographyStatistic(ConnectionInterface $con = null)
+    {
+        if ($this->aPerformanceChoreographyStatistic === null && ($this->performance_choreography_statistic_id !== null)) {
+            $this->aPerformanceChoreographyStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_choreography_statistic_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPerformanceChoreographyStatistic->addStartgroupsRelatedByPerformanceChoreographyStatisticId($this);
+             */
+        }
+
+        return $this->aPerformanceChoreographyStatistic;
+    }
+
+    /**
+     * Declares an association between this object and a ChildPerformanceStatistic object.
+     *
+     * @param  ChildPerformanceStatistic $v
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setPerformanceMusicAndTimingStatistic(ChildPerformanceStatistic $v = null)
+    {
+        if ($v === null) {
+            $this->setPerformanceMusicAndTimingStatisticId(NULL);
+        } else {
+            $this->setPerformanceMusicAndTimingStatisticId($v->getId());
+        }
+
+        $this->aPerformanceMusicAndTimingStatistic = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildPerformanceStatistic object, it will not be re-added.
+        if ($v !== null) {
+            $v->addStartgroupRelatedByPerformanceMusicAndTimingStatisticId($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildPerformanceStatistic object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildPerformanceStatistic The associated ChildPerformanceStatistic object.
+     * @throws PropelException
+     */
+    public function getPerformanceMusicAndTimingStatistic(ConnectionInterface $con = null)
+    {
+        if ($this->aPerformanceMusicAndTimingStatistic === null && ($this->performance_music_and_timing_statistic_id !== null)) {
+            $this->aPerformanceMusicAndTimingStatistic = ChildPerformanceStatisticQuery::create()->findPk($this->performance_music_and_timing_statistic_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPerformanceMusicAndTimingStatistic->addStartgroupsRelatedByPerformanceMusicAndTimingStatisticId($this);
+             */
+        }
+
+        return $this->aPerformanceMusicAndTimingStatistic;
     }
 
 
@@ -1976,10 +2558,26 @@ abstract class Startgroup implements ActiveRecordInterface
         if (null !== $this->aEvent) {
             $this->aEvent->removeStartgroup($this);
         }
+        if (null !== $this->aPerformanceTotalStatistic) {
+            $this->aPerformanceTotalStatistic->removeStartgroupRelatedByPerformanceTotalStatisticId($this);
+        }
+        if (null !== $this->aPerformanceExecutionStatistic) {
+            $this->aPerformanceExecutionStatistic->removeStartgroupRelatedByPerformanceExecutionStatisticId($this);
+        }
+        if (null !== $this->aPerformanceChoreographyStatistic) {
+            $this->aPerformanceChoreographyStatistic->removeStartgroupRelatedByPerformanceChoreographyStatisticId($this);
+        }
+        if (null !== $this->aPerformanceMusicAndTimingStatistic) {
+            $this->aPerformanceMusicAndTimingStatistic->removeStartgroupRelatedByPerformanceMusicAndTimingStatisticId($this);
+        }
         $this->id = null;
         $this->name = null;
         $this->competition_id = null;
         $this->event_id = null;
+        $this->performance_total_statistic_id = null;
+        $this->performance_execution_statistic_id = null;
+        $this->performance_choreography_statistic_id = null;
+        $this->performance_music_and_timing_statistic_id = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -2014,6 +2612,10 @@ abstract class Startgroup implements ActiveRecordInterface
         $this->collJudges = null;
         $this->aCompetition = null;
         $this->aEvent = null;
+        $this->aPerformanceTotalStatistic = null;
+        $this->aPerformanceExecutionStatistic = null;
+        $this->aPerformanceChoreographyStatistic = null;
+        $this->aPerformanceMusicAndTimingStatistic = null;
     }
 
     /**
