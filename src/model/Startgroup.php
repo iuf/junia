@@ -28,4 +28,56 @@ class Startgroup extends BaseStartgroup implements ApiModelInterface {
 
 		return self::$serializer;
 	}
+
+	/**
+	 * @return Judge
+	 */
+	public function getP1() {
+		return $this->getPerformanceJudge(1);
+	}
+
+	/**
+	 * @return Judge
+	 */
+	public function getP2() {
+		return $this->getPerformanceJudge(2);
+	}
+
+	/**
+	 * @return Judge
+	 */
+	public function getP3() {
+		return $this->getPerformanceJudge(3);
+	}
+
+	/**
+	 * @return Judge
+	 */
+	public function getP4() {
+		return $this->getPerformanceJudge(4);
+	}
+
+	/**
+	 * @return Judge
+	 */
+	public function getP5() {
+		return $this->getPerformanceJudge(5);
+	}
+
+	/**
+	 * @param mixed $position
+	 */
+	public function getPerformanceJudge($position) {
+		$judges = $this->getJudges();
+		foreach ($judges as $judge) {
+		    if ($judge->getPosition() == 'P' . $position) {
+		        return $judge;
+		    }
+		}
+		$judge = new Judge();
+		$judge->setPosition('P' . $position);
+		$judge->setStartgroup($this);
+		$judge->save();
+		return $judge;
+	}
 }

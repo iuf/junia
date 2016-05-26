@@ -59,7 +59,7 @@ class StartgroupTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 8;
+    const NUM_COLUMNS = 9;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class StartgroupTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 8;
+    const NUM_HYDRATE_COLUMNS = 9;
 
     /**
      * the column name for the id field
@@ -80,6 +80,11 @@ class StartgroupTableMap extends TableMap
      * the column name for the name field
      */
     const COL_NAME = 'kk_junia_startgroup.name';
+
+    /**
+     * the column name for the slug field
+     */
+    const COL_SLUG = 'kk_junia_startgroup.slug';
 
     /**
      * the column name for the competition_id field
@@ -123,11 +128,11 @@ class StartgroupTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'CompetitionId', 'EventId', 'PerformanceTotalStatisticId', 'PerformanceExecutionStatisticId', 'PerformanceChoreographyStatisticId', 'PerformanceMusicAndTimingStatisticId', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'competitionId', 'eventId', 'performanceTotalStatisticId', 'performanceExecutionStatisticId', 'performanceChoreographyStatisticId', 'performanceMusicAndTimingStatisticId', ),
-        self::TYPE_COLNAME       => array(StartgroupTableMap::COL_ID, StartgroupTableMap::COL_NAME, StartgroupTableMap::COL_COMPETITION_ID, StartgroupTableMap::COL_EVENT_ID, StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'competition_id', 'event_id', 'performance_total_statistic_id', 'performance_execution_statistic_id', 'performance_choreography_statistic_id', 'performance_music_and_timing_statistic_id', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'Slug', 'CompetitionId', 'EventId', 'PerformanceTotalStatisticId', 'PerformanceExecutionStatisticId', 'PerformanceChoreographyStatisticId', 'PerformanceMusicAndTimingStatisticId', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'slug', 'competitionId', 'eventId', 'performanceTotalStatisticId', 'performanceExecutionStatisticId', 'performanceChoreographyStatisticId', 'performanceMusicAndTimingStatisticId', ),
+        self::TYPE_COLNAME       => array(StartgroupTableMap::COL_ID, StartgroupTableMap::COL_NAME, StartgroupTableMap::COL_SLUG, StartgroupTableMap::COL_COMPETITION_ID, StartgroupTableMap::COL_EVENT_ID, StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID, StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID, StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID, StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'slug', 'competition_id', 'event_id', 'performance_total_statistic_id', 'performance_execution_statistic_id', 'performance_choreography_statistic_id', 'performance_music_and_timing_statistic_id', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -137,11 +142,11 @@ class StartgroupTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'CompetitionId' => 2, 'EventId' => 3, 'PerformanceTotalStatisticId' => 4, 'PerformanceExecutionStatisticId' => 5, 'PerformanceChoreographyStatisticId' => 6, 'PerformanceMusicAndTimingStatisticId' => 7, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'competitionId' => 2, 'eventId' => 3, 'performanceTotalStatisticId' => 4, 'performanceExecutionStatisticId' => 5, 'performanceChoreographyStatisticId' => 6, 'performanceMusicAndTimingStatisticId' => 7, ),
-        self::TYPE_COLNAME       => array(StartgroupTableMap::COL_ID => 0, StartgroupTableMap::COL_NAME => 1, StartgroupTableMap::COL_COMPETITION_ID => 2, StartgroupTableMap::COL_EVENT_ID => 3, StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID => 4, StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID => 5, StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID => 6, StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID => 7, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'competition_id' => 2, 'event_id' => 3, 'performance_total_statistic_id' => 4, 'performance_execution_statistic_id' => 5, 'performance_choreography_statistic_id' => 6, 'performance_music_and_timing_statistic_id' => 7, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'Slug' => 2, 'CompetitionId' => 3, 'EventId' => 4, 'PerformanceTotalStatisticId' => 5, 'PerformanceExecutionStatisticId' => 6, 'PerformanceChoreographyStatisticId' => 7, 'PerformanceMusicAndTimingStatisticId' => 8, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'slug' => 2, 'competitionId' => 3, 'eventId' => 4, 'performanceTotalStatisticId' => 5, 'performanceExecutionStatisticId' => 6, 'performanceChoreographyStatisticId' => 7, 'performanceMusicAndTimingStatisticId' => 8, ),
+        self::TYPE_COLNAME       => array(StartgroupTableMap::COL_ID => 0, StartgroupTableMap::COL_NAME => 1, StartgroupTableMap::COL_SLUG => 2, StartgroupTableMap::COL_COMPETITION_ID => 3, StartgroupTableMap::COL_EVENT_ID => 4, StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID => 5, StartgroupTableMap::COL_PERFORMANCE_EXECUTION_STATISTIC_ID => 6, StartgroupTableMap::COL_PERFORMANCE_CHOREOGRAPHY_STATISTIC_ID => 7, StartgroupTableMap::COL_PERFORMANCE_MUSIC_AND_TIMING_STATISTIC_ID => 8, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'slug' => 2, 'competition_id' => 3, 'event_id' => 4, 'performance_total_statistic_id' => 5, 'performance_execution_statistic_id' => 6, 'performance_choreography_statistic_id' => 7, 'performance_music_and_timing_statistic_id' => 8, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -163,6 +168,7 @@ class StartgroupTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('name', 'Name', 'VARCHAR', false, 100, null);
+        $this->addColumn('slug', 'Slug', 'VARCHAR', false, 100, null);
         $this->addForeignKey('competition_id', 'CompetitionId', 'INTEGER', 'kk_junia_competition', 'id', true, 10, null);
         $this->addForeignKey('event_id', 'EventId', 'INTEGER', 'kk_junia_event', 'id', true, 10, null);
         $this->addForeignKey('performance_total_statistic_id', 'PerformanceTotalStatisticId', 'INTEGER', 'kk_junia_performance_statistic', 'id', false, 10, null);
@@ -182,57 +188,67 @@ class StartgroupTableMap extends TableMap
     0 => ':competition_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'RESTRICT', null, null, false);
         $this->addRelation('Event', '\\iuf\\junia\\model\\Event', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':event_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'CASCADE', null, null, false);
         $this->addRelation('PerformanceTotalStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':performance_total_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('PerformanceExecutionStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':performance_execution_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('PerformanceChoreographyStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':performance_choreography_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('PerformanceMusicAndTimingStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':performance_music_and_timing_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('Routine', '\\iuf\\junia\\model\\Routine', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':startgroup_id',
     1 => ':id',
   ),
-), null, null, 'Routines', false);
+), 'CASCADE', null, 'Routines', false);
         $this->addRelation('Judge', '\\iuf\\junia\\model\\Judge', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':startgroup_id',
     1 => ':id',
   ),
-), null, null, 'Judges', false);
+), 'CASCADE', null, 'Judges', false);
     } // buildRelations()
+    /**
+     * Method to invalidate the instance pool of all tables related to kk_junia_startgroup     * by a foreign key with ON DELETE CASCADE
+     */
+    public static function clearRelatedInstancePool()
+    {
+        // Invalidate objects in related instance pools,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        RoutineTableMap::clearInstancePool();
+        JudgeTableMap::clearInstancePool();
+    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -377,6 +393,7 @@ class StartgroupTableMap extends TableMap
         if (null === $alias) {
             $criteria->addSelectColumn(StartgroupTableMap::COL_ID);
             $criteria->addSelectColumn(StartgroupTableMap::COL_NAME);
+            $criteria->addSelectColumn(StartgroupTableMap::COL_SLUG);
             $criteria->addSelectColumn(StartgroupTableMap::COL_COMPETITION_ID);
             $criteria->addSelectColumn(StartgroupTableMap::COL_EVENT_ID);
             $criteria->addSelectColumn(StartgroupTableMap::COL_PERFORMANCE_TOTAL_STATISTIC_ID);
@@ -386,6 +403,7 @@ class StartgroupTableMap extends TableMap
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
+            $criteria->addSelectColumn($alias . '.slug');
             $criteria->addSelectColumn($alias . '.competition_id');
             $criteria->addSelectColumn($alias . '.event_id');
             $criteria->addSelectColumn($alias . '.performance_total_statistic_id');

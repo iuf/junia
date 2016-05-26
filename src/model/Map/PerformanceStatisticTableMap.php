@@ -59,7 +59,7 @@ class PerformanceStatisticTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 7;
+    const NUM_COLUMNS = 9;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class PerformanceStatisticTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 7;
+    const NUM_HYDRATE_COLUMNS = 9;
 
     /**
      * the column name for the id field
@@ -92,9 +92,19 @@ class PerformanceStatisticTableMap extends TableMap
     const COL_RANGE = 'kk_junia_performance_statistic.range';
 
     /**
+     * the column name for the median field
+     */
+    const COL_MEDIAN = 'kk_junia_performance_statistic.median';
+
+    /**
      * the column name for the average field
      */
     const COL_AVERAGE = 'kk_junia_performance_statistic.average';
+
+    /**
+     * the column name for the variance field
+     */
+    const COL_VARIANCE = 'kk_junia_performance_statistic.variance';
 
     /**
      * the column name for the standard_deviation field
@@ -102,9 +112,9 @@ class PerformanceStatisticTableMap extends TableMap
     const COL_STANDARD_DEVIATION = 'kk_junia_performance_statistic.standard_deviation';
 
     /**
-     * the column name for the variance field
+     * the column name for the variability_coefficient field
      */
-    const COL_VARIANCE = 'kk_junia_performance_statistic.variance';
+    const COL_VARIABILITY_COEFFICIENT = 'kk_junia_performance_statistic.variability_coefficient';
 
     /**
      * The default string format for model objects of the related table
@@ -118,11 +128,11 @@ class PerformanceStatisticTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Min', 'Max', 'Range', 'Average', 'StandardDeviation', 'Variance', ),
-        self::TYPE_CAMELNAME     => array('id', 'min', 'max', 'range', 'average', 'standardDeviation', 'variance', ),
-        self::TYPE_COLNAME       => array(PerformanceStatisticTableMap::COL_ID, PerformanceStatisticTableMap::COL_MIN, PerformanceStatisticTableMap::COL_MAX, PerformanceStatisticTableMap::COL_RANGE, PerformanceStatisticTableMap::COL_AVERAGE, PerformanceStatisticTableMap::COL_STANDARD_DEVIATION, PerformanceStatisticTableMap::COL_VARIANCE, ),
-        self::TYPE_FIELDNAME     => array('id', 'min', 'max', 'range', 'average', 'standard_deviation', 'variance', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id', 'Min', 'Max', 'Range', 'Median', 'Average', 'Variance', 'StandardDeviation', 'VariabilityCoefficient', ),
+        self::TYPE_CAMELNAME     => array('id', 'min', 'max', 'range', 'median', 'average', 'variance', 'standardDeviation', 'variabilityCoefficient', ),
+        self::TYPE_COLNAME       => array(PerformanceStatisticTableMap::COL_ID, PerformanceStatisticTableMap::COL_MIN, PerformanceStatisticTableMap::COL_MAX, PerformanceStatisticTableMap::COL_RANGE, PerformanceStatisticTableMap::COL_MEDIAN, PerformanceStatisticTableMap::COL_AVERAGE, PerformanceStatisticTableMap::COL_VARIANCE, PerformanceStatisticTableMap::COL_STANDARD_DEVIATION, PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT, ),
+        self::TYPE_FIELDNAME     => array('id', 'min', 'max', 'range', 'median', 'average', 'variance', 'standard_deviation', 'variability_coefficient', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -132,11 +142,11 @@ class PerformanceStatisticTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Min' => 1, 'Max' => 2, 'Range' => 3, 'Average' => 4, 'StandardDeviation' => 5, 'Variance' => 6, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'min' => 1, 'max' => 2, 'range' => 3, 'average' => 4, 'standardDeviation' => 5, 'variance' => 6, ),
-        self::TYPE_COLNAME       => array(PerformanceStatisticTableMap::COL_ID => 0, PerformanceStatisticTableMap::COL_MIN => 1, PerformanceStatisticTableMap::COL_MAX => 2, PerformanceStatisticTableMap::COL_RANGE => 3, PerformanceStatisticTableMap::COL_AVERAGE => 4, PerformanceStatisticTableMap::COL_STANDARD_DEVIATION => 5, PerformanceStatisticTableMap::COL_VARIANCE => 6, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'min' => 1, 'max' => 2, 'range' => 3, 'average' => 4, 'standard_deviation' => 5, 'variance' => 6, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Min' => 1, 'Max' => 2, 'Range' => 3, 'Median' => 4, 'Average' => 5, 'Variance' => 6, 'StandardDeviation' => 7, 'VariabilityCoefficient' => 8, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'min' => 1, 'max' => 2, 'range' => 3, 'median' => 4, 'average' => 5, 'variance' => 6, 'standardDeviation' => 7, 'variabilityCoefficient' => 8, ),
+        self::TYPE_COLNAME       => array(PerformanceStatisticTableMap::COL_ID => 0, PerformanceStatisticTableMap::COL_MIN => 1, PerformanceStatisticTableMap::COL_MAX => 2, PerformanceStatisticTableMap::COL_RANGE => 3, PerformanceStatisticTableMap::COL_MEDIAN => 4, PerformanceStatisticTableMap::COL_AVERAGE => 5, PerformanceStatisticTableMap::COL_VARIANCE => 6, PerformanceStatisticTableMap::COL_STANDARD_DEVIATION => 7, PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT => 8, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'min' => 1, 'max' => 2, 'range' => 3, 'median' => 4, 'average' => 5, 'variance' => 6, 'standard_deviation' => 7, 'variability_coefficient' => 8, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -160,9 +170,11 @@ class PerformanceStatisticTableMap extends TableMap
         $this->addColumn('min', 'Min', 'FLOAT', false, 10, null);
         $this->addColumn('max', 'Max', 'FLOAT', false, 10, null);
         $this->addColumn('range', 'Range', 'FLOAT', false, 10, null);
+        $this->addColumn('median', 'Median', 'FLOAT', false, 10, null);
         $this->addColumn('average', 'Average', 'FLOAT', false, 10, null);
-        $this->addColumn('standard_deviation', 'StandardDeviation', 'FLOAT', false, 10, null);
         $this->addColumn('variance', 'Variance', 'FLOAT', false, 10, null);
+        $this->addColumn('standard_deviation', 'StandardDeviation', 'FLOAT', false, 10, null);
+        $this->addColumn('variability_coefficient', 'VariabilityCoefficient', 'FLOAT', false, 10, null);
     } // initialize()
 
     /**
@@ -176,85 +188,96 @@ class PerformanceStatisticTableMap extends TableMap
     0 => ':performance_total_statistic_id',
     1 => ':id',
   ),
-), null, null, 'EventsRelatedByPerformanceTotalStatisticId', false);
+), 'SET NULL', null, 'EventsRelatedByPerformanceTotalStatisticId', false);
         $this->addRelation('EventRelatedByPerformanceExecutionStatisticId', '\\iuf\\junia\\model\\Event', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_execution_statistic_id',
     1 => ':id',
   ),
-), null, null, 'EventsRelatedByPerformanceExecutionStatisticId', false);
+), 'SET NULL', null, 'EventsRelatedByPerformanceExecutionStatisticId', false);
         $this->addRelation('EventRelatedByPerformanceChoreographyStatisticId', '\\iuf\\junia\\model\\Event', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_choreography_statistic_id',
     1 => ':id',
   ),
-), null, null, 'EventsRelatedByPerformanceChoreographyStatisticId', false);
+), 'SET NULL', null, 'EventsRelatedByPerformanceChoreographyStatisticId', false);
         $this->addRelation('EventRelatedByPerformanceMusicAndTimingStatisticId', '\\iuf\\junia\\model\\Event', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_music_and_timing_statistic_id',
     1 => ':id',
   ),
-), null, null, 'EventsRelatedByPerformanceMusicAndTimingStatisticId', false);
+), 'SET NULL', null, 'EventsRelatedByPerformanceMusicAndTimingStatisticId', false);
         $this->addRelation('StartgroupRelatedByPerformanceTotalStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_total_statistic_id',
     1 => ':id',
   ),
-), null, null, 'StartgroupsRelatedByPerformanceTotalStatisticId', false);
+), 'SET NULL', null, 'StartgroupsRelatedByPerformanceTotalStatisticId', false);
         $this->addRelation('StartgroupRelatedByPerformanceExecutionStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_execution_statistic_id',
     1 => ':id',
   ),
-), null, null, 'StartgroupsRelatedByPerformanceExecutionStatisticId', false);
+), 'SET NULL', null, 'StartgroupsRelatedByPerformanceExecutionStatisticId', false);
         $this->addRelation('StartgroupRelatedByPerformanceChoreographyStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_choreography_statistic_id',
     1 => ':id',
   ),
-), null, null, 'StartgroupsRelatedByPerformanceChoreographyStatisticId', false);
+), 'SET NULL', null, 'StartgroupsRelatedByPerformanceChoreographyStatisticId', false);
         $this->addRelation('StartgroupRelatedByPerformanceMusicAndTimingStatisticId', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_music_and_timing_statistic_id',
     1 => ':id',
   ),
-), null, null, 'StartgroupsRelatedByPerformanceMusicAndTimingStatisticId', false);
+), 'SET NULL', null, 'StartgroupsRelatedByPerformanceMusicAndTimingStatisticId', false);
         $this->addRelation('RoutineRelatedByPerformanceTotalStatisticId', '\\iuf\\junia\\model\\Routine', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_total_statistic_id',
     1 => ':id',
   ),
-), null, null, 'RoutinesRelatedByPerformanceTotalStatisticId', false);
+), 'SET NULL', null, 'RoutinesRelatedByPerformanceTotalStatisticId', false);
         $this->addRelation('RoutineRelatedByPerformanceExecutionStatisticId', '\\iuf\\junia\\model\\Routine', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_execution_statistic_id',
     1 => ':id',
   ),
-), null, null, 'RoutinesRelatedByPerformanceExecutionStatisticId', false);
+), 'SET NULL', null, 'RoutinesRelatedByPerformanceExecutionStatisticId', false);
         $this->addRelation('RoutineRelatedByPerformanceChoreographyStatisticId', '\\iuf\\junia\\model\\Routine', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_choreography_statistic_id',
     1 => ':id',
   ),
-), null, null, 'RoutinesRelatedByPerformanceChoreographyStatisticId', false);
+), 'SET NULL', null, 'RoutinesRelatedByPerformanceChoreographyStatisticId', false);
         $this->addRelation('RoutineRelatedByPerformanceMusicAndTimingStatisticId', '\\iuf\\junia\\model\\Routine', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':performance_music_and_timing_statistic_id',
     1 => ':id',
   ),
-), null, null, 'RoutinesRelatedByPerformanceMusicAndTimingStatisticId', false);
+), 'SET NULL', null, 'RoutinesRelatedByPerformanceMusicAndTimingStatisticId', false);
     } // buildRelations()
+    /**
+     * Method to invalidate the instance pool of all tables related to kk_junia_performance_statistic     * by a foreign key with ON DELETE CASCADE
+     */
+    public static function clearRelatedInstancePool()
+    {
+        // Invalidate objects in related instance pools,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        EventTableMap::clearInstancePool();
+        StartgroupTableMap::clearInstancePool();
+        RoutineTableMap::clearInstancePool();
+    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -401,17 +424,21 @@ class PerformanceStatisticTableMap extends TableMap
             $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_MIN);
             $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_MAX);
             $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_RANGE);
+            $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_MEDIAN);
             $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_AVERAGE);
-            $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_STANDARD_DEVIATION);
             $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_VARIANCE);
+            $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_STANDARD_DEVIATION);
+            $criteria->addSelectColumn(PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.min');
             $criteria->addSelectColumn($alias . '.max');
             $criteria->addSelectColumn($alias . '.range');
+            $criteria->addSelectColumn($alias . '.median');
             $criteria->addSelectColumn($alias . '.average');
-            $criteria->addSelectColumn($alias . '.standard_deviation');
             $criteria->addSelectColumn($alias . '.variance');
+            $criteria->addSelectColumn($alias . '.standard_deviation');
+            $criteria->addSelectColumn($alias . '.variability_coefficient');
         }
     }
 

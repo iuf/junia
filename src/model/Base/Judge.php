@@ -739,10 +739,9 @@ abstract class Judge implements ActiveRecordInterface
 
             if ($this->scoresScheduledForDeletion !== null) {
                 if (!$this->scoresScheduledForDeletion->isEmpty()) {
-                    foreach ($this->scoresScheduledForDeletion as $score) {
-                        // need to save related object because we set the relation to null
-                        $score->save($con);
-                    }
+                    \iuf\junia\model\ScoreQuery::create()
+                        ->filterByPrimaryKeys($this->scoresScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
                     $this->scoresScheduledForDeletion = null;
                 }
             }
@@ -757,10 +756,9 @@ abstract class Judge implements ActiveRecordInterface
 
             if ($this->performanceScoresScheduledForDeletion !== null) {
                 if (!$this->performanceScoresScheduledForDeletion->isEmpty()) {
-                    foreach ($this->performanceScoresScheduledForDeletion as $performanceScore) {
-                        // need to save related object because we set the relation to null
-                        $performanceScore->save($con);
-                    }
+                    \iuf\junia\model\PerformanceScoreQuery::create()
+                        ->filterByPrimaryKeys($this->performanceScoresScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
                     $this->performanceScoresScheduledForDeletion = null;
                 }
             }

@@ -72,6 +72,10 @@
             "installer": "composer",
             "env": "dev"
         },
+        "league/csv": {
+            "install-path": "vendor/league/csv",
+            "installer": "composer"
+        },
         "monolog/monolog": {
             "install-path": "vendor/monolog/monolog",
             "installer": "composer",

@@ -4,7 +4,69 @@
 		"title": "Junia API"
 	},
 	"paths": {
+		"/import": {
+			"post": {
+				"description": "Imports data for an event",
+				"operationId": "import",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": false,
+						"description": "Import Metadata",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"event-id": {
+									"type": "integer"
+								},
+								"importer": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		"/analyze": {
+			"post": {
+				"description": "Run analysis on an event",
+				"operationId": "analyze",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": false,
+						"description": "Analysis Metadata",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"event-id": {
+									"type": "integer"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
 		"/events": {
+			"get": {
+				"description": "List all events",
+				"operationId": "event-list",
+				"responses": {
+					"200": {
+						"description": "Array of events",
+						"schema": {
+							"$ref": "#/definitions/PagedEvents"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
 			"post": {
 				"description": "Creates an event",
 				"operationId": "event-create",
@@ -22,21 +84,6 @@
 				"responses": {
 					"201": {
 						"description": "event created"
-					}
-				},
-				"tags": [
-					"iuf.junia"
-				]
-			},
-			"get": {
-				"description": "List all events",
-				"operationId": "event-list",
-				"responses": {
-					"200": {
-						"description": "Array of events",
-						"schema": {
-							"$ref": "#/definitions/PagedEvents"
-						}
 					}
 				},
 				"tags": [
@@ -396,6 +443,21 @@
 			}
 		},
 		"/competitions": {
+			"get": {
+				"description": "List all competitions",
+				"operationId": "competition-list",
+				"responses": {
+					"200": {
+						"description": "Array of competitions",
+						"schema": {
+							"$ref": "#/definitions/PagedCompetitions"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
 			"post": {
 				"description": "Creates a competition",
 				"operationId": "competition-create",
@@ -413,21 +475,6 @@
 				"responses": {
 					"201": {
 						"description": "competition created"
-					}
-				},
-				"tags": [
-					"iuf.junia"
-				]
-			},
-			"get": {
-				"description": "List all competitions",
-				"operationId": "competition-list",
-				"responses": {
-					"200": {
-						"description": "Array of competitions",
-						"schema": {
-							"$ref": "#/definitions/PagedCompetitions"
-						}
 					}
 				},
 				"tags": [
@@ -787,6 +834,21 @@
 			}
 		},
 		"/startgroups": {
+			"get": {
+				"description": "List all startgroups",
+				"operationId": "startgroup-list",
+				"responses": {
+					"200": {
+						"description": "Array of startgroups",
+						"schema": {
+							"$ref": "#/definitions/PagedStartgroups"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
 			"post": {
 				"description": "Creates a startgroup",
 				"operationId": "startgroup-create",
@@ -804,21 +866,6 @@
 				"responses": {
 					"201": {
 						"description": "startgroup created"
-					}
-				},
-				"tags": [
-					"iuf.junia"
-				]
-			},
-			"get": {
-				"description": "List all startgroups",
-				"operationId": "startgroup-list",
-				"responses": {
-					"200": {
-						"description": "Array of startgroups",
-						"schema": {
-							"$ref": "#/definitions/PagedStartgroups"
-						}
 					}
 				},
 				"tags": [
@@ -1666,6 +1713,21 @@
 			}
 		},
 		"/routines": {
+			"get": {
+				"description": "List all routines",
+				"operationId": "routine-list",
+				"responses": {
+					"200": {
+						"description": "Array of routines",
+						"schema": {
+							"$ref": "#/definitions/PagedRoutines"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
 			"post": {
 				"description": "Creates a routine",
 				"operationId": "routine-create",
@@ -1683,21 +1745,6 @@
 				"responses": {
 					"201": {
 						"description": "routine created"
-					}
-				},
-				"tags": [
-					"iuf.junia"
-				]
-			},
-			"get": {
-				"description": "List all routines",
-				"operationId": "routine-list",
-				"responses": {
-					"200": {
-						"description": "Array of routines",
-						"schema": {
-							"$ref": "#/definitions/PagedRoutines"
-						}
 					}
 				},
 				"tags": [
@@ -2667,6 +2714,21 @@
 			}
 		},
 		"/judges": {
+			"get": {
+				"description": "List all judges",
+				"operationId": "judge-list",
+				"responses": {
+					"200": {
+						"description": "Array of judges",
+						"schema": {
+							"$ref": "#/definitions/PagedJudges"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
 			"post": {
 				"description": "Creates a judge",
 				"operationId": "judge-create",
@@ -2684,21 +2746,6 @@
 				"responses": {
 					"201": {
 						"description": "judge created"
-					}
-				},
-				"tags": [
-					"iuf.junia"
-				]
-			},
-			"get": {
-				"description": "List all judges",
-				"operationId": "judge-list",
-				"responses": {
-					"200": {
-						"description": "Array of judges",
-						"schema": {
-							"$ref": "#/definitions/PagedJudges"
-						}
 					}
 				},
 				"tags": [
@@ -3180,6 +3227,21 @@
 			}
 		},
 		"/performance-scores": {
+			"get": {
+				"description": "List all performance-scores",
+				"operationId": "performance_score-list",
+				"responses": {
+					"200": {
+						"description": "Array of performance_scores",
+						"schema": {
+							"$ref": "#/definitions/PagedPerformanceScores"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
 			"post": {
 				"description": "Creates a performance-score",
 				"operationId": "performance_score-create",
@@ -3197,21 +3259,6 @@
 				"responses": {
 					"201": {
 						"description": "performance_score created"
-					}
-				},
-				"tags": [
-					"iuf.junia"
-				]
-			},
-			"get": {
-				"description": "List all performance-scores",
-				"operationId": "performance_score-list",
-				"responses": {
-					"200": {
-						"description": "Array of performance_scores",
-						"schema": {
-							"$ref": "#/definitions/PagedPerformanceScores"
-						}
 					}
 				},
 				"tags": [
@@ -3571,6 +3618,21 @@
 			}
 		},
 		"/performance-statistics": {
+			"get": {
+				"description": "List all performance-statistics",
+				"operationId": "performance_statistic-list",
+				"responses": {
+					"200": {
+						"description": "Array of performance_statistics",
+						"schema": {
+							"$ref": "#/definitions/PagedPerformanceStatistics"
+						}
+					}
+				},
+				"tags": [
+					"iuf.junia"
+				]
+			},
 			"post": {
 				"description": "Creates a performance-statistic",
 				"operationId": "performance_statistic-create",
@@ -3588,21 +3650,6 @@
 				"responses": {
 					"201": {
 						"description": "performance_statistic created"
-					}
-				},
-				"tags": [
-					"iuf.junia"
-				]
-			},
-			"get": {
-				"description": "List all performance-statistics",
-				"operationId": "performance_statistic-list",
-				"responses": {
-					"200": {
-						"description": "Array of performance_statistics",
-						"schema": {
-							"$ref": "#/definitions/PagedPerformanceStatistics"
-						}
 					}
 				},
 				"tags": [
@@ -5648,6 +5695,9 @@
 							"properties": {
 								"label": {
 									"type": "string"
+								},
+								"slug": {
+									"type": "string"
 								}
 							}
 						},
@@ -5695,6 +5745,9 @@
 							"type": "object",
 							"properties": {
 								"label": {
+									"type": "string"
+								},
+								"slug": {
 									"type": "string"
 								}
 							}
@@ -5757,6 +5810,9 @@
 							"type": "object",
 							"properties": {
 								"name": {
+									"type": "string"
+								},
+								"slug": {
 									"type": "string"
 								},
 								"competition_id": {
@@ -5930,6 +5986,9 @@
 							"type": "object",
 							"properties": {
 								"name": {
+									"type": "string"
+								},
+								"slug": {
 									"type": "string"
 								},
 								"competition_id": {
@@ -6931,6 +6990,12 @@
 								},
 								"variance": {
 									"type": "double"
+								},
+								"variability_coefficient": {
+									"type": "double"
+								},
+								"median": {
+									"type": "double"
 								}
 							}
 						},
@@ -7020,6 +7085,12 @@
 									"type": "double"
 								},
 								"variance": {
+									"type": "double"
+								},
+								"variability_coefficient": {
+									"type": "double"
+								},
+								"median": {
 									"type": "double"
 								}
 							}

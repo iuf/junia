@@ -28,7 +28,7 @@ class EventListJsonResponder extends AbstractPayloadResponder {
 		$data = $payload->getModel();
 		$serializer = Event::getSerializer();
 		$resource = new Collection($data, $serializer);
-		$resource = $resource->with($params->getInclude(['performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'startgroup']));
+		$resource = $resource->with($params->getInclude(['performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'startgroups', 'startgroups.competition', 'startgroups.performance-total-statistic', 'startgroups.performance-execution-statistic', 'startgroups.performance-choreography-statistic', 'startgroups.performance-music-and-timing-statistic']));
 		$resource = $resource->fields($params->getFields([
 			'event' => Event::getSerializer()->getFields(),
 			'performance-total-statistic' => PerformanceStatistic::getSerializer()->getFields(),

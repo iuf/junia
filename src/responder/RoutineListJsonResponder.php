@@ -29,7 +29,7 @@ class RoutineListJsonResponder extends AbstractPayloadResponder {
 		$data = $payload->getModel();
 		$serializer = Routine::getSerializer();
 		$resource = new Collection($data, $serializer);
-		$resource = $resource->with($params->getInclude(['startgroup', 'performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'performance-score']));
+		$resource = $resource->with($params->getInclude(['startgroup', 'performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'performance-scores']));
 		$resource = $resource->fields($params->getFields([
 			'routine' => Routine::getSerializer()->getFields(),
 			'startgroup' => Startgroup::getSerializer()->getFields(),

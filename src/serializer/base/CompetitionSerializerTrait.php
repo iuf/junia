@@ -16,15 +16,15 @@ trait CompetitionSerializerTrait {
 	 */
 	public function getAttributes($model, array $fields = null) {
 		return [
-			'id' => $model->getId(),
 			'label' => $model->getLabel(),
+			'slug' => $model->getSlug()
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'label'];
+		return ['label', 'slug'];
 	}
 
 	/**
@@ -32,7 +32,11 @@ trait CompetitionSerializerTrait {
 	 * @return string
 	 */
 	public function getId($model) {
-		return $model->getId();
+		if ($model !== null) {
+			return $model->getId();
+		}
+
+		return null;
 	}
 
 	/**
@@ -46,7 +50,7 @@ trait CompetitionSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'label'];
+		return ['label', 'slug'];
 	}
 
 	/**
@@ -66,7 +70,7 @@ trait CompetitionSerializerTrait {
 		// attributes
 		$attribs = isset($data['attributes']) ? $data['attributes'] : [];
 
-		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'label']);
+		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'label', 'slug']);
 
 		// relationships
 		$this->hydrateRelationships($model, $data);

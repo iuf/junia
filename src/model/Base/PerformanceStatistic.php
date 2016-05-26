@@ -92,10 +92,22 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     protected $range;
 
     /**
+     * The value for the median field.
+     * @var        double
+     */
+    protected $median;
+
+    /**
      * The value for the average field.
      * @var        double
      */
     protected $average;
+
+    /**
+     * The value for the variance field.
+     * @var        double
+     */
+    protected $variance;
 
     /**
      * The value for the standard_deviation field.
@@ -104,10 +116,10 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     protected $standard_deviation;
 
     /**
-     * The value for the variance field.
+     * The value for the variability_coefficient field.
      * @var        double
      */
-    protected $variance;
+    protected $variability_coefficient;
 
     /**
      * @var        ObjectCollection|ChildEvent[] Collection to store aggregation of ChildEvent objects.
@@ -519,6 +531,16 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     }
 
     /**
+     * Get the [median] column value.
+     *
+     * @return double
+     */
+    public function getMedian()
+    {
+        return $this->median;
+    }
+
+    /**
      * Get the [average] column value.
      *
      * @return double
@@ -526,6 +548,16 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     public function getAverage()
     {
         return $this->average;
+    }
+
+    /**
+     * Get the [variance] column value.
+     *
+     * @return double
+     */
+    public function getVariance()
+    {
+        return $this->variance;
     }
 
     /**
@@ -539,13 +571,13 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     }
 
     /**
-     * Get the [variance] column value.
+     * Get the [variability_coefficient] column value.
      *
      * @return double
      */
-    public function getVariance()
+    public function getVariabilityCoefficient()
     {
-        return $this->variance;
+        return $this->variability_coefficient;
     }
 
     /**
@@ -629,6 +661,26 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     } // setRange()
 
     /**
+     * Set the value of [median] column.
+     *
+     * @param double $v new value
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function setMedian($v)
+    {
+        if ($v !== null) {
+            $v = (double) $v;
+        }
+
+        if ($this->median !== $v) {
+            $this->median = $v;
+            $this->modifiedColumns[PerformanceStatisticTableMap::COL_MEDIAN] = true;
+        }
+
+        return $this;
+    } // setMedian()
+
+    /**
      * Set the value of [average] column.
      *
      * @param double $v new value
@@ -647,6 +699,26 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
 
         return $this;
     } // setAverage()
+
+    /**
+     * Set the value of [variance] column.
+     *
+     * @param double $v new value
+     * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
+     */
+    public function setVariance($v)
+    {
+        if ($v !== null) {
+            $v = (double) $v;
+        }
+
+        if ($this->variance !== $v) {
+            $this->variance = $v;
+            $this->modifiedColumns[PerformanceStatisticTableMap::COL_VARIANCE] = true;
+        }
+
+        return $this;
+    } // setVariance()
 
     /**
      * Set the value of [standard_deviation] column.
@@ -669,24 +741,24 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
     } // setStandardDeviation()
 
     /**
-     * Set the value of [variance] column.
+     * Set the value of [variability_coefficient] column.
      *
      * @param double $v new value
      * @return $this|\iuf\junia\model\PerformanceStatistic The current object (for fluent API support)
      */
-    public function setVariance($v)
+    public function setVariabilityCoefficient($v)
     {
         if ($v !== null) {
             $v = (double) $v;
         }
 
-        if ($this->variance !== $v) {
-            $this->variance = $v;
-            $this->modifiedColumns[PerformanceStatisticTableMap::COL_VARIANCE] = true;
+        if ($this->variability_coefficient !== $v) {
+            $this->variability_coefficient = $v;
+            $this->modifiedColumns[PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT] = true;
         }
 
         return $this;
-    } // setVariance()
+    } // setVariabilityCoefficient()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -736,14 +808,20 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : PerformanceStatisticTableMap::translateFieldName('Range', TableMap::TYPE_PHPNAME, $indexType)];
             $this->range = (null !== $col) ? (double) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : PerformanceStatisticTableMap::translateFieldName('Average', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->average = (null !== $col) ? (double) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : PerformanceStatisticTableMap::translateFieldName('Median', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->median = (null !== $col) ? (double) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : PerformanceStatisticTableMap::translateFieldName('StandardDeviation', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->standard_deviation = (null !== $col) ? (double) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : PerformanceStatisticTableMap::translateFieldName('Average', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->average = (null !== $col) ? (double) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : PerformanceStatisticTableMap::translateFieldName('Variance', TableMap::TYPE_PHPNAME, $indexType)];
             $this->variance = (null !== $col) ? (double) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : PerformanceStatisticTableMap::translateFieldName('StandardDeviation', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->standard_deviation = (null !== $col) ? (double) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : PerformanceStatisticTableMap::translateFieldName('VariabilityCoefficient', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->variability_coefficient = (null !== $col) ? (double) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -752,7 +830,7 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = PerformanceStatisticTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 9; // 9 = PerformanceStatisticTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\iuf\\junia\\model\\PerformanceStatistic'), 0, $e);
@@ -1201,14 +1279,20 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
         if ($this->isColumnModified(PerformanceStatisticTableMap::COL_RANGE)) {
             $modifiedColumns[':p' . $index++]  = '`range`';
         }
+        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_MEDIAN)) {
+            $modifiedColumns[':p' . $index++]  = '`median`';
+        }
         if ($this->isColumnModified(PerformanceStatisticTableMap::COL_AVERAGE)) {
             $modifiedColumns[':p' . $index++]  = '`average`';
+        }
+        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_VARIANCE)) {
+            $modifiedColumns[':p' . $index++]  = '`variance`';
         }
         if ($this->isColumnModified(PerformanceStatisticTableMap::COL_STANDARD_DEVIATION)) {
             $modifiedColumns[':p' . $index++]  = '`standard_deviation`';
         }
-        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_VARIANCE)) {
-            $modifiedColumns[':p' . $index++]  = '`variance`';
+        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT)) {
+            $modifiedColumns[':p' . $index++]  = '`variability_coefficient`';
         }
 
         $sql = sprintf(
@@ -1233,14 +1317,20 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
                     case '`range`':
                         $stmt->bindValue($identifier, $this->range, PDO::PARAM_STR);
                         break;
+                    case '`median`':
+                        $stmt->bindValue($identifier, $this->median, PDO::PARAM_STR);
+                        break;
                     case '`average`':
                         $stmt->bindValue($identifier, $this->average, PDO::PARAM_STR);
+                        break;
+                    case '`variance`':
+                        $stmt->bindValue($identifier, $this->variance, PDO::PARAM_STR);
                         break;
                     case '`standard_deviation`':
                         $stmt->bindValue($identifier, $this->standard_deviation, PDO::PARAM_STR);
                         break;
-                    case '`variance`':
-                        $stmt->bindValue($identifier, $this->variance, PDO::PARAM_STR);
+                    case '`variability_coefficient`':
+                        $stmt->bindValue($identifier, $this->variability_coefficient, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1317,13 +1407,19 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
                 return $this->getRange();
                 break;
             case 4:
-                return $this->getAverage();
+                return $this->getMedian();
                 break;
             case 5:
-                return $this->getStandardDeviation();
+                return $this->getAverage();
                 break;
             case 6:
                 return $this->getVariance();
+                break;
+            case 7:
+                return $this->getStandardDeviation();
+                break;
+            case 8:
+                return $this->getVariabilityCoefficient();
                 break;
             default:
                 return null;
@@ -1359,9 +1455,11 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
             $keys[1] => $this->getMin(),
             $keys[2] => $this->getMax(),
             $keys[3] => $this->getRange(),
-            $keys[4] => $this->getAverage(),
-            $keys[5] => $this->getStandardDeviation(),
+            $keys[4] => $this->getMedian(),
+            $keys[5] => $this->getAverage(),
             $keys[6] => $this->getVariance(),
+            $keys[7] => $this->getStandardDeviation(),
+            $keys[8] => $this->getVariabilityCoefficient(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1596,13 +1694,19 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
                 $this->setRange($value);
                 break;
             case 4:
-                $this->setAverage($value);
+                $this->setMedian($value);
                 break;
             case 5:
-                $this->setStandardDeviation($value);
+                $this->setAverage($value);
                 break;
             case 6:
                 $this->setVariance($value);
+                break;
+            case 7:
+                $this->setStandardDeviation($value);
+                break;
+            case 8:
+                $this->setVariabilityCoefficient($value);
                 break;
         } // switch()
 
@@ -1643,13 +1747,19 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
             $this->setRange($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setAverage($arr[$keys[4]]);
+            $this->setMedian($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setStandardDeviation($arr[$keys[5]]);
+            $this->setAverage($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
             $this->setVariance($arr[$keys[6]]);
+        }
+        if (array_key_exists($keys[7], $arr)) {
+            $this->setStandardDeviation($arr[$keys[7]]);
+        }
+        if (array_key_exists($keys[8], $arr)) {
+            $this->setVariabilityCoefficient($arr[$keys[8]]);
         }
     }
 
@@ -1704,14 +1814,20 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
         if ($this->isColumnModified(PerformanceStatisticTableMap::COL_RANGE)) {
             $criteria->add(PerformanceStatisticTableMap::COL_RANGE, $this->range);
         }
+        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_MEDIAN)) {
+            $criteria->add(PerformanceStatisticTableMap::COL_MEDIAN, $this->median);
+        }
         if ($this->isColumnModified(PerformanceStatisticTableMap::COL_AVERAGE)) {
             $criteria->add(PerformanceStatisticTableMap::COL_AVERAGE, $this->average);
+        }
+        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_VARIANCE)) {
+            $criteria->add(PerformanceStatisticTableMap::COL_VARIANCE, $this->variance);
         }
         if ($this->isColumnModified(PerformanceStatisticTableMap::COL_STANDARD_DEVIATION)) {
             $criteria->add(PerformanceStatisticTableMap::COL_STANDARD_DEVIATION, $this->standard_deviation);
         }
-        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_VARIANCE)) {
-            $criteria->add(PerformanceStatisticTableMap::COL_VARIANCE, $this->variance);
+        if ($this->isColumnModified(PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT)) {
+            $criteria->add(PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT, $this->variability_coefficient);
         }
 
         return $criteria;
@@ -1802,9 +1918,11 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
         $copyObj->setMin($this->getMin());
         $copyObj->setMax($this->getMax());
         $copyObj->setRange($this->getRange());
+        $copyObj->setMedian($this->getMedian());
         $copyObj->setAverage($this->getAverage());
-        $copyObj->setStandardDeviation($this->getStandardDeviation());
         $copyObj->setVariance($this->getVariance());
+        $copyObj->setStandardDeviation($this->getStandardDeviation());
+        $copyObj->setVariabilityCoefficient($this->getVariabilityCoefficient());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -4889,9 +5007,11 @@ abstract class PerformanceStatistic implements ActiveRecordInterface
         $this->min = null;
         $this->max = null;
         $this->range = null;
+        $this->median = null;
         $this->average = null;
-        $this->standard_deviation = null;
         $this->variance = null;
+        $this->standard_deviation = null;
+        $this->variability_coefficient = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

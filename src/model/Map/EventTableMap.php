@@ -189,35 +189,35 @@ class EventTableMap extends TableMap
     0 => ':performance_total_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('PerformanceExecutionStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':performance_execution_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('PerformanceChoreographyStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':performance_choreography_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('PerformanceMusicAndTimingStatistic', '\\iuf\\junia\\model\\PerformanceStatistic', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':performance_music_and_timing_statistic_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'SET NULL', null, null, false);
         $this->addRelation('Startgroup', '\\iuf\\junia\\model\\Startgroup', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':event_id',
     1 => ':id',
   ),
-), null, null, 'Startgroups', false);
+), 'CASCADE', null, 'Startgroups', false);
     } // buildRelations()
 
     /**
@@ -232,6 +232,15 @@ class EventTableMap extends TableMap
             'sluggable' => array('slug_column' => 'slug', 'slug_pattern' => '', 'replace_pattern' => '/\W+/', 'replacement' => '-', 'separator' => '-', 'permanent' => 'false', 'scope_column' => '', ),
         );
     } // getBehaviors()
+    /**
+     * Method to invalidate the instance pool of all tables related to kk_junia_event     * by a foreign key with ON DELETE CASCADE
+     */
+    public static function clearRelatedInstancePool()
+    {
+        // Invalidate objects in related instance pools,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        StartgroupTableMap::clearInstancePool();
+    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.

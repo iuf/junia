@@ -21,11 +21,16 @@ trait StartgroupSerializerTrait {
 	 */
 	public function competition($model) {
 		$serializer = Competition::getSerializer();
-		$relationship = new Relationship(new Resource($model->getCompetition(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'competition');
+		$id = $serializer->getId($model->getCompetition());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getCompetition(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'competition');
+		}
+
+		return null;
 	}
 
 	/**
@@ -34,11 +39,16 @@ trait StartgroupSerializerTrait {
 	 */
 	public function event($model) {
 		$serializer = Event::getSerializer();
-		$relationship = new Relationship(new Resource($model->getEvent(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'event');
+		$id = $serializer->getId($model->getEvent());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getEvent(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'event');
+		}
+
+		return null;
 	}
 
 	/**
@@ -47,21 +57,15 @@ trait StartgroupSerializerTrait {
 	 */
 	public function getAttributes($model, array $fields = null) {
 		return [
-			'id' => $model->getId(),
 			'name' => $model->getName(),
-			'competition-id' => $model->getCompetitionId(),
-			'event-id' => $model->getEventId(),
-			'performance-total-statistic-id' => $model->getPerformanceTotalStatisticId(),
-			'performance-execution-statistic-id' => $model->getPerformanceExecutionStatisticId(),
-			'performance-choreography-statistic-id' => $model->getPerformanceChoreographyStatisticId(),
-			'performance-music-and-timing-statistic-id' => $model->getPerformanceMusicAndTimingStatisticId(),
+			'slug' => $model->getSlug()
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'name', 'competition-id', 'event-id', 'performance-total-statistic-id', 'performance-execution-statistic-id', 'performance-choreography-statistic-id', 'performance-music-and-timing-statistic-id'];
+		return ['name', 'slug'];
 	}
 
 	/**
@@ -69,7 +73,11 @@ trait StartgroupSerializerTrait {
 	 * @return string
 	 */
 	public function getId($model) {
-		return $model->getId();
+		if ($model !== null) {
+			return $model->getId();
+		}
+
+		return null;
 	}
 
 	/**
@@ -90,7 +98,7 @@ trait StartgroupSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'name', 'competition-id', 'event-id', 'performance-total-statistic-id', 'performance-execution-statistic-id', 'performance-choreography-statistic-id', 'performance-music-and-timing-statistic-id'];
+		return ['name', 'slug'];
 	}
 
 	/**
@@ -110,7 +118,7 @@ trait StartgroupSerializerTrait {
 		// attributes
 		$attribs = isset($data['attributes']) ? $data['attributes'] : [];
 
-		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'name', 'competition-id', 'event-id', 'performance-total-statistic-id', 'performance-execution-statistic-id', 'performance-choreography-statistic-id', 'performance-music-and-timing-statistic-id']);
+		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'name', 'slug', 'competition-id', 'event-id', 'performance-total-statistic-id', 'performance-execution-statistic-id', 'performance-choreography-statistic-id', 'performance-music-and-timing-statistic-id']);
 
 		// relationships
 		$this->hydrateRelationships($model, $data);
@@ -133,11 +141,16 @@ trait StartgroupSerializerTrait {
 	 */
 	public function performanceChoreographyStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceChoreographyStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-choreography-statistic');
+		$id = $serializer->getId($model->getPerformanceChoreographyStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceChoreographyStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-choreography-statistic');
+		}
+
+		return null;
 	}
 
 	/**
@@ -146,11 +159,16 @@ trait StartgroupSerializerTrait {
 	 */
 	public function performanceExecutionStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceExecutionStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-execution-statistic');
+		$id = $serializer->getId($model->getPerformanceExecutionStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceExecutionStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-execution-statistic');
+		}
+
+		return null;
 	}
 
 	/**
@@ -159,11 +177,16 @@ trait StartgroupSerializerTrait {
 	 */
 	public function performanceMusicAndTimingStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceMusicAndTimingStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-music-and-timing-statistic');
+		$id = $serializer->getId($model->getPerformanceMusicAndTimingStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceMusicAndTimingStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-music-and-timing-statistic');
+		}
+
+		return null;
 	}
 
 	/**
@@ -172,11 +195,16 @@ trait StartgroupSerializerTrait {
 	 */
 	public function performanceTotalStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceTotalStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-total-statistic');
+		$id = $serializer->getId($model->getPerformanceTotalStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceTotalStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-total-statistic');
+		}
+
+		return null;
 	}
 
 	/**

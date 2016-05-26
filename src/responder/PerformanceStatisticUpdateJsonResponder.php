@@ -57,7 +57,7 @@ class PerformanceStatisticUpdateJsonResponder extends AbstractPayloadResponder {
 		$params = new Parameters($request->query->all());
 		$serializer = PerformanceStatistic::getSerializer();
 		$resource = new Resource($payload->getModel(), $serializer);
-		$resource = $resource->with($params->getInclude(['event', 'startgroup', 'routine']));
+		$resource = $resource->with($params->getInclude(['events', 'startgroups', 'routine']));
 		$resource = $resource->fields($params->getFields([
 			'performance-statistic' => PerformanceStatistic::getSerializer()->getFields(),
 			'event' => Event::getSerializer()->getFields(),

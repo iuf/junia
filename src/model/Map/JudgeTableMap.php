@@ -158,29 +158,39 @@ class JudgeTableMap extends TableMap
     0 => ':startgroup_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'CASCADE', null, null, false);
         $this->addRelation('User', '\\keeko\\core\\model\\User', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':user_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'RESTRICT', null, null, false);
         $this->addRelation('Score', '\\iuf\\junia\\model\\Score', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':judge_id',
     1 => ':id',
   ),
-), null, null, 'Scores', false);
+), 'CASCADE', null, 'Scores', false);
         $this->addRelation('PerformanceScore', '\\iuf\\junia\\model\\PerformanceScore', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':judge_id',
     1 => ':id',
   ),
-), null, null, 'PerformanceScores', false);
+), 'CASCADE', null, 'PerformanceScores', false);
     } // buildRelations()
+    /**
+     * Method to invalidate the instance pool of all tables related to kk_junia_judge     * by a foreign key with ON DELETE CASCADE
+     */
+    public static function clearRelatedInstancePool()
+    {
+        // Invalidate objects in related instance pools,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        ScoreTableMap::clearInstancePool();
+        PerformanceScoreTableMap::clearInstancePool();
+    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.

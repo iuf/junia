@@ -28,20 +28,21 @@ trait PerformanceStatisticSerializerTrait {
 	 */
 	public function getAttributes($model, array $fields = null) {
 		return [
-			'id' => $model->getId(),
 			'min' => $model->getMin(),
 			'max' => $model->getMax(),
 			'range' => $model->getRange(),
+			'median' => $model->getMedian(),
 			'average' => $model->getAverage(),
-			'standard-deviation' => $model->getStandardDeviation(),
 			'variance' => $model->getVariance(),
+			'standard-deviation' => $model->getStandardDeviation(),
+			'variability-coefficient' => $model->getVariabilityCoefficient()
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'min', 'max', 'range', 'average', 'standard-deviation', 'variance'];
+		return ['min', 'max', 'range', 'median', 'average', 'variance', 'standard-deviation', 'variability-coefficient'];
 	}
 
 	/**
@@ -49,7 +50,11 @@ trait PerformanceStatisticSerializerTrait {
 	 * @return string
 	 */
 	public function getId($model) {
-		return $model->getId();
+		if ($model !== null) {
+			return $model->getId();
+		}
+
+		return null;
 	}
 
 	/**
@@ -65,7 +70,7 @@ trait PerformanceStatisticSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'min', 'max', 'range', 'average', 'standard-deviation', 'variance'];
+		return ['min', 'max', 'range', 'median', 'average', 'variance', 'standard-deviation', 'variability-coefficient'];
 	}
 
 	/**
@@ -85,7 +90,7 @@ trait PerformanceStatisticSerializerTrait {
 		// attributes
 		$attribs = isset($data['attributes']) ? $data['attributes'] : [];
 
-		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'min', 'max', 'range', 'average', 'standard-deviation', 'variance']);
+		$model = HydrateUtils::hydrate($attribs, $model, ['id', 'min', 'max', 'range', 'median', 'average', 'variance', 'standard-deviation', 'variability-coefficient']);
 
 		// relationships
 		$this->hydrateRelationships($model, $data);
@@ -99,11 +104,16 @@ trait PerformanceStatisticSerializerTrait {
 	 */
 	public function routine($model) {
 		$serializer = Routine::getSerializer();
-		$relationship = new Relationship(new Resource($model->getRoutine(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'routine');
+		$id = $serializer->getId($model->getRoutine());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getRoutine(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'routine');
+		}
+
+		return null;
 	}
 
 	/**

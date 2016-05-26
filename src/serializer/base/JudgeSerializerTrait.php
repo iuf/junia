@@ -18,17 +18,14 @@ trait JudgeSerializerTrait {
 	 */
 	public function getAttributes($model, array $fields = null) {
 		return [
-			'id' => $model->getId(),
-			'position' => $model->getPosition(),
-			'startgroup-id' => $model->getStartgroupId(),
-			'user-id' => $model->getUserId(),
+			'position' => $model->getPosition()
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'position', 'startgroup-id', 'user-id'];
+		return ['position'];
 	}
 
 	/**
@@ -36,7 +33,11 @@ trait JudgeSerializerTrait {
 	 * @return string
 	 */
 	public function getId($model) {
-		return $model->getId();
+		if ($model !== null) {
+			return $model->getId();
+		}
+
+		return null;
 	}
 
 	/**
@@ -52,7 +53,7 @@ trait JudgeSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'position', 'startgroup-id', 'user-id'];
+		return ['position'];
 	}
 
 	/**
@@ -86,11 +87,16 @@ trait JudgeSerializerTrait {
 	 */
 	public function performanceScore($model) {
 		$serializer = PerformanceScore::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceScore(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-score');
+		$id = $serializer->getId($model->getPerformanceScore());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceScore(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-score');
+		}
+
+		return null;
 	}
 
 	/**
@@ -99,11 +105,16 @@ trait JudgeSerializerTrait {
 	 */
 	public function startgroup($model) {
 		$serializer = Startgroup::getSerializer();
-		$relationship = new Relationship(new Resource($model->getStartgroup(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'startgroup');
+		$id = $serializer->getId($model->getStartgroup());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getStartgroup(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'startgroup');
+		}
+
+		return null;
 	}
 
 	/**
@@ -112,11 +123,16 @@ trait JudgeSerializerTrait {
 	 */
 	public function user($model) {
 		$serializer = User::getSerializer();
-		$relationship = new Relationship(new Resource($model->getUser(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'user');
+		$id = $serializer->getId($model->getUser());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getUser(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'user');
+		}
+
+		return null;
 	}
 
 	/**

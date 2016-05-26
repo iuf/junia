@@ -84,6 +84,12 @@ abstract class Startgroup implements ActiveRecordInterface
     protected $name;
 
     /**
+     * The value for the slug field.
+     * @var        string
+     */
+    protected $slug;
+
+    /**
      * The value for the competition_id field.
      * @var        int
      */
@@ -419,6 +425,16 @@ abstract class Startgroup implements ActiveRecordInterface
     }
 
     /**
+     * Get the [slug] column value.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Get the [competition_id] column value.
      *
      * @return int
@@ -517,6 +533,26 @@ abstract class Startgroup implements ActiveRecordInterface
 
         return $this;
     } // setName()
+
+    /**
+     * Set the value of [slug] column.
+     *
+     * @param string $v new value
+     * @return $this|\iuf\junia\model\Startgroup The current object (for fluent API support)
+     */
+    public function setSlug($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->slug !== $v) {
+            $this->slug = $v;
+            $this->modifiedColumns[StartgroupTableMap::COL_SLUG] = true;
+        }
+
+        return $this;
+    } // setSlug()
 
     /**
      * Set the value of [competition_id] column.
@@ -704,22 +740,25 @@ abstract class Startgroup implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : StartgroupTableMap::translateFieldName('Name', TableMap::TYPE_PHPNAME, $indexType)];
             $this->name = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : StartgroupTableMap::translateFieldName('CompetitionId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : StartgroupTableMap::translateFieldName('Slug', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->slug = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : StartgroupTableMap::translateFieldName('CompetitionId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->competition_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : StartgroupTableMap::translateFieldName('EventId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : StartgroupTableMap::translateFieldName('EventId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->event_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : StartgroupTableMap::translateFieldName('PerformanceTotalStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : StartgroupTableMap::translateFieldName('PerformanceTotalStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->performance_total_statistic_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : StartgroupTableMap::translateFieldName('PerformanceExecutionStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : StartgroupTableMap::translateFieldName('PerformanceExecutionStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->performance_execution_statistic_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : StartgroupTableMap::translateFieldName('PerformanceChoreographyStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : StartgroupTableMap::translateFieldName('PerformanceChoreographyStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->performance_choreography_statistic_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : StartgroupTableMap::translateFieldName('PerformanceMusicAndTimingStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : StartgroupTableMap::translateFieldName('PerformanceMusicAndTimingStatisticId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->performance_music_and_timing_statistic_id = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
@@ -729,7 +768,7 @@ abstract class Startgroup implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 8; // 8 = StartgroupTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 9; // 9 = StartgroupTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\iuf\\junia\\model\\Startgroup'), 0, $e);
@@ -1041,6 +1080,9 @@ abstract class Startgroup implements ActiveRecordInterface
         if ($this->isColumnModified(StartgroupTableMap::COL_NAME)) {
             $modifiedColumns[':p' . $index++]  = '`name`';
         }
+        if ($this->isColumnModified(StartgroupTableMap::COL_SLUG)) {
+            $modifiedColumns[':p' . $index++]  = '`slug`';
+        }
         if ($this->isColumnModified(StartgroupTableMap::COL_COMPETITION_ID)) {
             $modifiedColumns[':p' . $index++]  = '`competition_id`';
         }
@@ -1075,6 +1117,9 @@ abstract class Startgroup implements ActiveRecordInterface
                         break;
                     case '`name`':
                         $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
+                        break;
+                    case '`slug`':
+                        $stmt->bindValue($identifier, $this->slug, PDO::PARAM_STR);
                         break;
                     case '`competition_id`':
                         $stmt->bindValue($identifier, $this->competition_id, PDO::PARAM_INT);
@@ -1163,21 +1208,24 @@ abstract class Startgroup implements ActiveRecordInterface
                 return $this->getName();
                 break;
             case 2:
-                return $this->getCompetitionId();
+                return $this->getSlug();
                 break;
             case 3:
-                return $this->getEventId();
+                return $this->getCompetitionId();
                 break;
             case 4:
-                return $this->getPerformanceTotalStatisticId();
+                return $this->getEventId();
                 break;
             case 5:
-                return $this->getPerformanceExecutionStatisticId();
+                return $this->getPerformanceTotalStatisticId();
                 break;
             case 6:
-                return $this->getPerformanceChoreographyStatisticId();
+                return $this->getPerformanceExecutionStatisticId();
                 break;
             case 7:
+                return $this->getPerformanceChoreographyStatisticId();
+                break;
+            case 8:
                 return $this->getPerformanceMusicAndTimingStatisticId();
                 break;
             default:
@@ -1212,12 +1260,13 @@ abstract class Startgroup implements ActiveRecordInterface
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getName(),
-            $keys[2] => $this->getCompetitionId(),
-            $keys[3] => $this->getEventId(),
-            $keys[4] => $this->getPerformanceTotalStatisticId(),
-            $keys[5] => $this->getPerformanceExecutionStatisticId(),
-            $keys[6] => $this->getPerformanceChoreographyStatisticId(),
-            $keys[7] => $this->getPerformanceMusicAndTimingStatisticId(),
+            $keys[2] => $this->getSlug(),
+            $keys[3] => $this->getCompetitionId(),
+            $keys[4] => $this->getEventId(),
+            $keys[5] => $this->getPerformanceTotalStatisticId(),
+            $keys[6] => $this->getPerformanceExecutionStatisticId(),
+            $keys[7] => $this->getPerformanceChoreographyStatisticId(),
+            $keys[8] => $this->getPerformanceMusicAndTimingStatisticId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1386,21 +1435,24 @@ abstract class Startgroup implements ActiveRecordInterface
                 $this->setName($value);
                 break;
             case 2:
-                $this->setCompetitionId($value);
+                $this->setSlug($value);
                 break;
             case 3:
-                $this->setEventId($value);
+                $this->setCompetitionId($value);
                 break;
             case 4:
-                $this->setPerformanceTotalStatisticId($value);
+                $this->setEventId($value);
                 break;
             case 5:
-                $this->setPerformanceExecutionStatisticId($value);
+                $this->setPerformanceTotalStatisticId($value);
                 break;
             case 6:
-                $this->setPerformanceChoreographyStatisticId($value);
+                $this->setPerformanceExecutionStatisticId($value);
                 break;
             case 7:
+                $this->setPerformanceChoreographyStatisticId($value);
+                break;
+            case 8:
                 $this->setPerformanceMusicAndTimingStatisticId($value);
                 break;
         } // switch()
@@ -1436,22 +1488,25 @@ abstract class Startgroup implements ActiveRecordInterface
             $this->setName($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setCompetitionId($arr[$keys[2]]);
+            $this->setSlug($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setEventId($arr[$keys[3]]);
+            $this->setCompetitionId($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setPerformanceTotalStatisticId($arr[$keys[4]]);
+            $this->setEventId($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setPerformanceExecutionStatisticId($arr[$keys[5]]);
+            $this->setPerformanceTotalStatisticId($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setPerformanceChoreographyStatisticId($arr[$keys[6]]);
+            $this->setPerformanceExecutionStatisticId($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setPerformanceMusicAndTimingStatisticId($arr[$keys[7]]);
+            $this->setPerformanceChoreographyStatisticId($arr[$keys[7]]);
+        }
+        if (array_key_exists($keys[8], $arr)) {
+            $this->setPerformanceMusicAndTimingStatisticId($arr[$keys[8]]);
         }
     }
 
@@ -1499,6 +1554,9 @@ abstract class Startgroup implements ActiveRecordInterface
         }
         if ($this->isColumnModified(StartgroupTableMap::COL_NAME)) {
             $criteria->add(StartgroupTableMap::COL_NAME, $this->name);
+        }
+        if ($this->isColumnModified(StartgroupTableMap::COL_SLUG)) {
+            $criteria->add(StartgroupTableMap::COL_SLUG, $this->slug);
         }
         if ($this->isColumnModified(StartgroupTableMap::COL_COMPETITION_ID)) {
             $criteria->add(StartgroupTableMap::COL_COMPETITION_ID, $this->competition_id);
@@ -1605,6 +1663,7 @@ abstract class Startgroup implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setName($this->getName());
+        $copyObj->setSlug($this->getSlug());
         $copyObj->setCompetitionId($this->getCompetitionId());
         $copyObj->setEventId($this->getEventId());
         $copyObj->setPerformanceTotalStatisticId($this->getPerformanceTotalStatisticId());
@@ -2572,6 +2631,7 @@ abstract class Startgroup implements ActiveRecordInterface
         }
         $this->id = null;
         $this->name = null;
+        $this->slug = null;
         $this->competition_id = null;
         $this->event_id = null;
         $this->performance_total_statistic_id = null;

@@ -15,9 +15,33 @@ CREATE TABLE `kk_junia_event`
     `name` VARCHAR(100),
     `start` DATE,
     `end` DATE,
+    `performance_total_statistic_id` INTEGER(10),
+    `performance_execution_statistic_id` INTEGER(10),
+    `performance_choreography_statistic_id` INTEGER(10),
+    `performance_music_and_timing_statistic_id` INTEGER(10),
     `slug` VARCHAR(255),
     PRIMARY KEY (`id`),
-    UNIQUE INDEX `kk_junia_event_slug` (`slug`(255))
+    UNIQUE INDEX `kk_junia_event_slug` (`slug`(255)),
+    INDEX `event_fi_performance_total` (`performance_total_statistic_id`),
+    INDEX `event_fi_performance_execution` (`performance_execution_statistic_id`),
+    INDEX `event_fi_performance_choreography` (`performance_choreography_statistic_id`),
+    INDEX `event_fi_performance_music_and_timing` (`performance_music_and_timing_statistic_id`),
+    CONSTRAINT `event_fk_performance_total`
+        FOREIGN KEY (`performance_total_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
+    CONSTRAINT `event_fk_performance_execution`
+        FOREIGN KEY (`performance_execution_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
+    CONSTRAINT `event_fk_performance_choreography`
+        FOREIGN KEY (`performance_choreography_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
+    CONSTRAINT `event_fk_performance_music_and_timing`
+        FOREIGN KEY (`performance_music_and_timing_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -30,7 +54,9 @@ CREATE TABLE `kk_junia_competition`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `label` VARCHAR(100),
-    PRIMARY KEY (`id`)
+    `slug` VARCHAR(255),
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `kk_junia_competition_slug` (`slug`(255))
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -43,17 +69,44 @@ CREATE TABLE `kk_junia_startgroup`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100),
+    `slug` VARCHAR(100),
     `competition_id` INTEGER(10) NOT NULL,
     `event_id` INTEGER(10) NOT NULL,
+    `performance_total_statistic_id` INTEGER(10),
+    `performance_execution_statistic_id` INTEGER(10),
+    `performance_choreography_statistic_id` INTEGER(10),
+    `performance_music_and_timing_statistic_id` INTEGER(10),
     PRIMARY KEY (`id`),
     INDEX `startgroup_fi_competition` (`competition_id`),
     INDEX `startgroup_fi_event` (`event_id`),
+    INDEX `startgroup_fi_performance_total` (`performance_total_statistic_id`),
+    INDEX `startgroup_fi_performance_execution` (`performance_execution_statistic_id`),
+    INDEX `startgroup_fi_performance_choreography` (`performance_choreography_statistic_id`),
+    INDEX `startgroup_fi_performance_music_and_timing` (`performance_music_and_timing_statistic_id`),
     CONSTRAINT `startgroup_fk_competition`
         FOREIGN KEY (`competition_id`)
-        REFERENCES `kk_junia_competition` (`id`),
+        REFERENCES `kk_junia_competition` (`id`)
+        ON DELETE RESTRICT,
     CONSTRAINT `startgroup_fk_event`
         FOREIGN KEY (`event_id`)
         REFERENCES `kk_junia_event` (`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `startgroup_fk_performance_total`
+        FOREIGN KEY (`performance_total_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
+    CONSTRAINT `startgroup_fk_performance_execution`
+        FOREIGN KEY (`performance_execution_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
+    CONSTRAINT `startgroup_fk_performance_choreography`
+        FOREIGN KEY (`performance_choreography_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
+    CONSTRAINT `startgroup_fk_performance_music_and_timing`
+        FOREIGN KEY (`performance_music_and_timing_statistic_id`)
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -79,19 +132,24 @@ CREATE TABLE `kk_junia_routine`
     INDEX `routine_fi_performance_music_and_timing` (`performance_music_and_timing_statistic_id`),
     CONSTRAINT `routine_fk_startgroup`
         FOREIGN KEY (`startgroup_id`)
-        REFERENCES `kk_junia_startgroup` (`id`),
+        REFERENCES `kk_junia_startgroup` (`id`)
+        ON DELETE CASCADE,
     CONSTRAINT `routine_fk_performance_total`
         FOREIGN KEY (`performance_total_statistic_id`)
-        REFERENCES `kk_junia_performance_statistic` (`id`),
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
     CONSTRAINT `routine_fk_performance_execution`
         FOREIGN KEY (`performance_execution_statistic_id`)
-        REFERENCES `kk_junia_performance_statistic` (`id`),
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
     CONSTRAINT `routine_fk_performance_choreography`
         FOREIGN KEY (`performance_choreography_statistic_id`)
-        REFERENCES `kk_junia_performance_statistic` (`id`),
+        REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL,
     CONSTRAINT `routine_fk_performance_music_and_timing`
         FOREIGN KEY (`performance_music_and_timing_statistic_id`)
         REFERENCES `kk_junia_performance_statistic` (`id`)
+        ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -111,10 +169,12 @@ CREATE TABLE `kk_junia_judge`
     INDEX `judge_fi_user` (`user_id`),
     CONSTRAINT `judge_fk_startgroup`
         FOREIGN KEY (`startgroup_id`)
-        REFERENCES `kk_junia_startgroup` (`id`),
+        REFERENCES `kk_junia_startgroup` (`id`)
+        ON DELETE CASCADE,
     CONSTRAINT `judge_fk_user`
         FOREIGN KEY (`user_id`)
         REFERENCES `kk_junia_user` (`id`)
+        ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -135,10 +195,12 @@ CREATE TABLE `kk_junia_score`
     INDEX `score_fi_judge` (`judge_id`),
     CONSTRAINT `score_fk_routine`
         FOREIGN KEY (`routine_id`)
-        REFERENCES `kk_junia_routine` (`id`),
+        REFERENCES `kk_junia_routine` (`id`)
+        ON DELETE CASCADE,
     CONSTRAINT `score_fk_judge`
         FOREIGN KEY (`judge_id`)
         REFERENCES `kk_junia_judge` (`id`)
+        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -165,10 +227,12 @@ CREATE TABLE `kk_junia_performance_score`
         ON DELETE CASCADE,
     CONSTRAINT `kk_junia_performance_score_fk_7e1720`
         FOREIGN KEY (`routine_id`)
-        REFERENCES `kk_junia_routine` (`id`),
+        REFERENCES `kk_junia_routine` (`id`)
+        ON DELETE CASCADE,
     CONSTRAINT `kk_junia_performance_score_fk_ec93ae`
         FOREIGN KEY (`judge_id`)
         REFERENCES `kk_junia_judge` (`id`)
+        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -183,9 +247,11 @@ CREATE TABLE `kk_junia_performance_statistic`
     `min` FLOAT(10),
     `max` FLOAT(10),
     `range` FLOAT(10),
+    `median` FLOAT(10),
     `average` FLOAT(10),
-    `standard_deviation` FLOAT(10),
     `variance` FLOAT(10),
+    `standard_deviation` FLOAT(10),
+    `variability_coefficient` FLOAT(10),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 

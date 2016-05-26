@@ -19,20 +19,14 @@ trait RoutineSerializerTrait {
 	 */
 	public function getAttributes($model, array $fields = null) {
 		return [
-			'id' => $model->getId(),
-			'name' => $model->getName(),
-			'startgroup-id' => $model->getStartgroupId(),
-			'performance-total-statistic-id' => $model->getPerformanceTotalStatisticId(),
-			'performance-execution-statistic-id' => $model->getPerformanceExecutionStatisticId(),
-			'performance-choreography-statistic-id' => $model->getPerformanceChoreographyStatisticId(),
-			'performance-music-and-timing-statistic-id' => $model->getPerformanceMusicAndTimingStatisticId(),
+			'name' => $model->getName()
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['id', 'name', 'startgroup-id', 'performance-total-statistic-id', 'performance-execution-statistic-id', 'performance-choreography-statistic-id', 'performance-music-and-timing-statistic-id'];
+		return ['name'];
 	}
 
 	/**
@@ -40,7 +34,11 @@ trait RoutineSerializerTrait {
 	 * @return string
 	 */
 	public function getId($model) {
-		return $model->getId();
+		if ($model !== null) {
+			return $model->getId();
+		}
+
+		return null;
 	}
 
 	/**
@@ -59,7 +57,7 @@ trait RoutineSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['id', 'name', 'startgroup-id', 'performance-total-statistic-id', 'performance-execution-statistic-id', 'performance-choreography-statistic-id', 'performance-music-and-timing-statistic-id'];
+		return ['name'];
 	}
 
 	/**
@@ -93,11 +91,16 @@ trait RoutineSerializerTrait {
 	 */
 	public function performanceChoreographyStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceChoreographyStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-choreography-statistic');
+		$id = $serializer->getId($model->getPerformanceChoreographyStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceChoreographyStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-choreography-statistic');
+		}
+
+		return null;
 	}
 
 	/**
@@ -106,11 +109,16 @@ trait RoutineSerializerTrait {
 	 */
 	public function performanceExecutionStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceExecutionStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-execution-statistic');
+		$id = $serializer->getId($model->getPerformanceExecutionStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceExecutionStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-execution-statistic');
+		}
+
+		return null;
 	}
 
 	/**
@@ -119,11 +127,16 @@ trait RoutineSerializerTrait {
 	 */
 	public function performanceMusicAndTimingStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceMusicAndTimingStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-music-and-timing-statistic');
+		$id = $serializer->getId($model->getPerformanceMusicAndTimingStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceMusicAndTimingStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-music-and-timing-statistic');
+		}
+
+		return null;
 	}
 
 	/**
@@ -141,11 +154,16 @@ trait RoutineSerializerTrait {
 	 */
 	public function performanceTotalStatistic($model) {
 		$serializer = PerformanceStatistic::getSerializer();
-		$relationship = new Relationship(new Resource($model->getPerformanceTotalStatistic(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'performance-total-statistic');
+		$id = $serializer->getId($model->getPerformanceTotalStatistic());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getPerformanceTotalStatistic(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'performance-total-statistic');
+		}
+
+		return null;
 	}
 
 	/**
@@ -154,11 +172,16 @@ trait RoutineSerializerTrait {
 	 */
 	public function startgroup($model) {
 		$serializer = Startgroup::getSerializer();
-		$relationship = new Relationship(new Resource($model->getStartgroup(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'startgroup');
+		$id = $serializer->getId($model->getStartgroup());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getStartgroup(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'startgroup');
+		}
+
+		return null;
 	}
 
 	/**

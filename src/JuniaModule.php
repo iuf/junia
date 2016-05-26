@@ -19,7 +19,8 @@ class JuniaModule extends AbstractModule {
 		// install sql
 		$files = [
 			'sql/keeko.sql',
-			'data/static-data.sql'
+			'data/static-data.sql',
+			'data/dummy-data.sql'
 		];
 		
 		try {

@@ -29,7 +29,7 @@ class PerformanceStatisticListJsonResponder extends AbstractPayloadResponder {
 		$data = $payload->getModel();
 		$serializer = PerformanceStatistic::getSerializer();
 		$resource = new Collection($data, $serializer);
-		$resource = $resource->with($params->getInclude(['event', 'startgroup', 'routine']));
+		$resource = $resource->with($params->getInclude(['events', 'startgroups', 'routine']));
 		$resource = $resource->fields($params->getFields([
 			'performance-statistic' => PerformanceStatistic::getSerializer()->getFields(),
 			'event' => Event::getSerializer()->getFields(),

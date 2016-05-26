@@ -17,6 +17,25 @@
 	        "relationships": {
 	            "judge_fk_user": "one-to-one"
 	        }
+	    },
+	    "event": {
+	        "includes": [
+	            "startgroups.competition",
+	            "startgroups.performance-total-statistic",
+				"startgroups.performance-execution-statistic",
+				"startgroups.performance-choreography-statistic",
+				"startgroups.performance-music-and-timing-statistic"
+			]
+	    },
+	    "startgroup": {
+	        "includes": [
+	        	"routines.performance-total-statistic",
+	        	"routines.performance-execution-statistic",
+	        	"routines.performance-choreography-statistic",
+	        	"routines.performance-music-and-timing-statistic",
+	        	"routines.performance-scores",
+	        	"routines.performance-scores.judge"
+	        ]
 	    }
 	}
 }

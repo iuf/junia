@@ -20,17 +20,14 @@ trait PerformanceScoreSerializerTrait {
 			'execution' => $model->getExecution(),
 			'choreography' => $model->getChoreography(),
 			'music-and-timing' => $model->getMusicAndTiming(),
-			'id' => $model->getId(),
-			'routine-id' => $model->getRoutineId(),
-			'judge-id' => $model->getJudgeId(),
-			'total' => $model->getTotal(),
+			'total' => $model->getTotal()
 		];
 	}
 
 	/**
 	 */
 	public function getFields() {
-		return ['execution', 'choreography', 'music-and-timing', 'id', 'routine-id', 'judge-id', 'total'];
+		return ['execution', 'choreography', 'music-and-timing', 'total'];
 	}
 
 	/**
@@ -38,7 +35,11 @@ trait PerformanceScoreSerializerTrait {
 	 * @return string
 	 */
 	public function getId($model) {
-		return $model->getId();
+		if ($model !== null) {
+			return $model->getId();
+		}
+
+		return null;
 	}
 
 	/**
@@ -53,7 +54,7 @@ trait PerformanceScoreSerializerTrait {
 	/**
 	 */
 	public function getSortFields() {
-		return ['execution', 'choreography', 'music-and-timing', 'id', 'routine-id', 'judge-id', 'total'];
+		return ['execution', 'choreography', 'music-and-timing', 'total'];
 	}
 
 	/**
@@ -87,11 +88,16 @@ trait PerformanceScoreSerializerTrait {
 	 */
 	public function judge($model) {
 		$serializer = Judge::getSerializer();
-		$relationship = new Relationship(new Resource($model->getJudge(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'judge');
+		$id = $serializer->getId($model->getJudge());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getJudge(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'judge');
+		}
+
+		return null;
 	}
 
 	/**
@@ -100,11 +106,16 @@ trait PerformanceScoreSerializerTrait {
 	 */
 	public function routine($model) {
 		$serializer = Routine::getSerializer();
-		$relationship = new Relationship(new Resource($model->getRoutine(), $serializer));
-		$relationship->setLinks([
-			'related' => '%apiurl%' . $serializer->getType(null) . '/' . $serializer->getId($model)
-		]);
-		return $this->addRelationshipSelfLink($relationship, $model, 'routine');
+		$id = $serializer->getId($model->getRoutine());
+		if ($id !== null) {
+			$relationship = new Relationship(new Resource($model->getRoutine(), $serializer));
+			$relationship->setLinks([
+				'related' => '%apiurl%' . $serializer->getType(null) . '/' . $id 
+			]);
+			return $this->addRelationshipSelfLink($relationship, $model, 'routine');
+		}
+
+		return null;
 	}
 
 	/**

@@ -24,17 +24,21 @@ use iuf\junia\model\Map\PerformanceStatisticTableMap;
  * @method     ChildPerformanceStatisticQuery orderByMin($order = Criteria::ASC) Order by the min column
  * @method     ChildPerformanceStatisticQuery orderByMax($order = Criteria::ASC) Order by the max column
  * @method     ChildPerformanceStatisticQuery orderByRange($order = Criteria::ASC) Order by the range column
+ * @method     ChildPerformanceStatisticQuery orderByMedian($order = Criteria::ASC) Order by the median column
  * @method     ChildPerformanceStatisticQuery orderByAverage($order = Criteria::ASC) Order by the average column
- * @method     ChildPerformanceStatisticQuery orderByStandardDeviation($order = Criteria::ASC) Order by the standard_deviation column
  * @method     ChildPerformanceStatisticQuery orderByVariance($order = Criteria::ASC) Order by the variance column
+ * @method     ChildPerformanceStatisticQuery orderByStandardDeviation($order = Criteria::ASC) Order by the standard_deviation column
+ * @method     ChildPerformanceStatisticQuery orderByVariabilityCoefficient($order = Criteria::ASC) Order by the variability_coefficient column
  *
  * @method     ChildPerformanceStatisticQuery groupById() Group by the id column
  * @method     ChildPerformanceStatisticQuery groupByMin() Group by the min column
  * @method     ChildPerformanceStatisticQuery groupByMax() Group by the max column
  * @method     ChildPerformanceStatisticQuery groupByRange() Group by the range column
+ * @method     ChildPerformanceStatisticQuery groupByMedian() Group by the median column
  * @method     ChildPerformanceStatisticQuery groupByAverage() Group by the average column
- * @method     ChildPerformanceStatisticQuery groupByStandardDeviation() Group by the standard_deviation column
  * @method     ChildPerformanceStatisticQuery groupByVariance() Group by the variance column
+ * @method     ChildPerformanceStatisticQuery groupByStandardDeviation() Group by the standard_deviation column
+ * @method     ChildPerformanceStatisticQuery groupByVariabilityCoefficient() Group by the variability_coefficient column
  *
  * @method     ChildPerformanceStatisticQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildPerformanceStatisticQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -97,9 +101,11 @@ use iuf\junia\model\Map\PerformanceStatisticTableMap;
  * @method     ChildPerformanceStatistic findOneByMin(double $min) Return the first ChildPerformanceStatistic filtered by the min column
  * @method     ChildPerformanceStatistic findOneByMax(double $max) Return the first ChildPerformanceStatistic filtered by the max column
  * @method     ChildPerformanceStatistic findOneByRange(double $range) Return the first ChildPerformanceStatistic filtered by the range column
+ * @method     ChildPerformanceStatistic findOneByMedian(double $median) Return the first ChildPerformanceStatistic filtered by the median column
  * @method     ChildPerformanceStatistic findOneByAverage(double $average) Return the first ChildPerformanceStatistic filtered by the average column
+ * @method     ChildPerformanceStatistic findOneByVariance(double $variance) Return the first ChildPerformanceStatistic filtered by the variance column
  * @method     ChildPerformanceStatistic findOneByStandardDeviation(double $standard_deviation) Return the first ChildPerformanceStatistic filtered by the standard_deviation column
- * @method     ChildPerformanceStatistic findOneByVariance(double $variance) Return the first ChildPerformanceStatistic filtered by the variance column *
+ * @method     ChildPerformanceStatistic findOneByVariabilityCoefficient(double $variability_coefficient) Return the first ChildPerformanceStatistic filtered by the variability_coefficient column *
 
  * @method     ChildPerformanceStatistic requirePk($key, ConnectionInterface $con = null) Return the ChildPerformanceStatistic by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPerformanceStatistic requireOne(ConnectionInterface $con = null) Return the first ChildPerformanceStatistic matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -108,18 +114,22 @@ use iuf\junia\model\Map\PerformanceStatisticTableMap;
  * @method     ChildPerformanceStatistic requireOneByMin(double $min) Return the first ChildPerformanceStatistic filtered by the min column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPerformanceStatistic requireOneByMax(double $max) Return the first ChildPerformanceStatistic filtered by the max column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPerformanceStatistic requireOneByRange(double $range) Return the first ChildPerformanceStatistic filtered by the range column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPerformanceStatistic requireOneByMedian(double $median) Return the first ChildPerformanceStatistic filtered by the median column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPerformanceStatistic requireOneByAverage(double $average) Return the first ChildPerformanceStatistic filtered by the average column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildPerformanceStatistic requireOneByStandardDeviation(double $standard_deviation) Return the first ChildPerformanceStatistic filtered by the standard_deviation column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPerformanceStatistic requireOneByVariance(double $variance) Return the first ChildPerformanceStatistic filtered by the variance column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPerformanceStatistic requireOneByStandardDeviation(double $standard_deviation) Return the first ChildPerformanceStatistic filtered by the standard_deviation column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPerformanceStatistic requireOneByVariabilityCoefficient(double $variability_coefficient) Return the first ChildPerformanceStatistic filtered by the variability_coefficient column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildPerformanceStatistic[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildPerformanceStatistic objects based on current ModelCriteria
  * @method     ChildPerformanceStatistic[]|ObjectCollection findById(int $id) Return ChildPerformanceStatistic objects filtered by the id column
  * @method     ChildPerformanceStatistic[]|ObjectCollection findByMin(double $min) Return ChildPerformanceStatistic objects filtered by the min column
  * @method     ChildPerformanceStatistic[]|ObjectCollection findByMax(double $max) Return ChildPerformanceStatistic objects filtered by the max column
  * @method     ChildPerformanceStatistic[]|ObjectCollection findByRange(double $range) Return ChildPerformanceStatistic objects filtered by the range column
+ * @method     ChildPerformanceStatistic[]|ObjectCollection findByMedian(double $median) Return ChildPerformanceStatistic objects filtered by the median column
  * @method     ChildPerformanceStatistic[]|ObjectCollection findByAverage(double $average) Return ChildPerformanceStatistic objects filtered by the average column
- * @method     ChildPerformanceStatistic[]|ObjectCollection findByStandardDeviation(double $standard_deviation) Return ChildPerformanceStatistic objects filtered by the standard_deviation column
  * @method     ChildPerformanceStatistic[]|ObjectCollection findByVariance(double $variance) Return ChildPerformanceStatistic objects filtered by the variance column
+ * @method     ChildPerformanceStatistic[]|ObjectCollection findByStandardDeviation(double $standard_deviation) Return ChildPerformanceStatistic objects filtered by the standard_deviation column
+ * @method     ChildPerformanceStatistic[]|ObjectCollection findByVariabilityCoefficient(double $variability_coefficient) Return ChildPerformanceStatistic objects filtered by the variability_coefficient column
  * @method     ChildPerformanceStatistic[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -212,7 +222,7 @@ abstract class PerformanceStatisticQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT `id`, `min`, `max`, `range`, `average`, `standard_deviation`, `variance` FROM `kk_junia_performance_statistic` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `min`, `max`, `range`, `median`, `average`, `variance`, `standard_deviation`, `variability_coefficient` FROM `kk_junia_performance_statistic` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -467,6 +477,47 @@ abstract class PerformanceStatisticQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the median column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByMedian(1234); // WHERE median = 1234
+     * $query->filterByMedian(array(12, 34)); // WHERE median IN (12, 34)
+     * $query->filterByMedian(array('min' => 12)); // WHERE median > 12
+     * </code>
+     *
+     * @param     mixed $median The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByMedian($median = null, $comparison = null)
+    {
+        if (is_array($median)) {
+            $useMinMax = false;
+            if (isset($median['min'])) {
+                $this->addUsingAlias(PerformanceStatisticTableMap::COL_MEDIAN, $median['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($median['max'])) {
+                $this->addUsingAlias(PerformanceStatisticTableMap::COL_MEDIAN, $median['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(PerformanceStatisticTableMap::COL_MEDIAN, $median, $comparison);
+    }
+
+    /**
      * Filter the query on the average column
      *
      * Example usage:
@@ -505,6 +556,47 @@ abstract class PerformanceStatisticQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PerformanceStatisticTableMap::COL_AVERAGE, $average, $comparison);
+    }
+
+    /**
+     * Filter the query on the variance column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByVariance(1234); // WHERE variance = 1234
+     * $query->filterByVariance(array(12, 34)); // WHERE variance IN (12, 34)
+     * $query->filterByVariance(array('min' => 12)); // WHERE variance > 12
+     * </code>
+     *
+     * @param     mixed $variance The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
+     */
+    public function filterByVariance($variance = null, $comparison = null)
+    {
+        if (is_array($variance)) {
+            $useMinMax = false;
+            if (isset($variance['min'])) {
+                $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIANCE, $variance['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($variance['max'])) {
+                $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIANCE, $variance['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIANCE, $variance, $comparison);
     }
 
     /**
@@ -549,16 +641,16 @@ abstract class PerformanceStatisticQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the variance column
+     * Filter the query on the variability_coefficient column
      *
      * Example usage:
      * <code>
-     * $query->filterByVariance(1234); // WHERE variance = 1234
-     * $query->filterByVariance(array(12, 34)); // WHERE variance IN (12, 34)
-     * $query->filterByVariance(array('min' => 12)); // WHERE variance > 12
+     * $query->filterByVariabilityCoefficient(1234); // WHERE variability_coefficient = 1234
+     * $query->filterByVariabilityCoefficient(array(12, 34)); // WHERE variability_coefficient IN (12, 34)
+     * $query->filterByVariabilityCoefficient(array('min' => 12)); // WHERE variability_coefficient > 12
      * </code>
      *
-     * @param     mixed $variance The value to use as filter.
+     * @param     mixed $variabilityCoefficient The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -566,16 +658,16 @@ abstract class PerformanceStatisticQuery extends ModelCriteria
      *
      * @return $this|ChildPerformanceStatisticQuery The current query, for fluid interface
      */
-    public function filterByVariance($variance = null, $comparison = null)
+    public function filterByVariabilityCoefficient($variabilityCoefficient = null, $comparison = null)
     {
-        if (is_array($variance)) {
+        if (is_array($variabilityCoefficient)) {
             $useMinMax = false;
-            if (isset($variance['min'])) {
-                $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIANCE, $variance['min'], Criteria::GREATER_EQUAL);
+            if (isset($variabilityCoefficient['min'])) {
+                $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT, $variabilityCoefficient['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($variance['max'])) {
-                $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIANCE, $variance['max'], Criteria::LESS_EQUAL);
+            if (isset($variabilityCoefficient['max'])) {
+                $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT, $variabilityCoefficient['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -586,7 +678,7 @@ abstract class PerformanceStatisticQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIANCE, $variance, $comparison);
+        return $this->addUsingAlias(PerformanceStatisticTableMap::COL_VARIABILITY_COEFFICIENT, $variabilityCoefficient, $comparison);
     }
 
     /**

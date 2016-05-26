@@ -22,6 +22,7 @@ use iuf\junia\model\Map\StartgroupTableMap;
  *
  * @method     ChildStartgroupQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildStartgroupQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method     ChildStartgroupQuery orderBySlug($order = Criteria::ASC) Order by the slug column
  * @method     ChildStartgroupQuery orderByCompetitionId($order = Criteria::ASC) Order by the competition_id column
  * @method     ChildStartgroupQuery orderByEventId($order = Criteria::ASC) Order by the event_id column
  * @method     ChildStartgroupQuery orderByPerformanceTotalStatisticId($order = Criteria::ASC) Order by the performance_total_statistic_id column
@@ -31,6 +32,7 @@ use iuf\junia\model\Map\StartgroupTableMap;
  *
  * @method     ChildStartgroupQuery groupById() Group by the id column
  * @method     ChildStartgroupQuery groupByName() Group by the name column
+ * @method     ChildStartgroupQuery groupBySlug() Group by the slug column
  * @method     ChildStartgroupQuery groupByCompetitionId() Group by the competition_id column
  * @method     ChildStartgroupQuery groupByEventId() Group by the event_id column
  * @method     ChildStartgroupQuery groupByPerformanceTotalStatisticId() Group by the performance_total_statistic_id column
@@ -81,6 +83,7 @@ use iuf\junia\model\Map\StartgroupTableMap;
  *
  * @method     ChildStartgroup findOneById(int $id) Return the first ChildStartgroup filtered by the id column
  * @method     ChildStartgroup findOneByName(string $name) Return the first ChildStartgroup filtered by the name column
+ * @method     ChildStartgroup findOneBySlug(string $slug) Return the first ChildStartgroup filtered by the slug column
  * @method     ChildStartgroup findOneByCompetitionId(int $competition_id) Return the first ChildStartgroup filtered by the competition_id column
  * @method     ChildStartgroup findOneByEventId(int $event_id) Return the first ChildStartgroup filtered by the event_id column
  * @method     ChildStartgroup findOneByPerformanceTotalStatisticId(int $performance_total_statistic_id) Return the first ChildStartgroup filtered by the performance_total_statistic_id column
@@ -93,6 +96,7 @@ use iuf\junia\model\Map\StartgroupTableMap;
  *
  * @method     ChildStartgroup requireOneById(int $id) Return the first ChildStartgroup filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildStartgroup requireOneByName(string $name) Return the first ChildStartgroup filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildStartgroup requireOneBySlug(string $slug) Return the first ChildStartgroup filtered by the slug column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildStartgroup requireOneByCompetitionId(int $competition_id) Return the first ChildStartgroup filtered by the competition_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildStartgroup requireOneByEventId(int $event_id) Return the first ChildStartgroup filtered by the event_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildStartgroup requireOneByPerformanceTotalStatisticId(int $performance_total_statistic_id) Return the first ChildStartgroup filtered by the performance_total_statistic_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -103,6 +107,7 @@ use iuf\junia\model\Map\StartgroupTableMap;
  * @method     ChildStartgroup[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildStartgroup objects based on current ModelCriteria
  * @method     ChildStartgroup[]|ObjectCollection findById(int $id) Return ChildStartgroup objects filtered by the id column
  * @method     ChildStartgroup[]|ObjectCollection findByName(string $name) Return ChildStartgroup objects filtered by the name column
+ * @method     ChildStartgroup[]|ObjectCollection findBySlug(string $slug) Return ChildStartgroup objects filtered by the slug column
  * @method     ChildStartgroup[]|ObjectCollection findByCompetitionId(int $competition_id) Return ChildStartgroup objects filtered by the competition_id column
  * @method     ChildStartgroup[]|ObjectCollection findByEventId(int $event_id) Return ChildStartgroup objects filtered by the event_id column
  * @method     ChildStartgroup[]|ObjectCollection findByPerformanceTotalStatisticId(int $performance_total_statistic_id) Return ChildStartgroup objects filtered by the performance_total_statistic_id column
@@ -201,7 +206,7 @@ abstract class StartgroupQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT `id`, `name`, `competition_id`, `event_id`, `performance_total_statistic_id`, `performance_execution_statistic_id`, `performance_choreography_statistic_id`, `performance_music_and_timing_statistic_id` FROM `kk_junia_startgroup` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `name`, `slug`, `competition_id`, `event_id`, `performance_total_statistic_id`, `performance_execution_statistic_id`, `performance_choreography_statistic_id`, `performance_music_and_timing_statistic_id` FROM `kk_junia_startgroup` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -359,6 +364,35 @@ abstract class StartgroupQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(StartgroupTableMap::COL_NAME, $name, $comparison);
+    }
+
+    /**
+     * Filter the query on the slug column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBySlug('fooValue');   // WHERE slug = 'fooValue'
+     * $query->filterBySlug('%fooValue%'); // WHERE slug LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $slug The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildStartgroupQuery The current query, for fluid interface
+     */
+    public function filterBySlug($slug = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($slug)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $slug)) {
+                $slug = str_replace('*', '%', $slug);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(StartgroupTableMap::COL_SLUG, $slug, $comparison);
     }
 
     /**

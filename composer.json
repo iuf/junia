@@ -15,7 +15,8 @@
 	},
 	"require": {
 		"php": ">=5.4",
-		"keeko/composer-installer": "*"
+		"keeko/composer-installer": "*",
+		"league/csv": "~7"
 	},
 	"require-dev": {
 		"keeko/framework": "dev-master",
@@ -1089,14 +1090,20 @@
 						"class": "iuf\\junia\\action\\ImportAction",
 						"acl": [
 							"admin"
-						]
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\ImportJsonResponder"
+						}
 					},
 					"analyze": {
 						"title": "Analyze and create statistics on an event",
 						"class": "iuf\\junia\\action\\AnalyzeAction",
 						"acl": [
 							"admin"
-						]
+						],
+						"response": {
+							"json": "iuf\\junia\\responder\\AnalyzeJsonResponder"
+						}
 					}
 				}
 			}

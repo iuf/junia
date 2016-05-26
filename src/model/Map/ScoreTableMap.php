@@ -164,14 +164,14 @@ class ScoreTableMap extends TableMap
     0 => ':routine_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'CASCADE', null, null, false);
         $this->addRelation('Judge', '\\iuf\\junia\\model\\Judge', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':judge_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'CASCADE', null, null, false);
         $this->addRelation('PerformanceScore', '\\iuf\\junia\\model\\PerformanceScore', RelationMap::ONE_TO_ONE, array (
   0 =>
   array (

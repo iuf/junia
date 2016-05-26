@@ -28,7 +28,7 @@ class CompetitionReadJsonResponder extends AbstractPayloadResponder {
 		$params = new Parameters($request->query->all());
 		$serializer = Competition::getSerializer();
 		$resource = new Resource($payload->getModel(), $serializer);
-		$resource = $resource->with($params->getInclude(['startgroup']));
+		$resource = $resource->with($params->getInclude(['startgroups']));
 		$resource = $resource->fields($params->getFields([
 			'competition' => Competition::getSerializer()->getFields(),
 			'startgroup' => Startgroup::getSerializer()->getFields()

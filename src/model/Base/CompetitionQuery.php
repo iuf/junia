@@ -22,9 +22,11 @@ use iuf\junia\model\Map\CompetitionTableMap;
  *
  * @method     ChildCompetitionQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildCompetitionQuery orderByLabel($order = Criteria::ASC) Order by the label column
+ * @method     ChildCompetitionQuery orderBySlug($order = Criteria::ASC) Order by the slug column
  *
  * @method     ChildCompetitionQuery groupById() Group by the id column
  * @method     ChildCompetitionQuery groupByLabel() Group by the label column
+ * @method     ChildCompetitionQuery groupBySlug() Group by the slug column
  *
  * @method     ChildCompetitionQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildCompetitionQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -40,17 +42,20 @@ use iuf\junia\model\Map\CompetitionTableMap;
  * @method     ChildCompetition findOneOrCreate(ConnectionInterface $con = null) Return the first ChildCompetition matching the query, or a new ChildCompetition object populated from the query conditions when no match is found
  *
  * @method     ChildCompetition findOneById(int $id) Return the first ChildCompetition filtered by the id column
- * @method     ChildCompetition findOneByLabel(string $label) Return the first ChildCompetition filtered by the label column *
+ * @method     ChildCompetition findOneByLabel(string $label) Return the first ChildCompetition filtered by the label column
+ * @method     ChildCompetition findOneBySlug(string $slug) Return the first ChildCompetition filtered by the slug column *
 
  * @method     ChildCompetition requirePk($key, ConnectionInterface $con = null) Return the ChildCompetition by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCompetition requireOne(ConnectionInterface $con = null) Return the first ChildCompetition matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildCompetition requireOneById(int $id) Return the first ChildCompetition filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCompetition requireOneByLabel(string $label) Return the first ChildCompetition filtered by the label column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildCompetition requireOneBySlug(string $slug) Return the first ChildCompetition filtered by the slug column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildCompetition[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildCompetition objects based on current ModelCriteria
  * @method     ChildCompetition[]|ObjectCollection findById(int $id) Return ChildCompetition objects filtered by the id column
  * @method     ChildCompetition[]|ObjectCollection findByLabel(string $label) Return ChildCompetition objects filtered by the label column
+ * @method     ChildCompetition[]|ObjectCollection findBySlug(string $slug) Return ChildCompetition objects filtered by the slug column
  * @method     ChildCompetition[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -143,7 +148,7 @@ abstract class CompetitionQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT `id`, `label` FROM `kk_junia_competition` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `label`, `slug` FROM `kk_junia_competition` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -301,6 +306,35 @@ abstract class CompetitionQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(CompetitionTableMap::COL_LABEL, $label, $comparison);
+    }
+
+    /**
+     * Filter the query on the slug column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBySlug('fooValue');   // WHERE slug = 'fooValue'
+     * $query->filterBySlug('%fooValue%'); // WHERE slug LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $slug The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildCompetitionQuery The current query, for fluid interface
+     */
+    public function filterBySlug($slug = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($slug)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $slug)) {
+                $slug = str_replace('*', '%', $slug);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(CompetitionTableMap::COL_SLUG, $slug, $comparison);
     }
 
     /**

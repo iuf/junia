@@ -4,6 +4,10 @@ namespace iuf\junia\action;
 use keeko\framework\foundation\AbstractAction;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use keeko\framework\domain\payload\Failed;
+use iuf\junia\analyzer\PerformanceAnalyzer;
+use iuf\junia\model\EventQuery;
+use keeko\framework\domain\payload\Success;
 
 /**
  * Analyze and create statistics on an event
@@ -21,23 +25,15 @@ class AnalyzeAction extends AbstractAction {
 	 * @return Response
 	 */
 	public function run(Request $request) {
-		return $this->responder->run($request);
+		if ($request->request->has('event-id')) {
+			$event = EventQuery::create()->findOneById($request->request->get('event-id'));
+			$analyzer = new PerformanceAnalyzer();
+			$analyzer->analyze($event);
+			$payload = new Success();
+		} else {
+			$payload = new Failed(['exception' => new \Exception('No event-id given')]);
+		}
 
-		// alternatively:
-
-		// 1) get data:
-		// $data = Json::decode($request->getContent());
-		//
-		// -- or -- an id:
-		// $id = $this->getParam('id');
-
-		// 2) instantiate your domain
-		// $domain = new YourDomain($this->getServiceContainer());
-
-		// 3) run domain and store payload
-		// $payload = $domain->yourMethod($id, $data);
-
-		// 4) return response with payload
-		// return $this->responder->run($request, $payload);
+		return $this->responder->run($request, $payload);
 	}
 }

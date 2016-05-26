@@ -76,6 +76,12 @@ abstract class Competition implements ActiveRecordInterface
     protected $label;
 
     /**
+     * The value for the slug field.
+     * @var        string
+     */
+    protected $slug;
+
+    /**
      * @var        ObjectCollection|ChildStartgroup[] Collection to store aggregation of ChildStartgroup objects.
      */
     protected $collStartgroups;
@@ -333,6 +339,16 @@ abstract class Competition implements ActiveRecordInterface
     }
 
     /**
+     * Get the [slug] column value.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -371,6 +387,26 @@ abstract class Competition implements ActiveRecordInterface
 
         return $this;
     } // setLabel()
+
+    /**
+     * Set the value of [slug] column.
+     *
+     * @param string $v new value
+     * @return $this|\iuf\junia\model\Competition The current object (for fluent API support)
+     */
+    public function setSlug($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->slug !== $v) {
+            $this->slug = $v;
+            $this->modifiedColumns[CompetitionTableMap::COL_SLUG] = true;
+        }
+
+        return $this;
+    } // setSlug()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -413,6 +449,9 @@ abstract class Competition implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : CompetitionTableMap::translateFieldName('Label', TableMap::TYPE_PHPNAME, $indexType)];
             $this->label = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : CompetitionTableMap::translateFieldName('Slug', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->slug = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -421,7 +460,7 @@ abstract class Competition implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 2; // 2 = CompetitionTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 3; // 3 = CompetitionTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\iuf\\junia\\model\\Competition'), 0, $e);
@@ -544,6 +583,13 @@ abstract class Competition implements ActiveRecordInterface
         return $con->transaction(function () use ($con) {
             $isInsert = $this->isNew();
             $ret = $this->preSave($con);
+            // sluggable behavior
+
+            if ($this->isColumnModified(CompetitionTableMap::COL_SLUG) && $this->getSlug()) {
+                $this->setSlug($this->makeSlugUnique($this->getSlug()));
+            } else {
+                $this->setSlug($this->createSlug());
+            }
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
             } else {
@@ -643,6 +689,9 @@ abstract class Competition implements ActiveRecordInterface
         if ($this->isColumnModified(CompetitionTableMap::COL_LABEL)) {
             $modifiedColumns[':p' . $index++]  = '`label`';
         }
+        if ($this->isColumnModified(CompetitionTableMap::COL_SLUG)) {
+            $modifiedColumns[':p' . $index++]  = '`slug`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `kk_junia_competition` (%s) VALUES (%s)',
@@ -659,6 +708,9 @@ abstract class Competition implements ActiveRecordInterface
                         break;
                     case '`label`':
                         $stmt->bindValue($identifier, $this->label, PDO::PARAM_STR);
+                        break;
+                    case '`slug`':
+                        $stmt->bindValue($identifier, $this->slug, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -728,6 +780,9 @@ abstract class Competition implements ActiveRecordInterface
             case 1:
                 return $this->getLabel();
                 break;
+            case 2:
+                return $this->getSlug();
+                break;
             default:
                 return null;
                 break;
@@ -760,6 +815,7 @@ abstract class Competition implements ActiveRecordInterface
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getLabel(),
+            $keys[2] => $this->getSlug(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -822,6 +878,9 @@ abstract class Competition implements ActiveRecordInterface
             case 1:
                 $this->setLabel($value);
                 break;
+            case 2:
+                $this->setSlug($value);
+                break;
         } // switch()
 
         return $this;
@@ -853,6 +912,9 @@ abstract class Competition implements ActiveRecordInterface
         }
         if (array_key_exists($keys[1], $arr)) {
             $this->setLabel($arr[$keys[1]]);
+        }
+        if (array_key_exists($keys[2], $arr)) {
+            $this->setSlug($arr[$keys[2]]);
         }
     }
 
@@ -900,6 +962,9 @@ abstract class Competition implements ActiveRecordInterface
         }
         if ($this->isColumnModified(CompetitionTableMap::COL_LABEL)) {
             $criteria->add(CompetitionTableMap::COL_LABEL, $this->label);
+        }
+        if ($this->isColumnModified(CompetitionTableMap::COL_SLUG)) {
+            $criteria->add(CompetitionTableMap::COL_SLUG, $this->slug);
         }
 
         return $criteria;
@@ -988,6 +1053,7 @@ abstract class Competition implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setLabel($this->getLabel());
+        $copyObj->setSlug($this->getSlug());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1398,6 +1464,7 @@ abstract class Competition implements ActiveRecordInterface
     {
         $this->id = null;
         $this->label = null;
+        $this->slug = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1429,11 +1496,157 @@ abstract class Competition implements ActiveRecordInterface
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'label' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(CompetitionTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->getLabel();
+    }
+
+    // sluggable behavior
+
+    /**
+     * Create a unique slug based on the object
+     *
+     * @return string The object slug
+     */
+    protected function createSlug()
+    {
+        $slug = $this->createRawSlug();
+        $slug = $this->limitSlugSize($slug);
+        $slug = $this->makeSlugUnique($slug);
+
+        return $slug;
+    }
+
+    /**
+     * Create the slug from the appropriate columns
+     *
+     * @return string
+     */
+    protected function createRawSlug()
+    {
+        return $this->cleanupSlugPart($this->__toString());
+    }
+
+    /**
+     * Cleanup a string to make a slug of it
+     * Removes special characters, replaces blanks with a separator, and trim it
+     *
+     * @param     string $slug        the text to slugify
+     * @param     string $replacement the separator used by slug
+     * @return    string               the slugified text
+     */
+    protected static function cleanupSlugPart($slug, $replacement = '-')
+    {
+        // transliterate
+        if (function_exists('iconv')) {
+            $slug = iconv('utf-8', 'us-ascii//TRANSLIT', $slug);
+        }
+
+        // lowercase
+        if (function_exists('mb_strtolower')) {
+            $slug = mb_strtolower($slug);
+        } else {
+            $slug = strtolower($slug);
+        }
+
+        // remove accents resulting from OSX's iconv
+        $slug = str_replace(array('\'', '`', '^'), '', $slug);
+
+        // replace non letter or digits with separator
+        $slug = preg_replace('/\W+/', $replacement, $slug);
+
+        // trim
+        $slug = trim($slug, $replacement);
+
+        if (empty($slug)) {
+            return 'n-a';
+        }
+
+        return $slug;
+    }
+
+
+    /**
+     * Make sure the slug is short enough to accommodate the column size
+     *
+     * @param    string $slug            the slug to check
+     *
+     * @return string                        the truncated slug
+     */
+    protected static function limitSlugSize($slug, $incrementReservedSpace = 3)
+    {
+        // check length, as suffix could put it over maximum
+        if (strlen($slug) > (255 - $incrementReservedSpace)) {
+            $slug = substr($slug, 0, 255 - $incrementReservedSpace);
+        }
+
+        return $slug;
+    }
+
+
+    /**
+     * Get the slug, ensuring its uniqueness
+     *
+     * @param    string $slug            the slug to check
+     * @param    string $separator       the separator used by slug
+     * @param    int    $alreadyExists   false for the first try, true for the second, and take the high count + 1
+     * @return   string                   the unique slug
+     */
+    protected function makeSlugUnique($slug, $separator = '-', $alreadyExists = false)
+    {
+        if (!$alreadyExists) {
+            $slug2 = $slug;
+        } else {
+            $slug2 = $slug . $separator;
+
+            $count = \iuf\junia\model\CompetitionQuery::create()
+                ->filterBySlug($this->getSlug())
+                ->filterByPrimaryKey($this->getPrimaryKey())
+            ->count();
+
+            if (1 == $count) {
+                return $this->getSlug();
+            }
+        }
+
+        $adapter = \Propel\Runtime\Propel::getServiceContainer()->getAdapter('keeko');
+        $col = 'q.Slug';
+        $compare = $alreadyExists ? $adapter->compareRegex($col, '?') : sprintf('%s = ?', $col);
+
+        $query = \iuf\junia\model\CompetitionQuery::create('q')
+            ->where($compare, $alreadyExists ? '^' . $slug2 . '[0-9]+$' : $slug2)
+            ->prune($this)
+        ;
+
+        if (!$alreadyExists) {
+            $count = $query->count();
+            if ($count > 0) {
+                return $this->makeSlugUnique($slug, $separator, true);
+            }
+
+            return $slug2;
+        }
+
+        $adapter = \Propel\Runtime\Propel::getServiceContainer()->getAdapter('keeko');
+        // Already exists
+        $object = $query
+            ->addDescendingOrderByColumn($adapter->strLength('slug'))
+            ->addDescendingOrderByColumn('slug')
+        ->findOne();
+
+        // First duplicate slug
+        if (null == $object) {
+            return $slug2 . '1';
+        }
+
+        $slugNum = substr($object->getSlug(), strlen($slug) + 1);
+        if (0 == $slugNum[0]) {
+            $slugNum[0] = 1;
+        }
+
+        return $slug2 . ($slugNum + 1);
     }
 
     /**

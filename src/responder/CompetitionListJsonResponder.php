@@ -27,7 +27,7 @@ class CompetitionListJsonResponder extends AbstractPayloadResponder {
 		$data = $payload->getModel();
 		$serializer = Competition::getSerializer();
 		$resource = new Collection($data, $serializer);
-		$resource = $resource->with($params->getInclude(['startgroup']));
+		$resource = $resource->with($params->getInclude(['startgroups']));
 		$resource = $resource->fields($params->getFields([
 			'competition' => Competition::getSerializer()->getFields(),
 			'startgroup' => Startgroup::getSerializer()->getFields()

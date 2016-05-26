@@ -16,16 +16,16 @@
 		<column name="performance_choreography_statistic_id" type="INTEGER" size="10"/>
 		<column name="performance_music_and_timing_statistic_id" type="INTEGER" size="10"/>
 
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_total" phpName="PerformanceTotalStatistic">
+		<foreign-key foreignTable="performance_statistic" name="event_fk_performance_total" phpName="PerformanceTotalStatistic" onDelete="SETNULL">
 			<reference local="performance_total_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_execution" phpName="PerformanceExecutionStatistic">
+		<foreign-key foreignTable="performance_statistic" name="event_fk_performance_execution" phpName="PerformanceExecutionStatistic" onDelete="SETNULL">
 			<reference local="performance_execution_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_choreography" phpName="PerformanceChoreographyStatistic">
+		<foreign-key foreignTable="performance_statistic" name="event_fk_performance_choreography" phpName="PerformanceChoreographyStatistic" onDelete="SETNULL">
 			<reference local="performance_choreography_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic">
+		<foreign-key foreignTable="performance_statistic" name="event_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic" onDelete="SETNULL">
 			<reference local="performance_music_and_timing_statistic_id" foreign="id"/>
 		</foreign-key>
 		
@@ -34,8 +34,10 @@
 
 	<table name="competition">
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="label" type="VARCHAR" size="100"/>
-		
+		<column name="label" type="VARCHAR" size="100" primaryString="true"/>
+
+		<behavior name="sluggable"/>
+
 		<!--<behavior name="l10n">
 			<parameter name="i18n_columns" value="label"/>
 		</behavior>-->
@@ -44,6 +46,7 @@
 	<table name="startgroup">
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="100"/>
+		<column name="slug" type="VARCHAR" size="100"/>
 		<column name="competition_id" type="INTEGER" size="10" required="true"/>
 		<column name="event_id" type="INTEGER" size="10" required="true"/>
 		<column name="performance_total_statistic_id" type="INTEGER" size="10"/>
@@ -51,22 +54,22 @@
 		<column name="performance_choreography_statistic_id" type="INTEGER" size="10"/>
 		<column name="performance_music_and_timing_statistic_id" type="INTEGER" size="10"/>
 		
-		<foreign-key foreignTable="competition" name="startgroup_fk_competition">
+		<foreign-key foreignTable="competition" name="startgroup_fk_competition" onDelete="RESTRICT">
 			<reference local="competition_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="event" name="startgroup_fk_event">
+		<foreign-key foreignTable="event" name="startgroup_fk_event" onDelete="CASCADE">
 			<reference local="event_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_total" phpName="PerformanceTotalStatistic">
+		<foreign-key foreignTable="performance_statistic" name="startgroup_fk_performance_total" phpName="PerformanceTotalStatistic" onDelete="SETNULL">
 			<reference local="performance_total_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_execution" phpName="PerformanceExecutionStatistic">
+		<foreign-key foreignTable="performance_statistic" name="startgroup_fk_performance_execution" phpName="PerformanceExecutionStatistic" onDelete="SETNULL">
 			<reference local="performance_execution_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_choreography" phpName="PerformanceChoreographyStatistic">
+		<foreign-key foreignTable="performance_statistic" name="startgroup_fk_performance_choreography" phpName="PerformanceChoreographyStatistic" onDelete="SETNULL">
 			<reference local="performance_choreography_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic">
+		<foreign-key foreignTable="performance_statistic" name="startgroup_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic" onDelete="SETNULL">
 			<reference local="performance_music_and_timing_statistic_id" foreign="id"/>
 		</foreign-key>
 	</table>
@@ -80,19 +83,19 @@
 		<column name="performance_choreography_statistic_id" type="INTEGER" size="10"/>
 		<column name="performance_music_and_timing_statistic_id" type="INTEGER" size="10"/>
 		
-		<foreign-key foreignTable="startgroup" name="routine_fk_startgroup">
+		<foreign-key foreignTable="startgroup" name="routine_fk_startgroup" onDelete="CASCADE">
 			<reference local="startgroup_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_total" phpName="PerformanceTotalStatistic">
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_total" phpName="PerformanceTotalStatistic" onDelete="SETNULL">
 			<reference local="performance_total_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_execution" phpName="PerformanceExecutionStatistic">
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_execution" phpName="PerformanceExecutionStatistic" onDelete="SETNULL">
 			<reference local="performance_execution_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_choreography" phpName="PerformanceChoreographyStatistic">
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_choreography" phpName="PerformanceChoreographyStatistic" onDelete="SETNULL">
 			<reference local="performance_choreography_statistic_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic">
+		<foreign-key foreignTable="performance_statistic" name="routine_fk_performance_music_and_timing" phpName="PerformanceMusicAndTimingStatistic" onDelete="SETNULL">
 			<reference local="performance_music_and_timing_statistic_id" foreign="id"/>
 		</foreign-key>
 	</table>
@@ -103,10 +106,10 @@
 		<column name="startgroup_id" type="INTEGER" size="10" required="true"/>
 		<column name="user_id" type="INTEGER" size="10" required="false"/>
 		
-		<foreign-key foreignTable="startgroup" name="judge_fk_startgroup">
+		<foreign-key foreignTable="startgroup" name="judge_fk_startgroup" onDelete="CASCADE">
 			<reference local="startgroup_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="user" name="judge_fk_user">
+		<foreign-key foreignTable="user" name="judge_fk_user" onDelete="RESTRICT">
 			<reference local="user_id" foreign="id"/>
 		</foreign-key>
 	</table>
@@ -117,10 +120,10 @@
 		<column name="judge_id" type="INTEGER" size="10"/>
 		<column name="total" type="FLOAT" size="10"/>
 		
-		<foreign-key foreignTable="routine" name="score_fk_routine">
+		<foreign-key foreignTable="routine" name="score_fk_routine" onDelete="CASCADE">
 			<reference local="routine_id" foreign="id"/>
 		</foreign-key>
-		<foreign-key foreignTable="judge" name="score_fk_judge">
+		<foreign-key foreignTable="judge" name="score_fk_judge" onDelete="CASCADE">
 			<reference local="judge_id" foreign="id"/>
 		</foreign-key>
 	</table>
@@ -139,9 +142,11 @@
 		<column name="min" type="FLOAT" size="10"/>
 		<column name="max" type="FLOAT" size="10"/>
 		<column name="range" type="FLOAT" size="10"/>
+		<column name="median" type="FLOAT" size="10"/>
 		<column name="average" type="FLOAT" size="10"/>
-		<column name="standard_deviation" type="FLOAT" size="10"/>
 		<column name="variance" type="FLOAT" size="10"/>
+		<column name="standard_deviation" type="FLOAT" size="10"/>
+		<column name="variability_coefficient" type="FLOAT" size="10"/>
 	</table>
 	
 </database>

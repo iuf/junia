@@ -31,7 +31,7 @@ class StartgroupListJsonResponder extends AbstractPayloadResponder {
 		$data = $payload->getModel();
 		$serializer = Startgroup::getSerializer();
 		$resource = new Collection($data, $serializer);
-		$resource = $resource->with($params->getInclude(['competition', 'event', 'performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'routine', 'judge']));
+		$resource = $resource->with($params->getInclude(['competition', 'event', 'performance-total-statistic', 'performance-execution-statistic', 'performance-choreography-statistic', 'performance-music-and-timing-statistic', 'routines', 'judges', 'routines.performance-total-statistic', 'routines.performance-execution-statistic', 'routines.performance-choreography-statistic', 'routines.performance-music-and-timing-statistic', 'routines.performance-scores', 'routines.performance-scores.judge']));
 		$resource = $resource->fields($params->getFields([
 			'startgroup' => Startgroup::getSerializer()->getFields(),
 			'competition' => Competition::getSerializer()->getFields(),
