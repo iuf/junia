@@ -53,8 +53,8 @@
 		},
 		"/events": {
 			"get": {
-				"description": "List all events",
-				"operationId": "event-list",
+				"description": "Paginates events",
+				"operationId": "event-paginate",
 				"responses": {
 					"200": {
 						"description": "Array of events",
@@ -213,7 +213,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from event",
+						"description": "Retrieve Startgroup from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -266,7 +266,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Adds startgroup",
+						"description": "Adds Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -282,7 +282,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from event",
+						"description": "Retrieve Startgroup from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -335,7 +335,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates startgroup",
+						"description": "Updates Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -351,7 +351,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from event",
+						"description": "Retrieve Startgroup from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -390,7 +390,7 @@
 				]
 			},
 			"delete": {
-				"description": "Removes startgroup as relationship of event",
+				"description": "Removes startgroup as relationship to event",
 				"operationId": "event-to-startgroup-relationship-remove",
 				"parameters": [
 					{
@@ -403,7 +403,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from event",
+						"description": "Retrieve Startgroup from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -444,8 +444,8 @@
 		},
 		"/competitions": {
 			"get": {
-				"description": "List all competitions",
-				"operationId": "competition-list",
+				"description": "Paginates competitions",
+				"operationId": "competition-paginate",
 				"responses": {
 					"200": {
 						"description": "Array of competitions",
@@ -604,7 +604,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from competition",
+						"description": "Retrieve Startgroup from competition",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -657,7 +657,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Adds startgroup",
+						"description": "Adds Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -673,7 +673,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from competition",
+						"description": "Retrieve Startgroup from competition",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -726,7 +726,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates startgroup",
+						"description": "Updates Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -742,7 +742,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from competition",
+						"description": "Retrieve Startgroup from competition",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -781,7 +781,7 @@
 				]
 			},
 			"delete": {
-				"description": "Removes startgroup as relationship of competition",
+				"description": "Removes startgroup as relationship to competition",
 				"operationId": "competition-to-startgroup-relationship-remove",
 				"parameters": [
 					{
@@ -794,7 +794,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from competition",
+						"description": "Retrieve Startgroup from competition",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -835,8 +835,8 @@
 		},
 		"/startgroups": {
 			"get": {
-				"description": "List all startgroups",
-				"operationId": "startgroup-list",
+				"description": "Paginates startgroups",
+				"operationId": "startgroup-paginate",
 				"responses": {
 					"200": {
 						"description": "Array of startgroups",
@@ -995,7 +995,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve competition from startgroup",
+						"description": "Retrieve Competition from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1049,7 +1049,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates competition",
+						"description": "Updates Competition",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1062,7 +1062,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve competition from startgroup",
+						"description": "Retrieve Competition from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1117,7 +1117,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve event from startgroup",
+						"description": "Retrieve Event from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1171,7 +1171,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates event",
+						"description": "Updates Event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1184,7 +1184,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve event from startgroup",
+						"description": "Retrieve Event from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1239,7 +1239,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from startgroup",
+						"description": "Retrieve Routine from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1292,7 +1292,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Adds routine",
+						"description": "Adds Routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1308,7 +1308,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from startgroup",
+						"description": "Retrieve Routine from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1361,7 +1361,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates routine",
+						"description": "Updates Routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1377,7 +1377,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from startgroup",
+						"description": "Retrieve Routine from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1416,7 +1416,7 @@
 				]
 			},
 			"delete": {
-				"description": "Removes routine as relationship of startgroup",
+				"description": "Removes routine as relationship to startgroup",
 				"operationId": "startgroup-to-routine-relationship-remove",
 				"parameters": [
 					{
@@ -1429,7 +1429,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from startgroup",
+						"description": "Retrieve Routine from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1483,7 +1483,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve judge from startgroup",
+						"description": "Retrieve Judge from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1536,7 +1536,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Adds judge",
+						"description": "Adds Judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1552,7 +1552,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve judge from startgroup",
+						"description": "Retrieve Judge from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1605,7 +1605,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates judge",
+						"description": "Updates Judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1621,7 +1621,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve judge from startgroup",
+						"description": "Retrieve Judge from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1660,7 +1660,7 @@
 				]
 			},
 			"delete": {
-				"description": "Removes judge as relationship of startgroup",
+				"description": "Removes judge as relationship to startgroup",
 				"operationId": "startgroup-to-judge-relationship-remove",
 				"parameters": [
 					{
@@ -1673,7 +1673,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve judge from startgroup",
+						"description": "Retrieve Judge from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1714,8 +1714,8 @@
 		},
 		"/routines": {
 			"get": {
-				"description": "List all routines",
-				"operationId": "routine-list",
+				"description": "Paginates routines",
+				"operationId": "routine-paginate",
 				"responses": {
 					"200": {
 						"description": "Array of routines",
@@ -1874,7 +1874,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from routine",
+						"description": "Retrieve Startgroup from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1928,7 +1928,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates startgroup",
+						"description": "Updates Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1941,7 +1941,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from routine",
+						"description": "Retrieve Startgroup from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -1996,7 +1996,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-total-statistic from routine",
+						"description": "Retrieve PerformanceTotalStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2050,7 +2050,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-total-statistic",
+						"description": "Updates PerformanceTotalStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2063,7 +2063,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-total-statistic from routine",
+						"description": "Retrieve PerformanceTotalStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2118,7 +2118,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-execution-statistic from routine",
+						"description": "Retrieve PerformanceExecutionStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2172,7 +2172,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-execution-statistic",
+						"description": "Updates PerformanceExecutionStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2185,7 +2185,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-execution-statistic from routine",
+						"description": "Retrieve PerformanceExecutionStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2240,7 +2240,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-choreography-statistic from routine",
+						"description": "Retrieve PerformanceChoreographyStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2294,7 +2294,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-choreography-statistic",
+						"description": "Updates PerformanceChoreographyStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2307,7 +2307,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-choreography-statistic from routine",
+						"description": "Retrieve PerformanceChoreographyStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2362,7 +2362,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-music-and-timing-statistic from routine",
+						"description": "Retrieve PerformanceMusicAndTimingStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2416,7 +2416,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-music-and-timing-statistic",
+						"description": "Updates PerformanceMusicAndTimingStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2429,7 +2429,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-music-and-timing-statistic from routine",
+						"description": "Retrieve PerformanceMusicAndTimingStatistic from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2484,7 +2484,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-score from routine",
+						"description": "Retrieve PerformanceScore from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2537,7 +2537,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Adds performance-score",
+						"description": "Adds PerformanceScore",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2553,7 +2553,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-score from routine",
+						"description": "Retrieve PerformanceScore from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2606,7 +2606,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-score",
+						"description": "Updates PerformanceScore",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2622,7 +2622,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-score from routine",
+						"description": "Retrieve PerformanceScore from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2661,7 +2661,7 @@
 				]
 			},
 			"delete": {
-				"description": "Removes performance_score as relationship of routine",
+				"description": "Removes performance_score as relationship to routine",
 				"operationId": "routine-to-performance_score-relationship-remove",
 				"parameters": [
 					{
@@ -2674,7 +2674,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-score from routine",
+						"description": "Retrieve PerformanceScore from routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2715,8 +2715,8 @@
 		},
 		"/judges": {
 			"get": {
-				"description": "List all judges",
-				"operationId": "judge-list",
+				"description": "Paginates judges",
+				"operationId": "judge-paginate",
 				"responses": {
 					"200": {
 						"description": "Array of judges",
@@ -2875,7 +2875,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from judge",
+						"description": "Retrieve Startgroup from judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2929,7 +2929,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates startgroup",
+						"description": "Updates Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2942,7 +2942,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from judge",
+						"description": "Retrieve Startgroup from judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -2997,7 +2997,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve user from judge",
+						"description": "Retrieve User from judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3051,7 +3051,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates user",
+						"description": "Updates User",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3064,7 +3064,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve user from judge",
+						"description": "Retrieve User from judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3119,7 +3119,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-score from judge",
+						"description": "Retrieve PerformanceScore from judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3173,7 +3173,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-score",
+						"description": "Updates PerformanceScore",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3186,7 +3186,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-score from judge",
+						"description": "Retrieve PerformanceScore from judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3228,8 +3228,8 @@
 		},
 		"/performance-scores": {
 			"get": {
-				"description": "List all performance-scores",
-				"operationId": "performance_score-list",
+				"description": "Paginates performance_scores",
+				"operationId": "performance_score-paginate",
 				"responses": {
 					"200": {
 						"description": "Array of performance_scores",
@@ -3243,7 +3243,7 @@
 				]
 			},
 			"post": {
-				"description": "Creates a performance-score",
+				"description": "Creates a performance_score",
 				"operationId": "performance_score-create",
 				"parameters": [
 					{
@@ -3268,7 +3268,7 @@
 		},
 		"/performance-scores/{id}": {
 			"get": {
-				"description": "Reads a performance-score",
+				"description": "Reads a performance_score",
 				"operationId": "performance_score-read",
 				"parameters": [
 					{
@@ -3304,7 +3304,7 @@
 				]
 			},
 			"patch": {
-				"description": "Updates a performance-score",
+				"description": "Updates a performance_score",
 				"operationId": "performance_score-update",
 				"parameters": [
 					{
@@ -3340,7 +3340,7 @@
 				]
 			},
 			"delete": {
-				"description": "Deletes a performance-score",
+				"description": "Deletes a performance_score",
 				"operationId": "performance_score-delete",
 				"parameters": [
 					{
@@ -3388,7 +3388,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from performance_score",
+						"description": "Retrieve Routine from performance_score",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3442,7 +3442,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates routine",
+						"description": "Updates Routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3455,7 +3455,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from performance_score",
+						"description": "Retrieve Routine from performance_score",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3510,7 +3510,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve judge from performance_score",
+						"description": "Retrieve Judge from performance_score",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3564,7 +3564,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates judge",
+						"description": "Updates Judge",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3577,7 +3577,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve judge from performance_score",
+						"description": "Retrieve Judge from performance_score",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3619,8 +3619,8 @@
 		},
 		"/performance-statistics": {
 			"get": {
-				"description": "List all performance-statistics",
-				"operationId": "performance_statistic-list",
+				"description": "Paginates performance_statistics",
+				"operationId": "performance_statistic-paginate",
 				"responses": {
 					"200": {
 						"description": "Array of performance_statistics",
@@ -3634,7 +3634,7 @@
 				]
 			},
 			"post": {
-				"description": "Creates a performance-statistic",
+				"description": "Creates a performance_statistic",
 				"operationId": "performance_statistic-create",
 				"parameters": [
 					{
@@ -3659,7 +3659,7 @@
 		},
 		"/performance-statistics/{id}": {
 			"get": {
-				"description": "Reads a performance-statistic",
+				"description": "Reads a performance_statistic",
 				"operationId": "performance_statistic-read",
 				"parameters": [
 					{
@@ -3695,7 +3695,7 @@
 				]
 			},
 			"patch": {
-				"description": "Updates a performance-statistic",
+				"description": "Updates a performance_statistic",
 				"operationId": "performance_statistic-update",
 				"parameters": [
 					{
@@ -3731,7 +3731,7 @@
 				]
 			},
 			"delete": {
-				"description": "Deletes a performance-statistic",
+				"description": "Deletes a performance_statistic",
 				"operationId": "performance_statistic-delete",
 				"parameters": [
 					{
@@ -3779,7 +3779,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from performance_statistic",
+						"description": "Retrieve Routine from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3833,7 +3833,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates routine",
+						"description": "Updates Routine",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3846,7 +3846,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve routine from performance_statistic",
+						"description": "Retrieve Routine from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3901,7 +3901,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-total-statistic from event",
+						"description": "Retrieve PerformanceTotalStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3955,7 +3955,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-total-statistic",
+						"description": "Updates PerformanceTotalStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -3968,7 +3968,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-total-statistic from event",
+						"description": "Retrieve PerformanceTotalStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4023,7 +4023,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-execution-statistic from event",
+						"description": "Retrieve PerformanceExecutionStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4077,7 +4077,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-execution-statistic",
+						"description": "Updates PerformanceExecutionStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4090,7 +4090,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-execution-statistic from event",
+						"description": "Retrieve PerformanceExecutionStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4145,7 +4145,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-choreography-statistic from event",
+						"description": "Retrieve PerformanceChoreographyStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4199,7 +4199,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-choreography-statistic",
+						"description": "Updates PerformanceChoreographyStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4212,7 +4212,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-choreography-statistic from event",
+						"description": "Retrieve PerformanceChoreographyStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4267,7 +4267,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-music-and-timing-statistic from event",
+						"description": "Retrieve PerformanceMusicAndTimingStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4321,7 +4321,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-music-and-timing-statistic",
+						"description": "Updates PerformanceMusicAndTimingStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4334,7 +4334,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-music-and-timing-statistic from event",
+						"description": "Retrieve PerformanceMusicAndTimingStatistic from event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4389,7 +4389,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-total-statistic from startgroup",
+						"description": "Retrieve PerformanceTotalStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4443,7 +4443,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-total-statistic",
+						"description": "Updates PerformanceTotalStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4456,7 +4456,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-total-statistic from startgroup",
+						"description": "Retrieve PerformanceTotalStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4511,7 +4511,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-execution-statistic from startgroup",
+						"description": "Retrieve PerformanceExecutionStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4565,7 +4565,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-execution-statistic",
+						"description": "Updates PerformanceExecutionStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4578,7 +4578,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-execution-statistic from startgroup",
+						"description": "Retrieve PerformanceExecutionStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4633,7 +4633,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-choreography-statistic from startgroup",
+						"description": "Retrieve PerformanceChoreographyStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4687,7 +4687,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-choreography-statistic",
+						"description": "Updates PerformanceChoreographyStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4700,7 +4700,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-choreography-statistic from startgroup",
+						"description": "Retrieve PerformanceChoreographyStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4755,7 +4755,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-music-and-timing-statistic from startgroup",
+						"description": "Retrieve PerformanceMusicAndTimingStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4809,7 +4809,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates performance-music-and-timing-statistic",
+						"description": "Updates PerformanceMusicAndTimingStatistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4822,7 +4822,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve performance-music-and-timing-statistic from startgroup",
+						"description": "Retrieve PerformanceMusicAndTimingStatistic from startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4877,7 +4877,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve event from performance_statistic",
+						"description": "Retrieve Event from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4930,7 +4930,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Adds event",
+						"description": "Adds Event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4946,7 +4946,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve event from performance_statistic",
+						"description": "Retrieve Event from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -4999,7 +4999,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates event",
+						"description": "Updates Event",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5015,7 +5015,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve event from performance_statistic",
+						"description": "Retrieve Event from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5054,7 +5054,7 @@
 				]
 			},
 			"delete": {
-				"description": "Removes event as relationship of performance_statistic",
+				"description": "Removes event as relationship to performance_statistic",
 				"operationId": "performance_statistic-to-event-relationship-remove",
 				"parameters": [
 					{
@@ -5067,7 +5067,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve event from performance_statistic",
+						"description": "Retrieve Event from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5121,7 +5121,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from performance_statistic",
+						"description": "Retrieve Startgroup from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5174,7 +5174,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Adds startgroup",
+						"description": "Adds Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5190,7 +5190,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from performance_statistic",
+						"description": "Retrieve Startgroup from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5243,7 +5243,7 @@
 						"name": "body",
 						"in": "body",
 						"required": true,
-						"description": "Updates startgroup",
+						"description": "Updates Startgroup",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5259,7 +5259,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from performance_statistic",
+						"description": "Retrieve Startgroup from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {
@@ -5298,7 +5298,7 @@
 				]
 			},
 			"delete": {
-				"description": "Removes startgroup as relationship of performance_statistic",
+				"description": "Removes startgroup as relationship to performance_statistic",
 				"operationId": "performance_statistic-to-startgroup-relationship-remove",
 				"parameters": [
 					{
@@ -5311,7 +5311,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Retrieve startgroup from performance_statistic",
+						"description": "Retrieve Startgroup from performance_statistic",
 						"schema": {
 							"type": "object",
 							"properties": {

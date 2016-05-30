@@ -1,15 +1,15 @@
 <?php
 namespace iuf\junia\serializer\base;
 
-use keeko\framework\utils\HydrateUtils;
-use Tobscure\JsonApi\Relationship;
 use iuf\junia\model\Competition;
-use Tobscure\JsonApi\Resource;
 use iuf\junia\model\Event;
+use iuf\junia\model\Judge;
 use iuf\junia\model\PerformanceStatistic;
 use iuf\junia\model\Routine;
+use keeko\framework\utils\HydrateUtils;
 use Tobscure\JsonApi\Collection;
-use iuf\junia\model\Judge;
+use Tobscure\JsonApi\Relationship;
+use Tobscure\JsonApi\Resource;
 
 /**
  */

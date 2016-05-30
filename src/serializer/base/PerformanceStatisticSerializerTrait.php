@@ -1,12 +1,12 @@
 <?php
 namespace iuf\junia\serializer\base;
 
-use keeko\framework\utils\HydrateUtils;
-use Tobscure\JsonApi\Relationship;
 use iuf\junia\model\Event;
-use Tobscure\JsonApi\Collection;
-use iuf\junia\model\Startgroup;
 use iuf\junia\model\Routine;
+use iuf\junia\model\Startgroup;
+use keeko\framework\utils\HydrateUtils;
+use Tobscure\JsonApi\Collection;
+use Tobscure\JsonApi\Relationship;
 use Tobscure\JsonApi\Resource;
 
 /**

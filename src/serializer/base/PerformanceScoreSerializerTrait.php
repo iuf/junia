@@ -1,11 +1,11 @@
 <?php
 namespace iuf\junia\serializer\base;
 
+use iuf\junia\model\Judge;
+use iuf\junia\model\Routine;
 use keeko\framework\utils\HydrateUtils;
 use Tobscure\JsonApi\Relationship;
-use iuf\junia\model\Routine;
 use Tobscure\JsonApi\Resource;
-use iuf\junia\model\Judge;
 
 /**
  */

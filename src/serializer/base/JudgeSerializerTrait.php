@@ -1,12 +1,12 @@
 <?php
 namespace iuf\junia\serializer\base;
 
+use iuf\junia\model\PerformanceScore;
+use iuf\junia\model\Startgroup;
+use keeko\core\model\User;
 use keeko\framework\utils\HydrateUtils;
 use Tobscure\JsonApi\Relationship;
-use iuf\junia\model\Startgroup;
 use Tobscure\JsonApi\Resource;
-use keeko\core\model\User;
-use iuf\junia\model\PerformanceScore;
 
 /**
  */

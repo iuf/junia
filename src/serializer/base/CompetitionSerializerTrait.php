@@ -1,10 +1,10 @@
 <?php
 namespace iuf\junia\serializer\base;
 
-use keeko\framework\utils\HydrateUtils;
-use Tobscure\JsonApi\Relationship;
 use iuf\junia\model\Startgroup;
+use keeko\framework\utils\HydrateUtils;
 use Tobscure\JsonApi\Collection;
+use Tobscure\JsonApi\Relationship;
 
 /**
  */
